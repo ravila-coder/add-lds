@@ -274,7 +274,7 @@ def main():
                 "financed_exposure": "totalWithAdjustments — order value net of credit/debit notes",
                 "outstanding": "totalDueAmount — open receivable per order as reported in the tape",
                 "active": "orders with an open receivable (totalDueAmount > 0)",
-                "dpd": "overDueDays as reported; buckets follow the Manual de Credito 2026 grid",
+                "dpd": "effective days past due = max(0, overDueDays - 30); the first 30 days are the commercial grace period standard to Loads' payment terms and are not treated as arrears. Buckets, PAR, provision and status all use effective DPD; raw overDueDays is retained per order",
                 "npl": "receivables > 180 days past due (Loads definition)",
                 "expected_loss": "Manual de Credito §6.2 rates applied to the open receivable by DPD bucket",
                 "collections": "Settled rows in the actual-payments extract (advance + regular)",

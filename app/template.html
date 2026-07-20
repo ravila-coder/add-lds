@@ -463,7 +463,7 @@ function rPortfolio(){
  const q=s.credit_quality,o=s.outstanding,w=s.weighted_averages;
  $('#view').innerHTML=`
  <div class="pagehead"><span class="eyebrow">Loan tape · ${DATA.meta.as_of_date}</span><h1>Portfolio</h1>
- <p>Order-level view of the Loads trade-receivables book. Each row of the tape is a cross-border food shipment financed against an end importer: financed exposure is the order value net of credit/debit notes, the open receivable is the amount currently due, and days past due come straight from the servicer field. The Loads Finance BU is the pure financing business unit; the trading BUs (Mexico, Chile, USA, Fynsa, Logistics) originate the rest. Switch scope and lifecycle segment below — every figure follows.</p></div>
+ <p>Order-level view of the Loads trade-receivables book. Each row of the tape is a cross-border food shipment financed against an end importer: financed exposure is the order value net of credit/debit notes, the open receivable is the amount currently due, and days past due are measured net of the 30-day commercial grace period standard to Loads’ payment terms (servicer overdue days less 30 — the first 30 days are not arrears). The Loads Finance BU is the pure financing business unit; the trading BUs (Mexico, Chile, USA, Fynsa, Logistics) originate the rest. Switch scope and lifecycle segment below — every figure follows.</p></div>
 
  <section class="card pad" style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end">
   <div><span class="eyebrow" style="display:block;margin-bottom:7px">Portfolio scope</span>

@@ -31,6 +31,11 @@ HERE = Path(__file__).resolve().parent
 SRC = HERE.parent / "sources" / "loan_tape.xlsx"
 OUT = HERE / "loads_loan_tape.json"
 
+GRACE_DAYS = 30  # first 30 days of overDueDays are the commercial grace period
+# standard to Loads' payment terms and are NOT treated as arrears. All aging
+# metrics (buckets, PAR, provision, status) use effective DPD = max(0, raw - 30);
+# the raw servicer field is retained per order as dpd_raw.
+
 PROVISION_GRID = [  # (min_dpd, max_dpd, rate) per Manual de Credito 2026 §6.2
     (1, 30, 0.0), (31, 60, 0.0), (61, 90, 0.005), (91, 120, 0.10),
     (121, 150, 0.25), (151, 180, 0.65), (181, 10**9, 1.0),
@@ -138,7 +143,9 @@ def load():
             "debit_note": float(o["totalDebitNote"] or 0),
             "product_cost": float(o["productCost"] or 0),
             "logistic_cost": float(o["logisticCost"] or 0),
-            "outstanding": outstanding, "dpd": dpd if outstanding > 0 else 0,
+            "outstanding": outstanding,
+            "dpd_raw": dpd if outstanding > 0 else 0,
+            "dpd": max(0, dpd - GRACE_DAYS) if outstanding > 0 else 0,
             "score": int(o["creditCcore"]) if o["creditCcore"] is not None else None,
             "tier": score_tier(o["creditCcore"]),
             "collected": collected, "payments": opays,
@@ -207,7 +214,7 @@ def seg_metrics(orders, label, parent):
         if not o["active"]:
             status["Collected in full"] += 1
         elif o["dpd"] == 0:
-            status["Open — current"] += 1
+            status["Open — current (incl. 30d grace)"] += 1
         elif o["dpd"] <= 30:
             status["Open — 1–30 DPD"] += 1
         elif o["dpd"] <= 90:
@@ -347,6 +354,7 @@ def main():
     segs = {k: v for k, v in segs.items() if v}
 
     payload = {
+        "dpd_convention": f"effective DPD = max(0, overDueDays - {GRACE_DAYS}); first {GRACE_DAYS} days are commercial grace, not arrears",
         "as_of": as_of.isoformat(),
         "segments": segs,
         "concentration": concentration(orders),

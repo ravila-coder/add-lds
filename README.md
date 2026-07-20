@@ -30,7 +30,10 @@ python3 etl/build_app.py
 `vercel.json` serves `index.html` at the root. Login: `Addem` / `Addem12345`.
 
 ## Methodology notes
-- Outstanding = `totalDueAmount` per open order; DPD = `overDueDays` from the tape.
+- Outstanding = `totalDueAmount` per open order. DPD is measured net of the 30-day
+  commercial grace period standard to Loads' payment terms: effective DPD =
+  max(0, `overDueDays` − 30). The first 30 days are not arrears; raw `overDueDays`
+  is retained per order. Buckets, PAR, provision and status all use effective DPD.
 - Financed volume = `totalWithAdjustments`; trade margin computed on gross order value.
 - Provision grid per Credit Manual 2026: 0% ≤60d · 0.5% 61–90 · 10% 91–120 ·
   25% 121–150 · 65% 151–180 · 100% >180. NPL defined as >180 DPD.

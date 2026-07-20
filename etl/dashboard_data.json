@@ -4,13 +4,13 @@
   "entity": "Loads USA, Inc. (consolidated)",
   "as_of_date": "2026-06-21",
   "financials_through": "2025",
-  "generated_at": "2026-07-20T16:28:21Z",
+  "generated_at": "2026-07-20T16:40:32Z",
   "currency": "USD",
   "definitions": {
    "financed_exposure": "totalWithAdjustments \u2014 order value net of credit/debit notes",
    "outstanding": "totalDueAmount \u2014 open receivable per order as reported in the tape",
    "active": "orders with an open receivable (totalDueAmount > 0)",
-   "dpd": "overDueDays as reported; buckets follow the Manual de Credito 2026 grid",
+   "dpd": "effective days past due = max(0, overDueDays - 30); the first 30 days are the commercial grace period standard to Loads' payment terms and are not treated as arrears. Buckets, PAR, provision and status all use effective DPD; raw overDueDays is retained per order",
    "npl": "receivables > 180 days past due (Loads definition)",
    "expected_loss": "Manual de Credito \u00a76.2 rates applied to the open receivable by DPD bucket",
    "collections": "Settled rows in the actual-payments extract (advance + regular)"
@@ -47,21 +47,21 @@
     "dpd_distribution": [
      {
       "bucket": "Current",
-      "outstanding": 131631.85,
-      "pct_opb": 0.152272,
-      "count": 4
+      "outstanding": 593678.53,
+      "pct_opb": 0.686767,
+      "count": 22
      },
      {
       "bucket": "1\u201330 DPD",
-      "outstanding": 462046.68,
-      "pct_opb": 0.534495,
-      "count": 18
-     },
-     {
-      "bucket": "31\u201360 DPD",
       "outstanding": 205747.99,
       "pct_opb": 0.238009,
       "count": 14
+     },
+     {
+      "bucket": "31\u201360 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
      },
      {
       "bucket": "61\u201390 DPD",
@@ -71,15 +71,15 @@
      },
      {
       "bucket": "91\u2013150 DPD",
-      "outstanding": 64429.23,
-      "pct_opb": 0.074532,
-      "count": 4
+      "outstanding": 65027.45,
+      "pct_opb": 0.075224,
+      "count": 5
      },
      {
       "bucket": "151\u2013180 DPD",
-      "outstanding": 598.22,
-      "pct_opb": 0.000692,
-      "count": 1
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
      },
      {
       "bucket": "> 180 DPD",
@@ -89,13 +89,13 @@
      }
     ],
     "current": {
-     "amount": 131631.85,
-     "pct": 0.152272
+     "amount": 593678.53,
+     "pct": 0.686767
     },
     "par30": {
-     "amount": 270775.44,
-     "pct": 0.313233,
-     "count": 19
+     "amount": 65027.45,
+     "pct": 0.075224,
+     "count": 5
     },
     "par60": {
      "amount": 65027.45,
@@ -114,9 +114,9 @@
     }
    },
    "provision": {
-    "expected_loss": 16496.15,
-    "net_receivable": 847957.82,
-    "coverage_pct": 0.019083
+    "expected_loss": 6592.48,
+    "net_receivable": 857861.49,
+    "coverage_pct": 0.007626
    },
    "collections": {
     "total": 3865154.0,
@@ -258,10 +258,9 @@
    ],
    "status_distribution": {
     "Collected in full": 79,
-    "Open \u2014 1\u201330 DPD": 18,
-    "Open \u2014 31\u201390 DPD": 14,
-    "Open \u2014 91\u2013180 DPD": 5,
-    "Open \u2014 current": 4
+    "Open \u2014 current (incl. 30d grace)": 22,
+    "Open \u2014 1\u201330 DPD": 14,
+    "Open \u2014 91\u2013180 DPD": 5
    },
    "top5_ticket_share": 0.38471
   },
@@ -295,21 +294,21 @@
     "dpd_distribution": [
      {
       "bucket": "Current",
-      "outstanding": 131631.85,
-      "pct_opb": 0.152272,
-      "count": 4
+      "outstanding": 593678.53,
+      "pct_opb": 0.686767,
+      "count": 22
      },
      {
       "bucket": "1\u201330 DPD",
-      "outstanding": 462046.68,
-      "pct_opb": 0.534495,
-      "count": 18
-     },
-     {
-      "bucket": "31\u201360 DPD",
       "outstanding": 205747.99,
       "pct_opb": 0.238009,
       "count": 14
+     },
+     {
+      "bucket": "31\u201360 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
      },
      {
       "bucket": "61\u201390 DPD",
@@ -319,15 +318,15 @@
      },
      {
       "bucket": "91\u2013150 DPD",
-      "outstanding": 64429.23,
-      "pct_opb": 0.074532,
-      "count": 4
+      "outstanding": 65027.45,
+      "pct_opb": 0.075224,
+      "count": 5
      },
      {
       "bucket": "151\u2013180 DPD",
-      "outstanding": 598.22,
-      "pct_opb": 0.000692,
-      "count": 1
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
      },
      {
       "bucket": "> 180 DPD",
@@ -337,13 +336,13 @@
      }
     ],
     "current": {
-     "amount": 131631.85,
-     "pct": 0.152272
+     "amount": 593678.53,
+     "pct": 0.686767
     },
     "par30": {
-     "amount": 270775.44,
-     "pct": 0.313233,
-     "count": 19
+     "amount": 65027.45,
+     "pct": 0.075224,
+     "count": 5
     },
     "par60": {
      "amount": 65027.45,
@@ -362,9 +361,9 @@
     }
    },
    "provision": {
-    "expected_loss": 16496.15,
-    "net_receivable": 847957.82,
-    "coverage_pct": 0.019083
+    "expected_loss": 6592.48,
+    "net_receivable": 857861.49,
+    "coverage_pct": 0.007626
    },
    "collections": {
     "total": 533037.0,
@@ -475,10 +474,9 @@
     }
    ],
    "status_distribution": {
-    "Open \u2014 1\u201330 DPD": 18,
-    "Open \u2014 31\u201390 DPD": 14,
-    "Open \u2014 91\u2013180 DPD": 5,
-    "Open \u2014 current": 4
+    "Open \u2014 current (incl. 30d grace)": 22,
+    "Open \u2014 1\u201330 DPD": 14,
+    "Open \u2014 91\u2013180 DPD": 5
    },
    "top5_ticket_share": 0.38471
   },
@@ -752,21 +750,21 @@
     "dpd_distribution": [
      {
       "bucket": "Current",
-      "outstanding": 12606.77,
-      "pct_opb": 0.080324,
-      "count": 1
+      "outstanding": 91410.02,
+      "pct_opb": 0.582415,
+      "count": 6
      },
      {
       "bucket": "1\u201330 DPD",
-      "outstanding": 78803.25,
-      "pct_opb": 0.502092,
+      "outstanding": 61233.13,
+      "pct_opb": 0.390144,
       "count": 5
      },
      {
       "bucket": "31\u201360 DPD",
-      "outstanding": 61233.13,
-      "pct_opb": 0.390144,
-      "count": 5
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
      },
      {
       "bucket": "61\u201390 DPD",
@@ -794,13 +792,13 @@
      }
     ],
     "current": {
-     "amount": 12606.77,
-     "pct": 0.080324
+     "amount": 91410.02,
+     "pct": 0.582415
     },
     "par30": {
-     "amount": 65539.91,
-     "pct": 0.417585,
-     "count": 6
+     "amount": 4306.78,
+     "pct": 0.02744,
+     "count": 1
     },
     "par60": {
      "amount": 4306.78,
@@ -819,9 +817,9 @@
     }
    },
    "provision": {
-    "expected_loss": 1076.69,
-    "net_receivable": 155873.23,
-    "coverage_pct": 0.00686
+    "expected_loss": 430.68,
+    "net_receivable": 156519.25,
+    "coverage_pct": 0.002744
    },
    "collections": {
     "total": 1770999.0,
@@ -948,9 +946,8 @@
    ],
    "status_distribution": {
     "Collected in full": 39,
-    "Open \u2014 31\u201390 DPD": 5,
+    "Open \u2014 current (incl. 30d grace)": 6,
     "Open \u2014 1\u201330 DPD": 5,
-    "Open \u2014 current": 1,
     "Open \u2014 91\u2013180 DPD": 1
    },
    "top5_ticket_share": 1.37986
@@ -985,21 +982,21 @@
     "dpd_distribution": [
      {
       "bucket": "Current",
-      "outstanding": 12606.77,
-      "pct_opb": 0.080324,
-      "count": 1
+      "outstanding": 91410.02,
+      "pct_opb": 0.582415,
+      "count": 6
      },
      {
       "bucket": "1\u201330 DPD",
-      "outstanding": 78803.25,
-      "pct_opb": 0.502092,
+      "outstanding": 61233.13,
+      "pct_opb": 0.390144,
       "count": 5
      },
      {
       "bucket": "31\u201360 DPD",
-      "outstanding": 61233.13,
-      "pct_opb": 0.390144,
-      "count": 5
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
      },
      {
       "bucket": "61\u201390 DPD",
@@ -1027,13 +1024,13 @@
      }
     ],
     "current": {
-     "amount": 12606.77,
-     "pct": 0.080324
+     "amount": 91410.02,
+     "pct": 0.582415
     },
     "par30": {
-     "amount": 65539.91,
-     "pct": 0.417585,
-     "count": 6
+     "amount": 4306.78,
+     "pct": 0.02744,
+     "count": 1
     },
     "par60": {
      "amount": 4306.78,
@@ -1052,9 +1049,9 @@
     }
    },
    "provision": {
-    "expected_loss": 1076.69,
-    "net_receivable": 155873.23,
-    "coverage_pct": 0.00686
+    "expected_loss": 430.68,
+    "net_receivable": 156519.25,
+    "coverage_pct": 0.002744
    },
    "collections": {
     "total": 274159.0,
@@ -1135,9 +1132,8 @@
     }
    ],
    "status_distribution": {
-    "Open \u2014 31\u201390 DPD": 5,
+    "Open \u2014 current (incl. 30d grace)": 6,
     "Open \u2014 1\u201330 DPD": 5,
-    "Open \u2014 current": 1,
     "Open \u2014 91\u2013180 DPD": 1
    },
    "top5_ticket_share": 1.37986
@@ -1973,9 +1969,9 @@
  ],
  "policy": {
   "as_of": "2026-06-21",
-  "expected_loss": 16496.15,
-  "net_receivable": 847957.82,
-  "provision_coverage": 0.019083,
+  "expected_loss": 6592.48,
+  "net_receivable": 857861.49,
+  "provision_coverage": 0.007626,
   "npl_pct": 0.0,
   "npl_target": 0.02,
   "collection_rate": 0.803446,

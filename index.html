@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loads · Institutional Reporting — Addem Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="app/vendor/chart.umd.min.js"></script>
+<style>
+/* ================= Addem Capital design tokens (AC_Brandboard) ================= */
+:root{
+  --g900:#0a382f; --g800:#0d473d; --g700:#115a4d; --g600:#1a6f5f; --g300:#6fbfa6; --g200:#9bdcc1;
+  --mint:#b0ebc2; --mint200:#cdf2d8; --mint100:#e4f8ea;
+  --charcoal:#1f1f1f; --ink700:#3a3a3a; --ink500:#6b6b6b; --ink400:#8c8c8c;
+  --gray300:#cfcfcf; --gray200:#e3e3e3; --gray100:#ededed; --off:#f7f7f7; --white:#ffffff;
+
+  --bg:var(--off); --surface:var(--white); --sunken:var(--gray100);
+  --ink:var(--charcoal); --body:var(--ink700); --muted:var(--ink500); --faint:var(--ink400);
+  --border:var(--gray200); --border2:var(--gray300);
+  --accent:var(--g800); --accent-h:var(--g700); --accent-soft:var(--mint100);
+  --on-accent:var(--off);
+  --pos:#1a6f5f; --warn:#b8842b; --neg:#a8443a;
+  --chart-a:#0d473d; --chart-b:#4fb08c; --chart-c:#9bdcc1; --chart-grid:#e9ece9;
+  --shadow:0 1px 2px rgba(31,31,31,.05),0 6px 20px rgba(31,31,31,.06);
+  --r:14px;
+}
+[data-theme="dark"]{
+  --bg:#0c1512; --surface:#12201b; --sunken:#0f1a16;
+  --ink:#eef4f0; --body:#d3ded8; --muted:#93a69d; --faint:#68796f;
+  --border:#1e2f28; --border2:#2a3f36;
+  --accent:var(--mint); --accent-h:var(--mint200); --accent-soft:#16281f;
+  --on-accent:#0c1512;
+  --pos:#5fc08c; --warn:#d9a84e; --neg:#d97066;
+  --chart-a:#b0ebc2; --chart-b:#4fb08c; --chart-c:#2e5d4e; --chart-grid:#1c2d26;
+  --shadow:0 1px 2px rgba(0,0,0,.35),0 8px 24px rgba(0,0,0,.3);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter Tight',system-ui,sans-serif;background:var(--bg);color:var(--body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+.num{font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{color:var(--ink);letter-spacing:-.015em}
+button{font:inherit;cursor:pointer}
+.eyebrow{font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--faint)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ================= login ================= */
+#login{position:fixed;inset:0;display:flex;background:var(--g800);z-index:100}
+.login-brand{flex:1.15;display:flex;flex-direction:column;justify-content:space-between;padding:56px;color:var(--off);
+  background:radial-gradient(1200px 700px at 85% -10%, rgba(176,235,194,.14), transparent 60%), var(--g800)}
+.login-brand .wordmark{font-size:20px;font-weight:700;letter-spacing:.02em;display:flex;align-items:center;gap:12px}
+.login-brand h1{color:var(--off);font-size:clamp(30px,3.6vw,46px);font-weight:700;line-height:1.12;max-width:14ch}
+.login-brand h1 em{font-style:normal;color:var(--mint)}
+.login-brand .foot{font-size:12.5px;color:rgba(247,247,247,.65);max-width:52ch}
+.login-panel{flex:1;background:var(--bg);display:flex;align-items:center;justify-content:center;padding:40px}
+.login-card{width:min(400px,100%)}
+.login-card h2{font-size:22px;margin:14px 0 4px}
+.login-card p{color:var(--muted);margin-bottom:26px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px}
+.field input{width:100%;padding:12px 14px;border:1px solid var(--border2);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit}
+.field input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:none;border-radius:10px;padding:12px 20px;font-weight:600;background:var(--accent);color:var(--on-accent);transition:background .15s}
+.btn:hover{background:var(--accent-h)}
+.btn.block{width:100%}
+.btn.ghost{background:transparent;color:var(--body);border:1px solid var(--border2);font-weight:500}
+.btn.ghost:hover{border-color:var(--accent);color:var(--ink);background:transparent}
+.btn.sm{padding:7px 13px;font-size:12.5px;border-radius:8px}
+.login-err{color:var(--neg);font-size:12.5px;margin-top:10px;display:none}
+.acsym{width:36px;height:36px;border-radius:9px;background:var(--mint);color:var(--g800);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px}
+@media(max-width:860px){.login-brand{display:none}}
+
+/* ================= app shell ================= */
+#app{display:none;min-height:100vh}
+.shell{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+aside{background:var(--g800);color:var(--off);display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+[data-theme="dark"] aside{background:#0a1712;border-right:1px solid var(--border)}
+.side-brand{padding:22px 20px 18px;display:flex;align-items:center;gap:11px;border-bottom:1px solid rgba(247,247,247,.1)}
+.side-brand .t{font-weight:700;font-size:14.5px;letter-spacing:.02em}
+.side-brand .s{font-size:11px;color:rgba(247,247,247,.55)}
+nav{padding:14px 10px;flex:1;overflow-y:auto}
+.navlab{padding:14px 12px 6px;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(247,247,247,.42);font-weight:600}
+.navitem{display:flex;align-items:center;gap:11px;width:100%;text-align:left;padding:9px 12px;border-radius:9px;border:none;background:transparent;color:rgba(247,247,247,.78);font-size:13.5px;font-weight:500;margin-bottom:2px;transition:background .12s,color .12s}
+.navitem svg{width:17px;height:17px;flex-shrink:0;opacity:.85}
+.navitem:hover{background:rgba(247,247,247,.08);color:var(--off)}
+.navitem.on{background:var(--mint);color:var(--g800);font-weight:600}
+.navitem.on svg{opacity:1}
+.side-foot{padding:14px 16px;border-top:1px solid rgba(247,247,247,.1);font-size:11.5px;color:rgba(247,247,247,.5)}
+.mobilebar{display:none}
+
+main{min-width:0}
+.topbar{position:sticky;top:0;z-index:30;background:color-mix(in srgb, var(--bg) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:13px 30px;display:flex;align-items:center;gap:14px}
+.topbar .crumb{font-size:13px;color:var(--muted)}
+.topbar .crumb b{color:var(--ink);font-weight:600}
+.topbar .grow{flex:1}
+.asof-pill{font-size:12px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:5px 13px;white-space:nowrap}
+.content{padding:26px 30px 70px;max-width:1380px}
+
+.pagehead{margin-bottom:22px}
+.pagehead h1{font-size:24px;font-weight:700;margin:3px 0 5px}
+.pagehead p{color:var(--muted);max-width:86ch}
+
+/* ================= primitives ================= */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shadow)}
+.card .pad{padding:18px 20px}
+.card h3{font-size:13.5px;font-weight:600;margin-bottom:2px}
+.card .sub{font-size:12px;color:var(--muted)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.g21{grid-template-columns:2fr 1fr}.g12{grid-template-columns:1fr 2fr}
+section{margin-bottom:26px}
+.shead{display:flex;align-items:baseline;gap:12px;margin:4px 0 12px}
+.shead h2{font-size:16.5px;font-weight:650}
+.shead .note{font-size:12px;color:var(--faint)}
+.chartbox{position:relative;height:270px;padding:6px 12px 12px}
+.chartbox.tall{height:320px}
+
+/* stats */
+.stat{padding:15px 17px}
+.stat .lab{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;color:var(--faint);display:flex;align-items:center;gap:7px}
+.stat .v{font-size:23px;font-weight:700;color:var(--ink);margin-top:5px;letter-spacing:-.02em}
+.stat .d{font-size:12px;color:var(--muted);margin-top:2px}
+.stat .v.pos{color:var(--pos)}.stat .v.neg{color:var(--neg)}.stat .v.warn{color:var(--warn)}
+.spark{display:block;margin-top:8px}
+.delta{font-size:11.5px;font-weight:600;border-radius:14px;padding:1px 8px}
+.delta.up{color:var(--pos);background:color-mix(in srgb,var(--pos) 12%,transparent)}
+.delta.dn{color:var(--neg);background:color-mix(in srgb,var(--neg) 12%,transparent)}
+
+/* status dots & chips */
+.dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.dot.ok{background:var(--pos)}.dot.warn{background:var(--warn)}.dot.bad{background:var(--neg)}
+.chip{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:20px;font-size:11.5px;font-weight:600}
+.chip.ok{background:color-mix(in srgb,var(--pos) 13%,transparent);color:var(--pos)}
+.chip.warn{background:color-mix(in srgb,var(--warn) 15%,transparent);color:var(--warn)}
+.chip.bad{background:color-mix(in srgb,var(--neg) 13%,transparent);color:var(--neg)}
+.chip.mut{background:var(--sunken);color:var(--muted)}
+
+/* segmented controls */
+.segctl{display:inline-flex;background:var(--surface);border:1px solid var(--border2);border-radius:10px;overflow:hidden}
+.segctl button{padding:8px 15px;border:none;background:transparent;color:var(--muted);font-size:13px;font-weight:500;border-left:1px solid var(--border)}
+.segctl button:first-child{border-left:none}
+.segctl button.on{background:var(--accent);color:var(--on-accent);font-weight:600}
+.segctl button:disabled{opacity:.4;cursor:not-allowed}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:right;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:600;padding:9px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+td{padding:9px 12px;border-bottom:1px solid var(--border);text-align:right}
+tbody tr:hover{background:var(--sunken)}
+tr.tot td{font-weight:650;color:var(--ink);border-top:2px solid var(--accent);background:transparent}
+tr:last-child td{border-bottom:none}
+.inbar{position:relative;display:inline-block;vertical-align:middle;height:7px;border-radius:4px;background:var(--sunken);width:86px;margin-left:10px;overflow:hidden}
+.inbar i{position:absolute;inset:0 auto 0 0;background:var(--chart-b);border-radius:4px}
+.scrolly{overflow:auto;max-height:420px}
+.scrolly thead th{position:sticky;top:0;background:var(--surface);z-index:2}
+
+/* coverage band */
+.covbar{position:relative;height:42px;border-radius:11px;background:var(--accent-soft);border:1px solid var(--border);overflow:hidden}
+.covfill{position:absolute;inset:0 auto 0 0;background:var(--accent);transition:width .5s cubic-bezier(.4,0,.2,1)}
+.covlabel{position:absolute;inset:0;display:flex;align-items:center;padding:0 15px;font-size:12.5px;font-weight:650;color:var(--on-accent);white-space:nowrap}
+.covrest{position:absolute;right:15px;top:50%;transform:translateY(-50%);font-size:12px;color:var(--muted)}
+
+/* expandable statement rows */
+.fs-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;gap:10px}
+.fs-row:hover{background:var(--sunken)}
+.fs-row .l{display:flex;align-items:center;gap:9px;font-weight:600;color:var(--ink);font-size:13.5px}
+.fs-row .car{transition:transform .15s;color:var(--faint);font-size:11px}
+.fs-row.open .car{transform:rotate(90deg)}
+.fs-row .amt{font-weight:650;color:var(--ink)}
+.fs-detail{display:none;background:var(--sunken)}
+.fs-detail.open{display:block}
+.fs-line{display:flex;justify-content:space-between;padding:7px 14px 7px 37px;font-size:12.8px;border-bottom:1px solid var(--border)}
+.fs-line:last-child{border-bottom:none}
+.fs-line .n{color:var(--muted)}
+.fs-grand{display:flex;justify-content:space-between;padding:12px 14px;font-weight:700;color:var(--ink);font-size:14px;border-top:2px solid var(--accent)}
+
+/* facility fact sheet */
+.fact{display:grid;grid-template-columns:repeat(auto-fill,minmax(215px,1fr));gap:12px}
+.fact .f{background:var(--sunken);border:1px solid var(--border);border-radius:11px;padding:13px 15px}
+.fact .f .k{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:600}
+.fact .f .v{font-size:15px;font-weight:650;color:var(--ink);margin-top:4px;line-height:1.35}
+.timeline{position:relative;padding-left:22px}
+.timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--border2);border-radius:2px}
+.tl-item{position:relative;padding:0 0 18px 12px}
+.tl-item::before{content:"";position:absolute;left:-21px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--accent);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--border2)}
+.tl-item .d{font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--accent);text-transform:uppercase}
+[data-theme="dark"] .tl-item .d{color:var(--mint)}
+.tl-item .t{font-weight:600;color:var(--ink);margin:2px 0}
+.tl-item p{font-size:12.5px;color:var(--muted)}
+
+/* covenant board */
+.covrow{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr 96px;gap:10px;align-items:center;padding:13px 16px;border-bottom:1px solid var(--border)}
+.covrow:last-child{border-bottom:none}
+.covrow .n{font-weight:600;color:var(--ink);font-size:13.5px}
+.covrow .s{font-size:11.5px;color:var(--muted)}
+.covrow .val{font-weight:700;font-size:16px;color:var(--ink)}
+.covhead{display:grid;grid-template-columns:1.5fr 1fr 1fr 1.3fr 96px;gap:10px;padding:10px 16px;border-bottom:1px solid var(--border)}
+.covhead span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);font-weight:600}
+
+/* workspace */
+.ws-toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:16px}
+.ws-toolbar select,.ws-toolbar input[type=text]{padding:8px 12px;border:1px solid var(--border2);border-radius:9px;background:var(--surface);color:var(--ink);font:inherit;font-size:13px}
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:start}
+.kcol{background:var(--sunken);border:1px solid var(--border);border-radius:12px;padding:10px}
+.kcol h4{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);padding:4px 6px 10px;display:flex;justify-content:space-between}
+.task{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 12px;margin-bottom:9px;cursor:pointer;box-shadow:var(--shadow)}
+.task .tt{font-weight:600;color:var(--ink);font-size:13px;margin-bottom:5px}
+.task .meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:11px;color:var(--muted)}
+.prio{width:8px;height:8px;border-radius:2px;display:inline-block}
+.prio.Low{background:var(--gray300)}.prio.Medium{background:var(--g300)}.prio.High{background:var(--warn)}.prio.Critical{background:var(--neg)}
+.task .prog{height:5px;background:var(--sunken);border-radius:3px;margin-top:8px;overflow:hidden}
+.task .prog i{display:block;height:100%;background:var(--chart-b);border-radius:3px}
+.modal-scrim{position:fixed;inset:0;background:rgba(15,25,20,.45);display:none;align-items:flex-start;justify-content:center;z-index:60;padding:6vh 16px;overflow:auto}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);width:min(640px,100%);padding:22px 24px}
+.modal h3{font-size:17px;margin-bottom:14px}
+.mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.modal label{display:block;font-size:11.5px;font-weight:600;color:var(--muted);margin-bottom:5px}
+.modal input,.modal select,.modal textarea{width:100%;padding:9px 12px;border:1px solid var(--border2);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit;font-size:13px}
+.modal textarea{min-height:70px;resize:vertical}
+.subt{display:flex;align-items:center;gap:9px;padding:6px 0;border-bottom:1px dashed var(--border)}
+.subt input[type=checkbox]{width:15px;height:15px;accent-color:var(--g600)}
+.subt .st{flex:1;font-size:13px}
+.subt .st.done{text-decoration:line-through;color:var(--faint)}
+.comment{background:var(--sunken);border-radius:9px;padding:8px 11px;margin-top:8px;font-size:12.5px}
+.comment .a{font-weight:600;color:var(--ink);font-size:11.5px}
+.comment .t{color:var(--faint);font-size:10.5px;margin-left:6px}
+
+/* documents */
+.docsearch{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.docsearch input{flex:1;min-width:220px;padding:9px 13px;border:1px solid var(--border2);border-radius:10px;background:var(--surface);color:var(--ink);font:inherit}
+
+/* misc */
+.pill{font-size:11px;font-weight:600;background:var(--sunken);border:1px solid var(--border);border-radius:14px;padding:2px 9px;color:var(--muted)}
+.hero-strip{background:linear-gradient(120deg,var(--g800),var(--g700));color:var(--off);border-radius:var(--r);padding:24px 26px;position:relative;overflow:hidden}
+[data-theme="dark"] .hero-strip{background:linear-gradient(120deg,#123528,#0d2a20);border:1px solid var(--border)}
+.hero-strip::after{content:"";position:absolute;right:-70px;top:-90px;width:290px;height:290px;border-radius:50%;background:radial-gradient(circle,rgba(176,235,194,.22),transparent 65%)}
+.hero-strip .eyebrow{color:rgba(247,247,247,.6)}
+.hero-strip h2{color:var(--off);font-size:21px;margin:5px 0 3px}
+.hero-strip p{color:rgba(247,247,247,.78);font-size:13px;max-width:78ch}
+.hero-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:18px;margin-top:18px;position:relative;z-index:1}
+.hero-kpis .k .lab{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:rgba(247,247,247,.6);font-weight:600}
+.hero-kpis .k .v{font-size:22px;font-weight:700;color:var(--off);margin-top:3px}
+.hero-kpis .k .v em{font-style:normal;color:var(--mint)}
+.hero-kpis .k .d{font-size:11.5px;color:rgba(247,247,247,.62)}
+.footnote{font-size:11.5px;color:var(--faint);margin-top:10px;max-width:110ch}
+
+@media(max-width:1080px){.g4{grid-template-columns:1fr 1fr}.g3{grid-template-columns:1fr 1fr}.kanban{grid-template-columns:1fr 1fr}}
+@media(max-width:880px){
+  .shell{grid-template-columns:1fr}
+  aside{position:fixed;left:0;top:0;bottom:0;width:250px;transform:translateX(-100%);transition:transform .2s;z-index:70}
+  aside.open{transform:none}
+  .mobilebar{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--g800);color:var(--off);position:sticky;top:0;z-index:40}
+  .mobilebar button{background:transparent;border:1px solid rgba(247,247,247,.3);color:var(--off);border-radius:8px;padding:6px 11px}
+  .g2,.g3,.g21,.g12{grid-template-columns:1fr}
+  .content{padding:18px 16px 60px}
+  .topbar{padding:11px 16px}
+  .covrow,.covhead{grid-template-columns:1fr 1fr;row-gap:6px}
+  .kanban{grid-template-columns:1fr}
+  .asof-pill{display:none}
+  table{display:block;overflow-x:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ============================ LOGIN ============================ -->
+<div id="login">
+  <div class="login-brand">
+    <div class="wordmark"><div class="acsym">A</div> ADDEM CAPITAL</div>
+    <h1>Institutional reporting for <em>Loads</em> — portfolio, financials and legal in one place.</h1>
+    <div class="foot">Private credit portfolio monitoring · cross-border trade receivables. Confidential — authorized users only.</div>
+  </div>
+  <div class="login-panel">
+    <form class="login-card" id="loginForm">
+      <div class="acsym" style="background:var(--accent);color:var(--on-accent)">A</div>
+      <h2>Sign in</h2>
+      <p>Access the Loads reporting platform.</p>
+      <div class="field"><label for="u">Username</label><input id="u" autocomplete="username" placeholder="Username"></div>
+      <div class="field"><label for="p">Password</label><input id="p" type="password" autocomplete="current-password" placeholder="Password"></div>
+      <button class="btn block" type="submit">Sign in</button>
+      <div class="login-err" id="loginErr">Invalid credentials. Please try again.</div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================ APP ============================ -->
+<div id="app">
+<div class="mobilebar"><button id="menuBtn">☰ Menu</button><b>Loads · Addem Capital</b></div>
+<div class="shell">
+  <aside id="sidebar">
+    <div class="side-brand"><div class="acsym">A</div><div><div class="t">Addem Capital</div><div class="s">Loads · Reporting</div></div></div>
+    <nav id="nav"></nav>
+    <div class="side-foot">v1.0 · Data as of <span id="sideAsof"></span></div>
+  </aside>
+  <main>
+    <div class="topbar">
+      <div class="crumb">Loads / <b id="crumbPage">Overview</b></div>
+      <div class="grow"></div>
+      <span class="asof-pill num" id="asofPill"></span>
+      <button class="btn ghost sm" id="themeToggle">Dark mode</button>
+    </div>
+    <div class="content" id="view"></div>
+  </main>
+</div>
+</div>
+
+<div class="modal-scrim" id="taskScrim"><div class="modal" id="taskModal"></div></div>
+
+<script>
+const DATA = {"meta":{"borrower":"Loads","entity":"Loads USA, Inc. (consolidated)","as_of_date":"2026-06-21","financials_through":"2025","generated_at":"2026-07-20T16:28:21Z","currency":"USD","definitions":{"financed_exposure":"totalWithAdjustments — order value net of credit/debit notes","outstanding":"totalDueAmount — open receivable per order as reported in the tape","active":"orders with an open receivable (totalDueAmount > 0)","dpd":"overDueDays as reported; buckets follow the Manual de Credito 2026 grid","npl":"receivables > 180 days past due (Loads definition)","expected_loss":"Manual de Credito §6.2 rates applied to the open receivable by DPD bucket","collections":"Settled rows in the actual-payments extract (advance + regular)"}},"loan_tape":{"total":{"label":"Total Portfolio","parent":null,"origination":{"count":120,"amount":4810722.0,"first":"2025-09-17","last":"2026-04-29","avg_ticket":40089.35,"tenor_days":{"min":-18,"max":76,"wa":38.0}},"outstanding":{"active_ob":864453.97,"active_count":41,"avg_balance":21084.24},"weighted_averages":{"gross_trade_margin":0.0129,"wa_tenor_days":38.0,"wa_credit_score":569.0,"net_adjustments":296945.0},"credit_quality":{"dpd_distribution":[{"bucket":"Current","outstanding":131631.85,"pct_opb":0.152272,"count":4},{"bucket":"1–30 DPD","outstanding":462046.68,"pct_opb":0.534495,"count":18},{"bucket":"31–60 DPD","outstanding":205747.99,"pct_opb":0.238009,"count":14},{"bucket":"61–90 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"91–150 DPD","outstanding":64429.23,"pct_opb":0.074532,"count":4},{"bucket":"151–180 DPD","outstanding":598.22,"pct_opb":0.000692,"count":1},{"bucket":"> 180 DPD","outstanding":0,"pct_opb":0.0,"count":0}],"current":{"amount":131631.85,"pct":0.152272},"par30":{"amount":270775.44,"pct":0.313233,"count":19},"par60":{"amount":65027.45,"pct":0.075224,"count":5},"par90":{"amount":65027.45,"pct":0.075224,"count":5},"npl":{"amount":0,"pct":0.0,"count":0}},"provision":{"expected_loss":16496.15,"net_receivable":847957.82,"coverage_pct":0.019083},"collections":{"total":3865154.0,"by_type":{"advance":161891.0,"regular":3703263.0},"monthly":[{"month":"2025-09","value":31720.0},{"month":"2025-10","value":118621.0},{"month":"2025-11","value":323370.0},{"month":"2025-12","value":902875.0},{"month":"2026-01","value":655920.0},{"month":"2026-02","value":549918.0},{"month":"2026-03","value":734748.0},{"month":"2026-04","value":479650.0},{"month":"2026-05","value":68332.0}],"collection_rate":0.803446},"origination_monthly":[{"month":"2025-09","value":148806.0},{"month":"2025-10","value":445669.0},{"month":"2025-11","value":1055424.0},{"month":"2025-12","value":727847.0},{"month":"2026-01","value":503336.0},{"month":"2026-02","value":727780.0},{"month":"2026-03","value":880982.0},{"month":"2026-04","value":320878.0}],"cohorts":[{"cohort":"2025-09","disbursed":148806.0,"collected":148805.0,"count":6,"collection_rate":1.0},{"cohort":"2025-10","disbursed":445669.0,"collected":445064.0,"count":12,"collection_rate":0.9986},{"cohort":"2025-11","disbursed":1055424.0,"collected":1051106.0,"count":22,"collection_rate":0.9959},{"cohort":"2025-12","disbursed":727847.0,"collected":667719.0,"count":14,"collection_rate":0.9174},{"cohort":"2026-01","disbursed":503336.0,"collected":503333.0,"count":12,"collection_rate":1.0},{"cohort":"2026-02","disbursed":727780.0,"collected":654319.0,"count":20,"collection_rate":0.8991},{"cohort":"2026-03","disbursed":880982.0,"collected":380068.0,"count":26,"collection_rate":0.4314},{"cohort":"2026-04","disbursed":320878.0,"collected":14740.0,"count":8,"collection_rate":0.0459}],"status_distribution":{"Collected in full":79,"Open — 1–30 DPD":18,"Open — 31–90 DPD":14,"Open — 91–180 DPD":5,"Open — current":4},"top5_ticket_share":0.38471},"total_active":{"label":"Total Portfolio — Active","parent":"total","origination":{"count":41,"amount":1413919.0,"first":"2025-10-09","last":"2026-04-22","avg_ticket":34485.83,"tenor_days":{"min":6,"max":76,"wa":47.6}},"outstanding":{"active_ob":864453.97,"active_count":41,"avg_balance":21084.24},"weighted_averages":{"gross_trade_margin":-0.049,"wa_tenor_days":47.6,"wa_credit_score":578.0,"net_adjustments":34865.0},"credit_quality":{"dpd_distribution":[{"bucket":"Current","outstanding":131631.85,"pct_opb":0.152272,"count":4},{"bucket":"1–30 DPD","outstanding":462046.68,"pct_opb":0.534495,"count":18},{"bucket":"31–60 DPD","outstanding":205747.99,"pct_opb":0.238009,"count":14},{"bucket":"61–90 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"91–150 DPD","outstanding":64429.23,"pct_opb":0.074532,"count":4},{"bucket":"151–180 DPD","outstanding":598.22,"pct_opb":0.000692,"count":1},{"bucket":"> 180 DPD","outstanding":0,"pct_opb":0.0,"count":0}],"current":{"amount":131631.85,"pct":0.152272},"par30":{"amount":270775.44,"pct":0.313233,"count":19},"par60":{"amount":65027.45,"pct":0.075224,"count":5},"par90":{"amount":65027.45,"pct":0.075224,"count":5},"npl":{"amount":0,"pct":0.0,"count":0}},"provision":{"expected_loss":16496.15,"net_receivable":847957.82,"coverage_pct":0.019083},"collections":{"total":533037.0,"by_type":{"advance":6351.0,"regular":526686.0},"monthly":[{"month":"2025-10","value":2984.0},{"month":"2025-11","value":14735.0},{"month":"2025-12","value":13469.0},{"month":"2026-01","value":26000.0},{"month":"2026-03","value":181679.0},{"month":"2026-04","value":225838.0},{"month":"2026-05","value":68332.0}],"collection_rate":0.376993},"origination_monthly":[{"month":"2025-10","value":28420.0},{"month":"2025-11","value":33674.0},{"month":"2025-12","value":72581.0},{"month":"2026-02","value":252694.0},{"month":"2026-03","value":770328.0},{"month":"2026-04","value":256222.0}],"cohorts":[{"cohort":"2025-10","disbursed":28420.0,"collected":27821.0,"count":1,"collection_rate":0.9789},{"cohort":"2025-11","disbursed":33674.0,"collected":29367.0,"count":1,"collection_rate":0.8721},{"cohort":"2025-12","disbursed":72581.0,"collected":12459.0,"count":3,"collection_rate":0.1717},{"cohort":"2026-02","disbursed":252694.0,"collected":179235.0,"count":7,"collection_rate":0.7093},{"cohort":"2026-03","disbursed":770328.0,"collected":269415.0,"count":22,"collection_rate":0.3497},{"cohort":"2026-04","disbursed":256222.0,"collected":14740.0,"count":7,"collection_rate":0.0575}],"status_distribution":{"Open — 1–30 DPD":18,"Open — 31–90 DPD":14,"Open — 91–180 DPD":5,"Open — current":4},"top5_ticket_share":0.38471},"total_closed":{"label":"Total Portfolio — Closed","parent":"total","origination":{"count":79,"amount":3396803.0,"first":"2025-09-17","last":"2026-04-29","avg_ticket":42997.51,"tenor_days":{"min":-18,"max":70,"wa":34.1}},"outstanding":{"active_ob":0,"active_count":0,"avg_balance":null},"weighted_averages":{"gross_trade_margin":0.0375,"wa_tenor_days":34.1,"wa_credit_score":565.0,"net_adjustments":262080.0},"credit_quality":{"dpd_distribution":[{"bucket":"Current","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"1–30 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"31–60 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"61–90 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"91–150 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"151–180 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"> 180 DPD","outstanding":0,"pct_opb":0.0,"count":0}],"current":{"amount":0,"pct":0.0},"par30":{"amount":0,"pct":0.0,"count":0},"par60":{"amount":0,"pct":0.0,"count":0},"par90":{"amount":0,"pct":0.0,"count":0},"npl":{"amount":0,"pct":0.0,"count":0}},"provision":{"expected_loss":0,"net_receivable":0,"coverage_pct":0.0},"collections":{"total":3332117.0,"by_type":{"advance":155540.0,"regular":3176577.0},"monthly":[{"month":"2025-09","value":31720.0},{"month":"2025-10","value":115637.0},{"month":"2025-11","value":308635.0},{"month":"2025-12","value":889406.0},{"month":"2026-01","value":629920.0},{"month":"2026-02","value":549918.0},{"month":"2026-03","value":553069.0},{"month":"2026-04","value":253812.0}],"collection_rate":0.980957},"origination_monthly":[{"month":"2025-09","value":148806.0},{"month":"2025-10","value":417249.0},{"month":"2025-11","value":1021750.0},{"month":"2025-12","value":655266.0},{"month":"2026-01","value":503336.0},{"month":"2026-02","value":475086.0},{"month":"2026-03","value":110654.0},{"month":"2026-04","value":64656.0}],"cohorts":[{"cohort":"2025-09","disbursed":148806.0,"collected":148805.0,"count":6,"collection_rate":1.0},{"cohort":"2025-10","disbursed":417249.0,"collected":417243.0,"count":11,"collection_rate":1.0},{"cohort":"2025-11","disbursed":1021750.0,"collected":1021739.0,"count":21,"collection_rate":1.0},{"cohort":"2025-12","disbursed":655266.0,"collected":655260.0,"count":11,"collection_rate":1.0},{"cohort":"2026-01","disbursed":503336.0,"collected":503333.0,"count":12,"collection_rate":1.0},{"cohort":"2026-02","disbursed":475086.0,"collected":475084.0,"count":13,"collection_rate":1.0},{"cohort":"2026-03","disbursed":110654.0,"collected":110653.0,"count":4,"collection_rate":1.0},{"cohort":"2026-04","disbursed":64656.0,"collected":0.0,"count":1,"collection_rate":0.0}],"status_distribution":{"Collected in full":79},"top5_ticket_share":null},"fin":{"label":"Loads Finance BU","parent":null,"origination":{"count":51,"amount":1927999.0,"first":"2025-10-02","last":"2026-04-20","avg_ticket":37803.9,"tenor_days":{"min":7,"max":76,"wa":41.6}},"outstanding":{"active_ob":156949.93,"active_count":12,"avg_balance":13079.16},"weighted_averages":{"gross_trade_margin":0.0382,"wa_tenor_days":41.6,"wa_credit_score":561.0,"net_adjustments":36961.0},"credit_quality":{"dpd_distribution":[{"bucket":"Current","outstanding":12606.77,"pct_opb":0.080324,"count":1},{"bucket":"1–30 DPD","outstanding":78803.25,"pct_opb":0.502092,"count":5},{"bucket":"31–60 DPD","outstanding":61233.13,"pct_opb":0.390144,"count":5},{"bucket":"61–90 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"91–150 DPD","outstanding":4306.78,"pct_opb":0.02744,"count":1},{"bucket":"151–180 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"> 180 DPD","outstanding":0,"pct_opb":0.0,"count":0}],"current":{"amount":12606.77,"pct":0.080324},"par30":{"amount":65539.91,"pct":0.417585,"count":6},"par60":{"amount":4306.78,"pct":0.02744,"count":1},"par90":{"amount":4306.78,"pct":0.02744,"count":1},"npl":{"amount":0,"pct":0.0,"count":0}},"provision":{"expected_loss":1076.69,"net_receivable":155873.23,"coverage_pct":0.00686},"collections":{"total":1770999.0,"by_type":{"advance":84271.0,"regular":1686728.0},"monthly":[{"month":"2025-10","value":22723.0},{"month":"2025-11","value":150053.0},{"month":"2025-12","value":331984.0},{"month":"2026-01","value":355382.0},{"month":"2026-02","value":331259.0},{"month":"2026-03","value":410085.0},{"month":"2026-04","value":154773.0},{"month":"2026-05","value":14740.0}],"collection_rate":0.918568},"origination_monthly":[{"month":"2025-10","value":151886.0},{"month":"2025-11","value":380620.0},{"month":"2025-12","value":378141.0},{"month":"2026-01","value":269305.0},{"month":"2026-02","value":499725.0},{"month":"2026-03","value":218802.0},{"month":"2026-04","value":29520.0}],"cohorts":[{"cohort":"2025-10","disbursed":151886.0,"collected":151882.0,"count":5,"collection_rate":1.0},{"cohort":"2025-11","disbursed":380620.0,"collected":376308.0,"count":11,"collection_rate":0.9887},{"cohort":"2025-12","disbursed":378141.0,"collected":378137.0,"count":7,"collection_rate":1.0},{"cohort":"2026-01","disbursed":269305.0,"collected":269303.0,"count":7,"collection_rate":1.0},{"cohort":"2026-02","disbursed":499725.0,"collected":427867.0,"count":14,"collection_rate":0.8562},{"cohort":"2026-03","disbursed":218802.0,"collected":152762.0,"count":6,"collection_rate":0.6982},{"cohort":"2026-04","disbursed":29520.0,"collected":14740.0,"count":1,"collection_rate":0.4993}],"status_distribution":{"Collected in full":39,"Open — 31–90 DPD":5,"Open — 1–30 DPD":5,"Open — current":1,"Open — 91–180 DPD":1},"top5_ticket_share":1.37986},"fin_active":{"label":"Loads Finance BU — Active","parent":"fin","origination":{"count":12,"amount":431144.0,"first":"2025-11-18","last":"2026-04-20","avg_ticket":35928.67,"tenor_days":{"min":42,"max":76,"wa":60.9}},"outstanding":{"active_ob":156949.93,"active_count":12,"avg_balance":13079.16},"weighted_averages":{"gross_trade_margin":0.0047,"wa_tenor_days":60.9,"wa_credit_score":523.0,"net_adjustments":-34.0},"credit_quality":{"dpd_distribution":[{"bucket":"Current","outstanding":12606.77,"pct_opb":0.080324,"count":1},{"bucket":"1–30 DPD","outstanding":78803.25,"pct_opb":0.502092,"count":5},{"bucket":"31–60 DPD","outstanding":61233.13,"pct_opb":0.390144,"count":5},{"bucket":"61–90 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"91–150 DPD","outstanding":4306.78,"pct_opb":0.02744,"count":1},{"bucket":"151–180 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"> 180 DPD","outstanding":0,"pct_opb":0.0,"count":0}],"current":{"amount":12606.77,"pct":0.080324},"par30":{"amount":65539.91,"pct":0.417585,"count":6},"par60":{"amount":4306.78,"pct":0.02744,"count":1},"par90":{"amount":4306.78,"pct":0.02744,"count":1},"npl":{"amount":0,"pct":0.0,"count":0}},"provision":{"expected_loss":1076.69,"net_receivable":155873.23,"coverage_pct":0.00686},"collections":{"total":274159.0,"by_type":{"advance":3367.0,"regular":270792.0},"monthly":[{"month":"2025-11","value":3367.0},{"month":"2026-01","value":26000.0},{"month":"2026-03","value":122810.0},{"month":"2026-04","value":107242.0},{"month":"2026-05","value":14740.0}],"collection_rate":0.635887},"origination_monthly":[{"month":"2025-11","value":33674.0},{"month":"2026-02","value":176784.0},{"month":"2026-03","value":191166.0},{"month":"2026-04","value":29520.0}],"cohorts":[{"cohort":"2025-11","disbursed":33674.0,"collected":29367.0,"count":1,"collection_rate":0.8721},{"cohort":"2026-02","disbursed":176784.0,"collected":104926.0,"count":5,"collection_rate":0.5935},{"cohort":"2026-03","disbursed":191166.0,"collected":125126.0,"count":5,"collection_rate":0.6545},{"cohort":"2026-04","disbursed":29520.0,"collected":14740.0,"count":1,"collection_rate":0.4993}],"status_distribution":{"Open — 31–90 DPD":5,"Open — 1–30 DPD":5,"Open — current":1,"Open — 91–180 DPD":1},"top5_ticket_share":1.37986},"fin_closed":{"label":"Loads Finance BU — Closed","parent":"fin","origination":{"count":39,"amount":1496855.0,"first":"2025-10-02","last":"2026-03-04","avg_ticket":38380.9,"tenor_days":{"min":7,"max":70,"wa":36.1}},"outstanding":{"active_ob":0,"active_count":0,"avg_balance":null},"weighted_averages":{"gross_trade_margin":0.0476,"wa_tenor_days":36.1,"wa_credit_score":572.0,"net_adjustments":36995.0},"credit_quality":{"dpd_distribution":[{"bucket":"Current","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"1–30 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"31–60 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"61–90 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"91–150 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"151–180 DPD","outstanding":0,"pct_opb":0.0,"count":0},{"bucket":"> 180 DPD","outstanding":0,"pct_opb":0.0,"count":0}],"current":{"amount":0,"pct":0.0},"par30":{"amount":0,"pct":0.0,"count":0},"par60":{"amount":0,"pct":0.0,"count":0},"par90":{"amount":0,"pct":0.0,"count":0},"npl":{"amount":0,"pct":0.0,"count":0}},"provision":{"expected_loss":0,"net_receivable":0,"coverage_pct":0.0},"collections":{"total":1496840.0,"by_type":{"advance":80904.0,"regular":1415936.0},"monthly":[{"month":"2025-10","value":22723.0},{"month":"2025-11","value":146686.0},{"month":"2025-12","value":331984.0},{"month":"2026-01","value":329382.0},{"month":"2026-02","value":331259.0},{"month":"2026-03","value":287275.0},{"month":"2026-04","value":47531.0}],"collection_rate":0.99999},"origination_monthly":[{"month":"2025-10","value":151886.0},{"month":"2025-11","value":346946.0},{"month":"2025-12","value":378141.0},{"month":"2026-01","value":269305.0},{"month":"2026-02","value":322941.0},{"month":"2026-03","value":27636.0}],"cohorts":[{"cohort":"2025-10","disbursed":151886.0,"collected":151882.0,"count":5,"collection_rate":1.0},{"cohort":"2025-11","disbursed":346946.0,"collected":346941.0,"count":10,"collection_rate":1.0},{"cohort":"2025-12","disbursed":378141.0,"collected":378137.0,"count":7,"collection_rate":1.0},{"cohort":"2026-01","disbursed":269305.0,"collected":269303.0,"count":7,"collection_rate":1.0},{"cohort":"2026-02","disbursed":322941.0,"collected":322941.0,"count":9,"collection_rate":1.0},{"cohort":"2026-03","disbursed":27636.0,"collected":27636.0,"count":1,"collection_rate":1.0}],"status_distribution":{"Collected in full":39},"top5_ticket_share":null}},"concentration":{"importers_active_ob":[{"name":"ALIMENTARI ORTOFRUTTICOLI ABC SPA","amount":157757.25,"pct":0.182494,"count":6},{"name":"LA CALERA COLOMBIA S.A.","amount":102002.5,"pct":0.117996,"count":3},{"name":"OPERADORA FUTURAMA S.A. DE C.V.","amount":89208.04,"pct":0.103196,"count":2},{"name":"PRODUCTOS TITO S.A. DE C.V.","amount":80410.58,"pct":0.093019,"count":3},{"name":"ALEJANDRO OSUNA","amount":69816.85,"pct":0.080764,"count":3},{"name":"HERMENEGILDO MATIAS LUCIANO","amount":47120.66,"pct":0.054509,"count":1},{"name":"COMPAGNIE FRUITI√àRE ESPA√ëA CORP. SAU","amount":44114.0,"pct":0.051031,"count":1},{"name":"VIGOMEZ S.A.S.","amount":43964.76,"pct":0.050858,"count":2}],"importer_countries_financed":[{"name":"MX","amount":2013686.0,"pct":0.418583,"count":43},{"name":"CO","amount":1360221.0,"pct":0.282748,"count":40},{"name":"OU","amount":275573.0,"pct":0.057283,"count":6},{"name":"US","amount":236077.0,"pct":0.049073,"count":5},{"name":"IT","amount":219753.0,"pct":0.04568,"count":6},{"name":"ES","amount":215689.0,"pct":0.044835,"count":4},{"name":"NL","amount":123456.0,"pct":0.025663,"count":4},{"name":"CN","amount":82596.0,"pct":0.017169,"count":2},{"name":"VE","amount":82329.0,"pct":0.017114,"count":3},{"name":"FR","amount":77956.0,"pct":0.016205,"count":2}],"supplier_countries_financed":[{"name":"PE","amount":2522517.0,"pct":0.524353,"count":45},{"name":"CL","amount":1366864.0,"pct":0.284129,"count":40},{"name":"US","amount":392566.0,"pct":0.081602,"count":14},{"name":"PL","amount":258550.0,"pct":0.053745,"count":10},{"name":"MX","amount":135085.0,"pct":0.02808,"count":5},{"name":"IT","amount":101142.0,"pct":0.021024,"count":2},{"name":"KL","amount":15677.0,"pct":0.003259,"count":1},{"name":"MC","amount":12500.0,"pct":0.002598,"count":1},{"name":"31","amount":4773.0,"pct":0.000992,"count":1},{"name":"4","amount":1048.0,"pct":0.000218,"count":1}],"business_units_financed":[{"name":"loads_mexico","amount":2058537.0,"pct":0.427906,"count":43},{"name":"loads_finance","amount":1927999.0,"pct":0.400771,"count":51},{"name":"loads_fynsa","amount":419602.0,"pct":0.087222,"count":11},{"name":"loads_chile","amount":268898.0,"pct":0.055896,"count":9},{"name":"loads_usa","amount":130913.0,"pct":0.027213,"count":5},{"name":"loads_logistics_chile","amount":4773.0,"pct":0.000992,"count":1}],"score_tiers":[{"tier":"AAA","amount":882981.0,"pct":0.183544,"count":27},{"tier":"AA","amount":1142487.0,"pct":0.237488,"count":28},{"tier":"A","amount":1070983.0,"pct":0.222624,"count":26},{"tier":"B","amount":599116.0,"pct":0.124538,"count":11},{"tier":"C","amount":676448.0,"pct":0.140613,"count":16},{"tier":"D","amount":254688.0,"pct":0.052942,"count":6},{"tier":"E","amount":184019.0,"pct":0.038252,"count":6}]},"outstanding_series":[{"month":"2025-09","value":117086.0},{"month":"2025-10","value":444134.0},{"month":"2025-11","value":1176185.0},{"month":"2025-12","value":1001147.0},{"month":"2026-01","value":848555.0},{"month":"2026-02","value":1026414.0},{"month":"2026-03","value":1172645.0},{"month":"2026-04","value":1013870.0},{"month":"2026-05","value":880882.0},{"month":"2026-06","value":864453.97}],"financials":[{"period":"2024","source":"Consolidated statutory close — LOADS USA, INC. (FY2024)","preliminary":false,"is_monthly":{"sections":{"income":[{"label":"Revenue from ordinary activities","value":3865953.0}],"cost":[{"label":"Cost of operations (Costo de explotación)","value":2873936.0}],"opex":[{"label":"Administrative expenses","value":960577.0}],"other":[{"label":"Other income (expenses)","value":16611.0},{"label":"Financial income (costs)","value":-61744.0},{"label":"Indexation units (Unidades de reajuste)","value":-15687.9},{"label":"Income tax (expense) / benefit","value":30608.0}]},"totals":{"revenue":3865953.0,"cost":2873936.0,"gross_profit":992017.0,"opex":960577.0,"operating_income":31440.0,"other":-30212.9,"net_income":1227.1}},"ytd_net_income":1227.1,"financial_debt":494805.5,"bs":{"cash":4543092.6,"total_assets":7982934.9,"total_liabilities":2587158.7,"total_equity":5395776.2,"current_assets":7742141.8,"current_liabilities":2587158.7,"trade_receivables":1151715.3,"paid_in_capital":6010000.0,"detail":{"assets":[{"label":"Cash and cash equivalents","value":4543092.6},{"label":"Trade and other receivables","value":1151715.3},{"label":"Other financial assets","value":57052.6},{"label":"Current tax assets","value":0.0},{"label":"Receivables from related parties","value":115564.1},{"label":"Other non-financial assets (current)","value":1874717.2},{"label":"Intangible assets (ex-goodwill)","value":193189.7},{"label":"Deferred tax assets","value":30173.4},{"label":"Property, plant and equipment","value":17430.0}],"liabilities":[{"label":"Other financial liabilities","value":494805.5},{"label":"Trade and other payables","value":1128409.9},{"label":"Payables to related parties","value":52744.9},{"label":"Other non-financial liabilities","value":888890.2},{"label":"Employee benefit provisions","value":22308.2}],"equity":[{"label":"Paid-in capital","value":6010000.0},{"label":"Other reserves","value":-87265.4},{"label":"Accumulated results","value":-526958.4}]}},"ratios":{"gross_margin":0.256603,"operating_margin":0.008133,"net_margin":0.000317,"current_ratio":2.992527,"quick_ratio":2.223235,"debt_to_equity":0.479479,"debt_to_assets":0.324086,"equity_ratio":0.675914,"interest_coverage":0.509199,"roa_annualized":0.000154,"roe_annualized":0.000227,"revenue_growth":null}},{"period":"2025","source":"Consolidated statutory close — LOADS USA, INC. (FY2025)","preliminary":true,"is_monthly":{"sections":{"income":[{"label":"Revenue from ordinary activities","value":6523394.4}],"cost":[{"label":"Cost of operations (Costo de explotación)","value":5992276.3}],"opex":[{"label":"Administrative expenses","value":1894730.5}],"other":[{"label":"Other income (expenses)","value":15880.6},{"label":"Financial income (costs)","value":-23043.9},{"label":"Indexation units (Unidades de reajuste)","value":-125869.6},{"label":"Income tax (expense) / benefit","value":371512.6}]},"totals":{"revenue":6523394.4,"cost":5992276.3,"gross_profit":531118.1,"opex":1894730.5,"operating_income":-1363612.4,"other":238479.69999999998,"net_income":-1125132.7}},"ytd_net_income":-1125132.7,"financial_debt":401804.1,"bs":{"cash":854745.4,"total_assets":10479117.1,"total_liabilities":6469309.7,"total_equity":4009807.4,"current_assets":9737299.4,"current_liabilities":6469309.7,"trade_receivables":3507454.7,"paid_in_capital":5810000.0,"detail":{"assets":[{"label":"Cash and cash equivalents","value":854745.4},{"label":"Trade and other receivables","value":3507454.7},{"label":"Other financial assets","value":80446.9},{"label":"Current tax assets","value":33335.2},{"label":"Receivables from related parties","value":62819.2},{"label":"Other non-financial assets (current)","value":5198497.9},{"label":"Intangible assets (ex-goodwill)","value":300087.0},{"label":"Deferred tax assets","value":408577.3},{"label":"Property, plant and equipment","value":33153.4}],"liabilities":[{"label":"Other financial liabilities","value":401804.1},{"label":"Trade and other payables","value":3179047.3},{"label":"Payables to related parties","value":0.0},{"label":"Other non-financial liabilities","value":2851284.8},{"label":"Employee benefit provisions","value":37173.5}],"equity":[{"label":"Paid-in capital","value":5810000.0},{"label":"Other reserves","value":-148102.4},{"label":"Accumulated results","value":-1652090.2}]}},"ratios":{"gross_margin":0.081417,"operating_margin":-0.209034,"net_margin":-0.172477,"current_ratio":1.505153,"quick_ratio":0.686727,"debt_to_equity":1.613372,"debt_to_assets":0.617353,"equity_ratio":0.382647,"interest_coverage":-59.174549,"roa_annualized":-0.107369,"roe_annualized":-0.280595,"revenue_growth":0.687396}}],"policy":{"as_of":"2026-06-21","expected_loss":16496.15,"net_receivable":847957.82,"provision_coverage":0.019083,"npl_pct":0.0,"npl_target":0.02,"collection_rate":0.803446,"collection_benchmark":0.869,"wa_tenor_days":38.0,"tenor_benchmark_days":33,"min_advance_rate":0.2,"importer_top1":{"name":"ALIMENTARI ORTOFRUTTICOLI ABC SPA","amount":157757.25,"pct":0.182494,"count":6},"servicer_debt_to_equity":1.613372,"servicer_equity":4009807.4,"provision_grid":[{"bucket":"1–30 days past due","rate":0.0},{"bucket":"31–60 days past due","rate":0.0},{"bucket":"61–90 days past due","rate":0.005},{"bucket":"91–120 days past due","rate":0.1},{"bucket":"121–150 days past due","rate":0.25},{"bucket":"151–180 days past due","rate":0.65},{"bucket":"> 180 days past due","rate":1.0}]},"contracts":{"FACILITY":{"name":"Loads Finance SPV — Structured Trade-Receivables Facility (indicative)","status":"Indicative — under structuring; no executed Addem credit agreement in the data room","borrower":"Loads Finance SPV (ring-fenced vehicle; Loads USA, Inc. platform)","lender":"Addem Capital (prospective senior debt provider)","obligor":"End importers — payment obligation sits with the buyer of each shipment","structure":"Invoice assignment into a dedicated SPV at a pre-agreed discount; importers repay at maturity (typically 30–45 days); the SPV pays suppliers at the point of shipment","equity_contribution":"Loads contributes 10–30% first-loss equity per structure (50–70% target annualized ROE on equity, 10–12 reinvestment cycles/yr)","advance_rate":"Minimum 20% retention (advance ≤ 80% of the assigned invoice)","discount_rate":"≈ 4% per transaction cycle (origination discount)","annualized_yield":"≈ 35% – 40% annualized on deployed capital","coupon_structure":"1–4 payments per order tied to operational milestones (invoice issuance, documents against payment, arrival, arrival + x days)","typical_ticket":"≈ USD 40k (produce) · ≈ USD 200k (commodities)","wal":"30 – 45 days weighted average life","collateral":"Assigned trade receivables; goods in transit controlled through the documentary set (negotiable Bill of Lading held to order)","insurance":"100% freight insurance on every shipment; trade credit insurance (post-Coface programme) with up to 90% coverage per qualified operation; AVLA-approved lines substitute for missing importer financials","assignment":"Cession of collection rights per order, released on full payment at close (Manual de Credito FASE 5)","funding_process":"Commercial Invoice is the disbursement trigger — the single document required for the SPV to fund a shipment","eligibility":["Order approved through the four-block Credit Scoring (0–1000) with tier-driven payment structure","Full documentary set required: Bill of Lading, Packing List, Commercial Invoice, Certificate of Origin, Phytosanitary Certificate","Payment conditions tied to verifiable operational milestones (~20% advance / ~30% against documents / ~50% at destination as the reference structure)","Tier E counterparties (score 0–151, no information or adverse signals) trade fully prepaid only","New-client credit decision within 72h; new order for an existing client within 24h","Non-payment triggers immediate suspension of new shipments to the counterparty"],"concentration_limits":[{"limit":"Single-importer exposure (largest active receivable)","threshold":"Monitored — no hard limit documented"},{"limit":"Tier E (fully-prepaid-only) share of financed volume","threshold":"0% financed by policy"},{"limit":"Trade credit insurance coverage on qualified operations","threshold":"Up to 90%"},{"limit":"Loads first-loss equity per SPV structure","threshold":"10% – 30%"}],"key_defaults":["Importer non-payment past 90 days moves the account to judicial collection with external counsel","Accounts are written off only when no reasonable recovery expectation remains, against the expected-loss provision","Publication in the credit bureau evaluated case-by-case from 31 days past due"],"reporting":["Weekly delinquency segmentation from the Back Office order-control sheet (Preventive −7–0 · Administrative 1–30 · Extrajudicial 31–90 · Judicial 90+)","Weekly Commercial Collections Committee (preventive/administrative buckets) and Judicial Committee (extrajudicial/judicial buckets) with per-account action plans","Automated preventive and delinquency dunning from the finance platform","Provision rates reviewed annually or on a material portfolio-mix change"]},"MANUAL":{"name":"Manual de Crédito, Recuperación y Cobranza 2026","status":"In force — signed by Larry Andrés Gil Bertucci, Legal Representative","scope":"Single operating standard for Commercial, Back Office, Finance & Risk and Collections across origination, execution and recovery","origination":"Four-stage CRM (HubSpot) flow: client onboarding → order intake (PO, proforma, incoterms, agency/transport costs, margin, payment terms) → Finance runs the Credit Scoring → decision logged with required remediations","scoring_blocks":[{"block":"A — Market intelligence","weight":"40%","detail":"Datamyne export volume and trend; to be complemented with public registries, top-3 suppliers, market position, public financial health, country/FX risk, press and litigation signals"},{"block":"B — Credit insurer","weight":"30%","detail":"Approved line, risk rating, claims history, recent coverage changes, response time"},{"block":"C — Loads historical data","weight":"10%","detail":"Payment behavior, 24-month volumes, import trend, client tenure, product diversification, order recurrence — weight grows as internal history accumulates"},{"block":"D — Deal structure","weight":"20%","detail":"Advance percentage and credit term up to 30 days post-arrival"}],"tiers":[{"tier":"AAA","range":"723+","profile":"Full credit insurance, zero arrears, top-tier diversified importer","structure":"100% financed, 45–75 days post-arrival"},{"tier":"AA","range":"606–722","profile":"Insured, arrears < 30d, good history, financials delivered","structure":"100% financed, up to 45 days post-arrival"},{"tier":"A","range":"546–605","profile":"Arrears < 60d but paying, fiscal & financial info, known importer","structure":"20% against documents / 80% post-arrival (30 days)"},{"tier":"B","range":"475–545","profile":"Arrears < 60d, fiscal certificate only, acceptable importer","structure":"50% against documents / 50% post-arrival (30 days)"},{"tier":"C","range":"252–474","profile":"Arrears 60–90d, corporate e-mail only, acceptable importer","structure":"50% against documents / 50% on arrival"},{"tier":"D","range":"152–251","profile":"Arrears 60–90d, new importer or declining imports","structure":"70% against documents / 30% on arrival"},{"tier":"E","range":"0–151","profile":"No information or adverse signals","structure":"Fully prepaid (100% in advance)"}],"collections":[{"bucket":"Preventive (−7 to 0 days)","plan":"Weekly upcoming-maturity reminders, minimum 5–7 days before due date, from estimated shipping/arrival dates"},{"bucket":"Administrative (1–30 DPD)","plan":"Weekly monitoring and payment statements with the Commercial team; Commercial Collections Committee decides escalation"},{"bucket":"Extrajudicial (31–90 DPD)","plan":"Risk & Collections leads with weekly committee, statements and calls; bureau publication and external collection agencies evaluated case-by-case"},{"bucket":"Judicial (> 90 DPD)","plan":"Legal process with external counsel evaluated; weekly tracking of legal milestones per case"}],"mitigation":"Orders structured with advances, guarantees or letters of credit; immediate suspension of shipments on non-payment; credit insurance covering delinquency losses","sla":"Credit decision SLAs — new client 72 hours; new order for an existing client 24 hours","documents":"Bill of Lading (title to goods), Packing List, Commercial Invoice (disbursement trigger and support of the collection right), Certificate of Origin, Phytosanitary Certificate; credit/debit notes at close for volume, quality, shrinkage, FX and logistics adjustments"}},"documents":[{"name":"Loads Loan Tape (orders + expected & actual payments)","cat":"Loan Tape","date":"2026-06-21","fmt":"XLSX","note":"120 trade orders, 6 business units, USD — order-level exposure, DPD and settled cash"},{"name":"Consolidated Financial Statements FY2025 / FY2024 — Loads USA, Inc.","cat":"Financial Statements","date":"2025-12-31","fmt":"PDF/TXT","note":"Pre-audit consolidated statement of financial position and income statement by function (USD)"},{"name":"Manual de Crédito, Recuperación y Cobranza 2026","cat":"Contracts","date":"2026-01-01","fmt":"PDF/TXT","note":"Credit scoring model, tier-based financing structures, collections buckets and expected-loss provisioning"},{"name":"Investment Memorandum 2Q2025","cat":"Investment Memo","date":"2025-06-30","fmt":"PDF/TXT","note":"Trade / Move / Finance platform overview, SPV model, unit economics and structured-facility profile"},{"name":"Loads Reporting Platform dataset","cat":"Supporting Documents","date":"2026-06-21","fmt":"JSON","note":"ETL output backing this application (portfolio, financials, policy board, fact sheets)"}],"workspace_seed":[{"id":1,"title":"Q2 2026 loan-tape refresh and DPD reconciliation","desc":"Load the next tape cut, reconcile settled payments vs expected schedule and re-run the provision grid.","status":"In Progress","priority":"High","area":"Portfolio","due":"2026-07-31","created":"2026-07-01","assignee":"Portfolio Monitoring","tags":["monthly-cycle"],"subtasks":[{"t":"Request tape + payment extract from Loads Back Office","done":true},{"t":"Run build_app.py and review deltas","done":false},{"t":"Circulate PAR / provision summary to deal team","done":false}],"comments":[],"archived":false},{"id":2,"title":"Follow up: FY2025 audited consolidated financials","desc":"FY2025 statements in the data room are the pre-audit close (PRE ESTADO). Obtain the audited version and tie equity roll-forward.","status":"Waiting","priority":"High","area":"Finance","due":"2026-08-15","created":"2026-06-20","assignee":"Finance","tags":["financials"],"subtasks":[{"t":"Confirm auditor and expected sign-off date","done":true},{"t":"Reconcile pre-audit vs audited balance sheet","done":false}],"comments":[{"a":"Addem","t":"2026-07-02 10:14","m":"Loads confirms the audit is in fieldwork; sign-off expected mid-August."}],"archived":false},{"id":3,"title":"Facility term sheet — SPV structure and advance mechanics","desc":"Draft the Addem term sheet against the indicative structured-facility profile: 20% minimum retention, milestone-linked payments, insurance assignment.","status":"In Progress","priority":"Critical","area":"Capital Markets","due":"2026-08-07","created":"2026-06-15","assignee":"Capital Markets","tags":["structuring"],"subtasks":[{"t":"Benchmark advance rate vs 86.9% historical collection rate","done":true},{"t":"Define borrowing-base formula on eligible receivables","done":false},{"t":"Align interest reserve with 30–45d WAL","done":false}],"comments":[],"archived":false},{"id":4,"title":"Legal review — Manual de Crédito 2026 vs facility covenants","desc":"Map the manual's provisioning grid, SLAs and collections committees into facility reporting covenants and events of default.","status":"Not Started","priority":"High","area":"Legal","due":"2026-08-21","created":"2026-07-05","assignee":"Legal","tags":["documentation"],"subtasks":[{"t":"Confirm enforceability of invoice assignment per jurisdiction","done":false},{"t":"Review credit-insurance loss-payee designation","done":false}],"comments":[],"archived":false},{"id":5,"title":"Trade credit insurance diligence (post-Coface programme)","desc":"Validate the up-to-90% coverage per operation, claims history and the AVLA-approved-line fallback for importers without financials.","status":"In Progress","priority":"High","area":"Investments","due":"2026-07-28","created":"2026-06-25","assignee":"Investments","tags":["insurance","diligence"],"subtasks":[{"t":"Obtain policy wording and exclusions","done":true},{"t":"Sample-test insured vs uninsured orders in the tape","done":false}],"comments":[],"archived":false},{"id":6,"title":"Importer concentration review — top obligor at 18% of receivables","desc":"Largest active importer holds ~18% of the outstanding receivable. Assess single-obligor limit for the facility borrowing base.","status":"Not Started","priority":"Medium","area":"Portfolio","due":"2026-08-10","created":"2026-07-08","assignee":"Portfolio Monitoring","tags":["concentration"],"subtasks":[],"comments":[],"archived":false},{"id":7,"title":"91–180 DPD accounts — judicial-bucket action plans","desc":"Five active orders sit past 90 DPD. Confirm each is in the weekly Judicial Committee with a documented action plan per the manual.","status":"In Progress","priority":"High","area":"Portfolio","due":"2026-07-24","created":"2026-07-06","assignee":"Portfolio Monitoring","tags":["collections"],"subtasks":[{"t":"Obtain Judicial Committee minutes","done":false},{"t":"Verify shipment suspension on non-paying accounts","done":false}],"comments":[],"archived":false},{"id":8,"title":"Investment memo refresh — 3Q2025 KPIs onward","desc":"Request updated origination, NPL and GMV series beyond the 2Q2025 memo for the IC deck.","status":"Not Started","priority":"Medium","area":"Investments","due":"2026-08-14","created":"2026-07-10","assignee":"Investments","tags":["ic-materials"],"subtasks":[],"comments":[],"archived":false},{"id":9,"title":"Google Drive sync — service account for the Loads data room","desc":"Provision read access to the shared folder and schedule the ETL in a GitHub Action so index.html rebuilds on new files.","status":"Not Started","priority":"Low","area":"Capital Markets","due":"2026-09-01","created":"2026-07-12","assignee":"Platform","tags":["automation"],"subtasks":[],"comments":[],"archived":false},{"id":10,"title":"FY2025 loss drivers — administrative expense bridge","desc":"Net result moved from breakeven (FY2024) to −$1.13M on admin expenses nearly doubling. Build the expense bridge and runway view.","status":"In Progress","priority":"High","area":"Finance","due":"2026-08-05","created":"2026-07-03","assignee":"Finance","tags":["financials"],"subtasks":[{"t":"Request FY2025 admin-expense detail by nature","done":false},{"t":"Tie capital reduction ($200k) and reserves movement","done":false}],"comments":[],"archived":false},{"id":11,"title":"Weekly collections committee minutes — standing request","desc":"Standing monitoring item: obtain Commercial and Judicial committee outputs weekly per the manual's §5 cadence.","status":"In Progress","priority":"Medium","area":"Portfolio","due":"2026-07-23","created":"2026-07-01","assignee":"Portfolio Monitoring","tags":["monitoring","recurring"],"subtasks":[],"comments":[],"archived":false},{"id":12,"title":"Scoring model validation — Block A/B data lineage","desc":"Validate Datamyne and credit-insurer feeds behind the 0–1000 score; back-test tier assignment against realized DPD in the tape.","status":"Not Started","priority":"Medium","area":"Investments","due":"2026-08-28","created":"2026-07-15","assignee":"Investments","tags":["underwriting"],"subtasks":[{"t":"Back-test tiers C–E vs realized arrears","done":false}],"comments":[],"archived":false}]};
+</script>
+<script>
+/* ==================== helpers ==================== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fM=v=>{if(v==null)return '—';const a=Math.abs(v)/1e6;return (v<0?'−$':'$')+a.toFixed(a>=10?1:2)+'M';};
+const f$=v=>{if(v==null)return '—';const n=Math.round(Math.abs(v)).toLocaleString('en-US');return (v<0?'−$':'$')+n;};
+const fP=(v,d=2)=>v==null?'—':(v*100).toFixed(d)+'%';
+const fX=(v,d=2)=>v==null?'—':v.toFixed(d)+'x';
+const monLab=m=>{if(!m.includes('-'))return 'FY '+m;const [y,mm]=m.split('-');return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+mm-1]+' '+y.slice(2)};
+const fK=v=>{if(v==null)return '—';const a=Math.abs(v);return (v<0?'−$':'$')+(a>=1e6?(a/1e6).toFixed(2)+'M':(a/1e3).toFixed(0)+'k');};
+const store={get(k,fb){try{const v=localStorage.getItem(k);return v?JSON.parse(v):fb}catch(e){return fb}},
+             set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const sess={get(k){try{return sessionStorage.getItem(k)}catch(e){return window.__s&&window.__s[k]}},
+            set(k,v){try{sessionStorage.setItem(k,v)}catch(e){(window.__s=window.__s||{})[k]=v}},
+            del(k){try{sessionStorage.removeItem(k)}catch(e){if(window.__s)delete window.__s[k]}}};
+let charts={};
+function killCharts(){Object.values(charts).forEach(c=>c.destroy());charts={};}
+function mkChart(id,cfg){const el=document.getElementById(id);if(!el)return;
+ if(typeof Chart==='undefined'){el.parentElement.innerHTML='<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--faint);font-size:12.5px">Chart library unavailable — see app/vendor/chart.umd.min.js</div>';return;}
+ charts[id]=new Chart(el,cfg);}
+function axis(yFmt,opts={}){return{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+ plugins:{legend:{display:opts.legend!==false,labels:{color:css('--muted'),font:{family:'Inter Tight',size:11.5},boxWidth:9,boxHeight:9,usePointStyle:true,pointStyle:'rectRounded'}},
+  tooltip:{backgroundColor:css('--surface'),titleColor:css('--ink'),bodyColor:css('--muted'),borderColor:css('--border2'),borderWidth:1,padding:10,
+   callbacks:{label:c=>' '+c.dataset.label+': '+yFmt(c.parsed.y??c.parsed)}}},
+ scales:opts.noScales?{}:{x:{stacked:!!opts.stacked,ticks:{color:css('--faint'),font:{family:'Inter Tight',size:10.5},maxTicksLimit:opts.xTicks||10},grid:{display:false}},
+  y:{stacked:!!opts.stacked,ticks:{color:css('--faint'),font:{family:'Inter Tight',size:10.5},callback:v=>yFmt(v)},grid:{color:css('--chart-grid')},border:{display:false}}}}}
+function spark(vals,w=120,h=30,color){
+ if(!vals||vals.filter(v=>v!=null).length<2)return '';
+ const vs=vals.map(v=>v==null?0:v);const mn=Math.min(...vs),mx=Math.max(...vs),rg=mx-mn||1;
+ const pts=vs.map((v,i)=>`${(i/(vs.length-1)*w).toFixed(1)},${(h-3-((v-mn)/rg)*(h-6)).toFixed(1)}`).join(' ');
+ return `<svg class="spark" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${pts}" fill="none" stroke="${color||css('--chart-b')}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;}
+function csvDownload(name,rows){
+ const csv=rows.map(r=>r.map(c=>`"${String(c??'').replace(/"/g,'""')}"`).join(',')).join('\n');
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download=name;a.click();}
+
+/* ==================== derived series ==================== */
+const FIN=DATA.financials, LT=DATA.loan_tape, POL=DATA.policy, CT=DATA.contracts, CONC=DATA.concentration;
+const PERIODS=FIN.map(f=>f.period);
+const S={
+ assets:FIN.map(f=>f.bs.total_assets??null),
+ liabilities:FIN.map(f=>f.bs.total_liabilities??null),
+ equity:FIN.map(f=>f.bs.total_equity??null),
+ cash:FIN.map(f=>f.bs.cash??null),
+ revM:FIN.map(f=>f.is_monthly.totals.revenue),
+ niM:FIN.map(f=>f.is_monthly.totals.net_income),
+ oiM:FIN.map(f=>f.is_monthly.totals.operating_income),
+};
+const LATEST=FIN[FIN.length-1], PREVF=FIN.length>1?FIN[FIN.length-2]:FIN[0];
+const seg=(sc,sg)=>LT[sc+(sg==='all'?'':'_'+sg)]||null;
+const collectionsTot=LT.total.collections.total;
+const financedTot=LT.total.origination.amount;
+
+/* ==================== auth & router ==================== */
+const PAGES=[
+ ['overview','Overview','M3 12l9-8 9 8M5 10v10h5v-6h4v6h5V10'],
+ ['portfolio','Portfolio','M4 19V5m0 14h16M8 16v-5m4 5V8m4 8v-3'],
+ ['metrics','Metrics','M12 3a9 9 0 1 0 9 9h-9V3zM15 3.5A9 9 0 0 1 20.5 9H15V3.5z'],
+ ['financials','Financial Statements','M6 3h9l4 4v14H6V3zm9 0v4h4M9 12h7M9 15h7M9 9h3'],
+ ['facility','Credit Facility','M4 21h16M6 21V8l6-4 6 4v13M10 21v-5h4v5'],
+ ['performance','Performance','M4 17l5-6 4 3 6-8M4 21h16'],
+ ['documents','Documents','M7 3h7l5 5v13H7V3zm7 0v5h5M10 13h6M10 16h6'],
+ ['workspace','Workspace','M4 6h7v7H4V6zm9 0h7v4h-7V6zm0 6h7v6h-7v-6zM4 15h7v3H4v-3'],
+ ['settings','Settings','M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm8 4a8 8 0 0 1-.2 1.7l2 1.6-2 3.4-2.4-1a8 8 0 0 1-2.9 1.7L14 22h-4l-.5-2.6a8 8 0 0 1-2.9-1.7l-2.4 1-2-3.4 2-1.6A8 8 0 0 1 4 12c0-.6.1-1.1.2-1.7l-2-1.6 2-3.4 2.4 1a8 8 0 0 1 2.9-1.7L10 2h4l.5 2.6a8 8 0 0 1 2.9 1.7l2.4-1 2 3.4-2 1.6c.1.6.2 1.1.2 1.7z'],
+];
+let page='overview';
+function buildNav(){
+ const nv=$('#nav');
+ nv.innerHTML='<div class="navlab">Monitoring</div>'+PAGES.slice(0,7).map(p=>navBtn(p)).join('')
+  +'<div class="navlab">Internal</div>'+PAGES.slice(7).map(p=>navBtn(p)).join('')
+  +`<button class="navitem" id="logoutBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H4V3h5M14 16l4-4-4-4M18 12H8"/></svg>Log out</button>`;
+ nv.addEventListener('click',e=>{const b=e.target.closest('.navitem');if(!b)return;
+  if(b.id==='logoutBtn'){sess.del('auth');location.hash='';showLogin();return}
+  go(b.dataset.page);$('#sidebar').classList.remove('open');});
+}
+const navBtn=([id,label,path])=>`<button class="navitem${id===page?' on':''}" data-page="${id}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${path}"/></svg>${label}</button>`;
+function go(p){page=p;killCharts();$$('.navitem').forEach(b=>b.classList.toggle('on',b.dataset.page===p));
+ $('#crumbPage').textContent=PAGES.find(x=>x[0]===p)[1];
+ RENDER[p]();window.scrollTo({top:0});}
+function showLogin(){$('#login').style.display='flex';$('#app').style.display='none';}
+function showApp(){$('#login').style.display='none';$('#app').style.display='block';
+ $('#asofPill').textContent='Portfolio as of '+DATA.meta.as_of_date+' · Financials through FY '+DATA.meta.financials_through+' · USD';
+ $('#sideAsof').textContent=DATA.meta.as_of_date;buildNav();go('overview');}
+$('#loginForm').addEventListener('submit',e=>{e.preventDefault();
+ if($('#u').value.trim()==='Addem'&&$('#p').value==='Addem12345'){sess.set('auth','1');showApp();}
+ else{$('#loginErr').style.display='block';}});
+$('#themeToggle').addEventListener('click',()=>{
+ const el=document.documentElement,next=el.dataset.theme==='light'?'dark':'light';
+ el.dataset.theme=next;store.set('theme',next);
+ $('#themeToggle').textContent=next==='light'?'Dark mode':'Light mode';killCharts();RENDER[page]();});
+$('#menuBtn')&&$('#menuBtn').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));
+
+/* ==================== OVERVIEW ==================== */
+function rOverview(){
+ const ta=LT.total_active, q=ta.credit_quality, fq=(seg('fin','active')||LT.fin).credit_quality;
+ const eq=LATEST.bs.total_equity, eqPrev=PREVF.bs.total_equity;
+ const fin=seg('fin','active')||LT.fin;
+ $('#view').innerHTML=`
+ <div class="pagehead"><span class="eyebrow">Borrower profile</span><h1>Loads — Overview</h1>
+ <p>Loads (Loads USA, Inc., consolidated) is a tech-enabled B2B platform for cross-border food trade built on three pillars — Trade (a digital marketplace connecting verified buyers and suppliers across 25+ countries), Move (embedded end-to-end logistics with freight insurance on every shipment) and Finance (embedded working capital deployed through a ring-fenced SPV, with trade credit insurance of up to 90% per qualified operation). Addem Capital monitors the trade-receivables book as prospective senior lender to the Loads Finance SPV; every order in the tape is a short-cycle, milestone-linked receivable against an end importer.</p></div>
+
+ <section><div class="hero-strip">
+  <span class="eyebrow">Portfolio position · ${DATA.meta.as_of_date}</span>
+  <h2>${fK(ta.outstanding.active_ob)} open receivable across ${ta.outstanding.active_count} orders — ${fM(financedTot)} financed to date</h2>
+  <p>The tape covers ${LT.total.origination.count} trade orders issued ${LT.total.origination.first} → ${LT.total.origination.last} across six business units, all USD. ${fP(LT.total.collections.collection_rate,1)} of financed exposure has already been collected in cash; the expected-loss provision under the Manual de Crédito 2026 grid is ${fK(POL.expected_loss)} (${fP(POL.provision_coverage,1)} of the open receivable). No executed Addem facility is in the data room — the SPV facility fact sheet is indicative.</p>
+  <div class="hero-kpis">
+   <div class="k"><div class="lab">Financed to date</div><div class="v num">${fM(financedTot)}</div><div class="d">${LT.total.origination.count} orders</div></div>
+   <div class="k"><div class="lab">Open receivable</div><div class="v num"><em>${fK(ta.outstanding.active_ob)}</em></div><div class="d">${ta.outstanding.active_count} open orders</div></div>
+   <div class="k"><div class="lab">Collected in cash</div><div class="v num">${fM(collectionsTot)}</div><div class="d">${fP(LT.total.collections.collection_rate,1)} of financed</div></div>
+   <div class="k"><div class="lab">Expected-loss provision</div><div class="v num">${fK(POL.expected_loss)}</div><div class="d">${fP(POL.provision_coverage,1)} coverage</div></div>
+   <div class="k"><div class="lab">WA credit cycle</div><div class="v num">${LT.total.weighted_averages.wa_tenor_days} d</div><div class="d">memo avg 33 d · WAL 30–45 d</div></div>
+  </div></div></section>
+
+ <section><div class="shead"><h2>Portfolio &amp; credit</h2><span class="note">Loan tape &amp; settled payments as of ${DATA.meta.as_of_date}</span></div>
+ <div class="grid g4">
+  ${statCard('Open receivable',fK(ta.outstanding.active_ob),ta.outstanding.active_count+' orders · avg '+f$(ta.outstanding.avg_balance),DATA.outstanding_series.slice(-10).map(p=>p.value),'')}
+  ${statCard('PAR 30 (share of receivable)',fP(q.par30.pct),f$(q.par30.amount)+' · '+q.par30.count+' orders',null,q.par30.pct>0.35?'neg':(q.par30.pct>0.15?'warn':'pos'))}
+  ${statCard('&gt; 90 DPD',fP(q.par90.pct),q.par90.count+' orders in judicial bucket · NPL (&gt;180d) '+fP(q.npl.pct),null,q.par90.pct>0.10?'neg':(q.par90.pct>0?'warn':'pos'))}
+  ${statCard('Collections to date',fM(collectionsTot),'Regular '+fM(LT.total.collections.by_type.regular)+' · advances '+fK(LT.total.collections.by_type.advance),LT.total.collections.monthly.slice(-10).map(p=>p.value),'')}
+ </div></section>
+
+ <section><div class="shead"><h2>Borrower financial position</h2><span class="note">Loads USA, Inc. consolidated · FY${LATEST.period} vs FY${PREVF.period} (pre-audit)</span></div>
+ <div class="grid g4">
+  ${statCard('Revenue · FY'+LATEST.period,fM(LATEST.is_monthly.totals.revenue),'+'+fP(LATEST.ratios.revenue_growth,1)+' vs FY'+PREVF.period,S.revM,'')}
+  ${statCard('Total assets',fM(LATEST.bs.total_assets),'Cash '+fK(LATEST.bs.cash)+' · receivables '+fK(LATEST.bs.trade_receivables),S.assets,'')}
+  ${statCard('Stockholders’ equity',fM(eq),'Δ '+fM(eq-eqPrev)+' YoY · D/E '+fX(LATEST.ratios.debt_to_equity),S.equity,eq<0?'neg':'pos')}
+  ${statCard('Net result · FY'+LATEST.period,fM(LATEST.is_monthly.totals.net_income),'FY'+PREVF.period+': '+fK(PREVF.is_monthly.totals.net_income),S.niM,LATEST.is_monthly.totals.net_income<0?'neg':'pos')}
+ </div>
+ <p class="footnote">Attention items: FY2025 swung to a ${fM(LATEST.is_monthly.totals.net_income)} net loss as administrative expenses nearly doubled (${fM(LATEST.is_monthly.totals.opex)} vs ${fM(PREVF.is_monthly.totals.opex)}) against a ${fP(LATEST.ratios.revenue_growth,0)} revenue expansion — the growth investment thesis in the memo. Liquidity tightened (current ratio ${fX(LATEST.ratios.current_ratio)} vs ${fX(PREVF.ratios.current_ratio)}; quick ratio ${fX(LATEST.ratios.quick_ratio)}). On the book, PAR ratios are measured against the small residual receivable — ${f$(q.par90.amount)} sits past 90 DPD in the judicial bucket, still provisioned at only ${fK(POL.expected_loss)} under the manual's grid. The FY2025 close is pre-audit (“PRE ESTADO”).</p></section>
+
+ <section><div class="shead"><h2>Relationship timeline</h2></div>
+ <div class="card pad"><div class="timeline">
+  ${tl('4Q 2022','First revenue','MVP launched with first verified cross-border trades; long-term Comex / Logistics / Finance vision defined.')}
+  ${tl('2023','Seed round — USD $2.0M','Nazca, Alaya and Canary; expansion into Colombia and Mexico; Loads Logistics launched.')}
+  ${tl('2024','Loads Finance institutionalized','USD $2M+ originations, SPV model implemented; quoting + logistics coordination stack developed.')}
+  ${tl('1Q 2025','Seed extension — USD $3.5M','FEMSA joins; Spain expansion and import department; USD 11M+ financed with NPL below 2%.')}
+  ${tl('2Q 2025','Investment Memorandum','USD 11.2M financed · 86.9% collected · NPL (>180d) 1.83% · avg 33-day cycle; institutional SPV debt facility under negotiation.')}
+  ${tl('Sep 2025','Current tape begins','First order in the monitored tape (issued 2025-09-17); six business units originating in USD.')}
+  ${tl(DATA.meta.as_of_date.slice(0,7),'Current position',fK(ta.outstanding.active_ob)+' open receivable · '+fP(LT.total.collections.collection_rate,1)+' collected · provision '+fK(POL.expected_loss)+'.')}
+ </div></div></section>`;
+}
+const tl=(d,t,p)=>`<div class="tl-item"><div class="d">${d}</div><div class="t">${t}</div><p>${p}</p></div>`;
+function statCard(lab,val,sub,sparkVals,tone){
+ return `<div class="card stat"><div class="lab">${lab}</div><div class="v num ${tone}">${val}</div><div class="d num">${sub}</div>${sparkVals?spark(sparkVals):''}</div>`;}
+
+/* ==================== PORTFOLIO ==================== */
+let pScope=store.get('lScope','total'), pSeg=store.get('lSeg','active');
+function rPortfolio(){
+ if(!seg(pScope,pSeg)){pSeg='all';}
+ const s=seg(pScope,pSeg), tt=seg('total',pSeg)||LT.total, f=seg('fin',pSeg)||seg('fin','all');
+ const share=tt.outstanding.active_ob&&f?f.outstanding.active_ob/tt.outstanding.active_ob:0;
+ const q=s.credit_quality,o=s.outstanding,w=s.weighted_averages;
+ $('#view').innerHTML=`
+ <div class="pagehead"><span class="eyebrow">Loan tape · ${DATA.meta.as_of_date}</span><h1>Portfolio</h1>
+ <p>Order-level view of the Loads trade-receivables book. Each row of the tape is a cross-border food shipment financed against an end importer: financed exposure is the order value net of credit/debit notes, the open receivable is the amount currently due, and days past due come straight from the servicer field. The Loads Finance BU is the pure financing business unit; the trading BUs (Mexico, Chile, USA, Fynsa, Logistics) originate the rest. Switch scope and lifecycle segment below — every figure follows.</p></div>
+
+ <section class="card pad" style="display:flex;flex-wrap:wrap;gap:20px;align-items:flex-end">
+  <div><span class="eyebrow" style="display:block;margin-bottom:7px">Portfolio scope</span>
+   <div class="segctl" id="scopeCtl"><button data-v="total" class="${pScope==='total'?'on':''}">Total Portfolio</button><button data-v="fin" class="${pScope==='fin'?'on':''}">Loads Finance BU</button></div></div>
+  <div><span class="eyebrow" style="display:block;margin-bottom:7px">Lifecycle segment</span>
+   <div class="segctl" id="segCtl"><button data-v="all" class="${pSeg==='all'?'on':''}">All</button><button data-v="active" class="${pSeg==='active'?'on':''}">Open</button><button data-v="closed" class="${pSeg==='closed'?'on':''}" ${seg(pScope,'closed')?'':'disabled'}>Closed</button></div></div>
+  <div style="flex:1;min-width:280px">
+   <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px"><span><b style="color:var(--ink)">Loads Finance BU</b> within ${tt.label}</span><span class="num">${f?fK(f.outstanding.active_ob):'—'} / ${fK(tt.outstanding.active_ob)}</span></div>
+   <div class="covbar"><div class="covfill" style="width:${(share*100).toFixed(1)}%"></div><div class="covlabel num">${fP(share,1)}${f?' · '+f.outstanding.active_count+' orders':''}</div><div class="covrest num">${fK(Math.max(0,tt.outstanding.active_ob-(f?f.outstanding.active_ob:0)))} trading BUs</div></div></div>
+ </section>
+
+ <section><div class="grid g4">
+  ${statCard('Open receivable',fK(o.active_ob),(o.active_count||0)+' orders'+(o.avg_balance?' · avg '+f$(o.avg_balance):''),null,'')}
+  ${statCard('Gross trade margin (WA)',fP(w.gross_trade_margin,1),'Net adjustments '+fK(-Math.abs(w.net_adjustments||0))+' in credit/debit notes',null,w.gross_trade_margin<0?'neg':'')}
+  ${statCard('PAR 30',fP(q.par30.pct),f$(q.par30.amount)+' · '+q.par30.count+' orders',null,q.par30.pct===0?'pos':(q.par30.pct>0.35?'neg':'warn'))}
+  ${statCard('&gt; 90 DPD',fP(q.par90.pct),q.par90.count+' orders · '+f$(q.par90.amount)+' · NPL (&gt;180d) '+fP(q.npl.pct),null,q.par90.pct===0?'pos':'neg')}
+  ${statCard('Financed to date',fM(s.origination.amount),s.origination.count+' orders since '+s.origination.first,null,'')}
+  ${statCard('Collections to date',fM(s.collections.total),fP(s.collections.collection_rate,1)+' of financed · advances '+fK(s.collections.by_type.advance||0),null,'')}
+  ${statCard('Avg ticket',f$(s.origination.avg_ticket),'Order tenor '+s.origination.tenor_days.min+'–'+s.origination.tenor_days.max+' d · WA '+w.wa_tenor_days+' d',null,'')}
+  ${statCard('WA credit score',w.wa_credit_score==null?'—':w.wa_credit_score,'Loads Score 0–1000 · tier A boundary at 546',null,'')}
+ </div></section>
+
+ <section><div class="grid g2">
+  <div class="card"><div class="pad"><h3>Delinquency distribution (DPD)</h3><div class="sub">Servicer overdue-days field · Manual de Crédito buckets · ${s.label}</div></div>
+   <table>${dpdTable(s)}</table></div>
+  <div class="card"><div class="pad"><h3>PAR ladder — Loads Finance vs total book</h3><div class="sub">Share of open receivable with DPD above threshold</div></div>
+   <div class="chartbox"><canvas id="chPar"></canvas></div></div>
+ </div></section>
+
+ <section><div class="grid g2">
+  <div class="card"><div class="pad"><h3>Monthly origination</h3><div class="sub">Financed exposure by issue month · Loads Finance BU overlaid on the total segment</div></div>
+   <div class="chartbox"><canvas id="chOrig"></canvas></div></div>
+  <div class="card"><div class="pad"><h3>Monthly collections</h3><div class="sub">Settled payments (advance + regular) · ${s.label}</div></div>
+   <div class="chartbox"><canvas id="chColl"></canvas></div></div>
+ </div></section>
+
+ <section><div class="grid g21">
+  <div class="card"><div class="pad" style="display:flex;justify-content:space-between;align-items:baseline"><div><h3>Cohort collection performance</h3><div class="sub">Cumulative settled cash ÷ financed exposure by issue-month cohort</div></div>
+   <button class="btn ghost sm" id="expCohorts">Export CSV</button></div>
+   <div class="chartbox"><canvas id="chMoic"></canvas></div></div>
+  <div class="card"><div class="pad"><h3>Order status</h3><div class="sub">${s.origination.count} orders in segment</div></div>
+   <div class="chartbox"><canvas id="chStatus"></canvas></div></div>
+ </div></section>
+
+ <section><div class="shead"><h2>Concentration</h2><span class="note">Counterparty, geography and score mix</span></div>
+ <div class="grid g21">
+  <div class="card"><div class="pad"><h3>Top importers — open receivable</h3><div class="sub">Largest obligors on the active book</div></div>
+   <table><tr><th style="text-align:left;padding-left:20px">Importer</th><th>Open</th><th style="text-align:left;padding-left:0">% receivable</th><th>Orders</th></tr>
+   ${CONC.importers_active_ob.map(r=>`<tr><td style="text-align:left;padding-left:20px;font-weight:600;color:var(--ink)">${r.name}</td><td class="num">${f$(r.amount)}</td>
+    <td style="text-align:left" class="num">${fP(r.pct,1)}<span class="inbar"><i style="width:${Math.min(100,r.pct*100)}%"></i></span></td><td class="num">${r.count}</td></tr>`).join('')}</table></div>
+  <div class="card"><div class="pad"><h3>Credit-score tiers</h3><div class="sub">Financed exposure by Loads Score tier (Manual §3.2)</div></div>
+   <div class="chartbox"><canvas id="chTiers"></canvas></div></div>
+ </div></section>`;
+
+ $('#scopeCtl').onclick=e=>{const b=e.target.closest('button');if(!b)return;pScope=b.dataset.v;store.set('lScope',pScope);killCharts();rPortfolio();};
+ $('#segCtl').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;pSeg=b.dataset.v;store.set('lSeg',pSeg);killCharts();rPortfolio();};
+ $('#expCohorts').onclick=()=>csvDownload(`loads_cohorts_${pScope}_${pSeg}.csv`,[['Cohort','Financed','Collected','Orders','Collection rate'],...s.cohorts.map(c=>[c.cohort,c.disbursed,c.collected,c.count,c.collection_rate])]);
+
+ const pv=k=>['par30','par60','par90','npl'].map(p=>k.credit_quality[p].pct*100);
+ const finForPar=seg('fin',pSeg)||seg('fin','all');
+ mkChart('chPar',{type:'bar',data:{labels:['PAR 30','PAR 60','PAR 90','NPL (>180d)'],datasets:[
+  {label:tt.label,data:pv(tt),backgroundColor:css('--chart-a'),borderRadius:6,barPercentage:.55},
+  ...(finForPar?[{label:finForPar.label,data:pv(finForPar),backgroundColor:css('--chart-b'),borderRadius:6,barPercentage:.55}]:[])]},
+  options:axis(v=>(+v).toFixed(1)+'%')});
+ const fo=finForPar?finForPar.origination_monthly:[];
+ const mm=[...new Set([...tt.origination_monthly,...fo].map(p=>p.month))].sort();
+ const map=s2=>Object.fromEntries(s2.map(p=>[p.month,p.value]));
+ const tm=map(tt.origination_monthly),am=map(fo);
+ mkChart('chOrig',{type:'bar',data:{labels:mm.map(monLab),datasets:[
+  {label:tt.label,data:mm.map(m=>(tm[m]||0)/1e3),backgroundColor:css('--chart-c'),borderRadius:3},
+  ...(finForPar?[{label:finForPar.label,data:mm.map(m=>(am[m]||0)/1e3),backgroundColor:css('--chart-a'),borderRadius:3}]:[])]},
+  options:axis(v=>'$'+(+v).toFixed(0)+'k')});
+ mkChart('chColl',{type:'line',data:{labels:s.collections.monthly.map(p=>monLab(p.month)),datasets:[
+  {label:s.label,data:s.collections.monthly.map(p=>p.value/1e3),borderColor:css('--chart-a'),backgroundColor:css('--chart-a')+'26',fill:true,tension:.3,pointRadius:0,borderWidth:2}]},
+  options:axis(v=>'$'+(+v).toFixed(0)+'k',{legend:false,xTicks:12})});
+ const fc=finForPar?finForPar.cohorts:[];
+ const mo=[...new Set([...tt.cohorts,...fc].map(c=>c.cohort))].sort();
+ const tmo=Object.fromEntries(tt.cohorts.map(c=>[c.cohort,c.collection_rate])),amo=Object.fromEntries(fc.map(c=>[c.cohort,c.collection_rate]));
+ mkChart('chMoic',{type:'line',data:{labels:mo.map(monLab),datasets:[
+  {label:tt.label,data:mo.map(m=>tmo[m]==null?null:tmo[m]*100),borderColor:css('--chart-a'),pointRadius:2,borderWidth:2,tension:.25},
+  ...(finForPar?[{label:finForPar.label,data:mo.map(m=>amo[m]==null?null:amo[m]*100),borderColor:css('--chart-b'),pointRadius:2,borderWidth:2,tension:.25,borderDash:[5,4]}]:[])]},
+  options:axis(v=>(+v).toFixed(0)+'%')});
+ const st=s.status_distribution,keys=Object.keys(st);
+ const pal=[css('--chart-a'),css('--chart-b'),css('--chart-c'),'#c9e7d6',css('--warn'),css('--neg'),'#9ab0a8','#7d968c'];
+ mkChart('chStatus',{type:'doughnut',data:{labels:keys,datasets:[{data:keys.map(k=>st[k]),backgroundColor:keys.map((_,i)=>pal[i%pal.length]),borderColor:css('--surface'),borderWidth:2}]},
+  options:{responsive:true,maintainAspectRatio:false,cutout:'64%',plugins:{legend:{position:'right',labels:{color:css('--muted'),font:{family:'Inter Tight',size:11.5},boxWidth:9,boxHeight:9}},tooltip:{callbacks:{label:c=>' '+c.label+': '+c.parsed+' orders'}}}}});
+ const tiers=CONC.score_tiers;
+ mkChart('chTiers',{type:'bar',data:{labels:tiers.map(x=>x.tier),datasets:[{label:'Financed',data:tiers.map(x=>x.amount/1e3),backgroundColor:tiers.map((x,i)=>['#0d473d','#1a6f5f','#4fb08c','#9bdcc1','#d9a84e','#c98a3e','#a8443a'][i]||css('--chart-c')),borderRadius:6,barPercentage:.6}]},
+  options:{...axis(v=>'$'+(+v).toFixed(0)+'k',{legend:false})}});
+}
+function dpdTable(s){
+ const ob=s.outstanding.active_ob;
+ let h='<tr><th>Bucket</th><th>Open receivable</th><th style="text-align:left;padding-left:0">% receivable</th><th>Orders</th></tr>';
+ s.credit_quality.dpd_distribution.forEach(r=>{
+  const tone=r.bucket==='Current'?'ok':(r.bucket.startsWith('1–')?'warn':'bad');
+  h+=`<tr><td><span class="chip ${tone}">${r.bucket}</span></td><td class="num">${f$(r.outstanding)}</td>
+  <td style="text-align:left" class="num">${fP(r.pct_opb)}<span class="inbar"><i style="width:${Math.min(100,r.pct_opb*100)}%"></i></span></td><td class="num">${r.count}</td></tr>`;});
+ h+=`<tr class="tot"><td>Total open</td><td class="num">${f$(ob)}</td><td style="text-align:left">${ob?'100.00%':'—'}</td><td class="num">${s.outstanding.active_count}</td></tr>`;
+ return h;}
+
+/* ==================== METRICS ==================== */
+function rMetrics(){
+ const r=LATEST.ratios;
+ const tact=LT.total_active, q=tact.credit_quality;
+ const covRows=[
+  ['NPL — receivables > 180 DPD','Loads underwriting benchmark: NPL below 2%',fP(POL.npl_pct,2),'≤ 2.00%',POL.npl_pct<=0.02?'ok':'bad','Open receivable past 180 days ÷ total open receivable — memo book ran 1.83%'],
+  ['Judicial bucket — > 90 DPD','Manual §5: legal process with external counsel',fP(q.par90.pct,1),'Action plan per account',q.par90.pct===0?'ok':'warn',q.par90.count+' orders · '+f$(q.par90.amount)+' — weekly Judicial Committee tracking required'],
+  ['Expected-loss provision coverage','Manual §6.2 grid applied to the open receivable',fP(POL.provision_coverage,1),'Per aging grid','ok','Provision '+fK(POL.expected_loss)+' → net receivable '+fK(POL.net_receivable)],
+  ['Collection rate — financed to date','Memo reference: 86.9% collected on the USD 11.2M book',fP(POL.collection_rate,1),'≥ 86.9% at maturity',POL.collection_rate>=POL.collection_benchmark?'ok':'warn','Settled cash ÷ financed exposure — current tape is young; open orders are still inside their cycle'],
+  ['WA credit cycle','Structured-facility WAL band 30–45 days',POL.wa_tenor_days+' d','30 – 45 d',(POL.wa_tenor_days>=30&&POL.wa_tenor_days<=45)?'ok':'warn','Financed-weighted order tenor (issue → due) — memo average 33 days'],
+  ['Minimum retention (advance rate)','Structured facility: advance ≤ 80% of assigned invoice',fP(POL.min_advance_rate,0)+' min retention','≥ 20%','ok','Tier-driven payment structures (Manual §3.2) keep 20–100% of each order milestone-linked'],
+  ['Single-importer concentration','Largest obligor on the open receivable',fP(POL.importer_top1.pct,1),'Monitored — no hard limit',POL.importer_top1.pct<=0.20?'warn':'bad',POL.importer_top1.name+' · '+f$(POL.importer_top1.amount)+' across '+POL.importer_top1.count+' orders'],
+  ['Borrower Debt / Equity','Consolidated leverage pending facility covenants',fX(POL.servicer_debt_to_equity),'Covenant TBD',POL.servicer_debt_to_equity<=3?'ok':'warn','Total liabilities ÷ equity per FY'+LATEST.period+' consolidated balance sheet'],
+  ['Borrower equity','Going-concern floor',fM(POL.servicer_equity),'&gt; $0',POL.servicer_equity>0?'ok':'bad','Loads USA, Inc. consolidated stockholders’ equity (pre-audit FY'+LATEST.period+')'],
+ ];
+ const ratioDefs=[
+  ['Collection rate (financed to date)',POL.collection_rate,'pct1',null],
+  ['WA credit cycle',POL.wa_tenor_days,'d',null],
+  ['Gross trade margin (WA)',LT.total.weighted_averages.gross_trade_margin,'pct1',null],
+  ['Revenue growth (FY)',r.revenue_growth,'pct1',null],
+  ['Debt / Equity',r.debt_to_equity,'x',FIN.map(f=>f.ratios.debt_to_equity)],
+  ['Debt / Assets',r.debt_to_assets,'pct1',FIN.map(f=>f.ratios.debt_to_assets)],
+  ['Equity ratio',r.equity_ratio,'pct1',FIN.map(f=>f.ratios.equity_ratio)],
+  ['Current ratio',r.current_ratio,'x',FIN.map(f=>f.ratios.current_ratio)],
+  ['Quick ratio',r.quick_ratio,'x',FIN.map(f=>f.ratios.quick_ratio)],
+  ['Gross margin',r.gross_margin,'pct1',FIN.map(f=>f.ratios.gross_margin)],
+  ['Operating margin',r.operating_margin,'pct1',FIN.map(f=>f.ratios.operating_margin)],
+  ['Net margin',r.net_margin,'pct1',FIN.map(f=>f.ratios.net_margin)],
+  ['ROA (FY)',r.roa_annualized,'pct1',FIN.map(f=>f.ratios.roa_annualized)],
+  ['ROE (FY)',r.roe_annualized,'pct1',FIN.map(f=>f.ratios.roe_annualized)],
+ ];
+ const fmt=(v,k)=>k==='pct1'?fP(v,1):k==='x'?fX(v):k==='d'?(v==null?'—':v+' d'):v;
+ $('#view').innerHTML=`
+ <div class="pagehead"><span class="eyebrow">Policy compliance &amp; ratios</span><h1>Metrics</h1>
+ <p>Credit-policy compliance computed from the loan tape and settled payments against the Manual de Crédito 2026 and the underwriting benchmarks in the 2Q2025 Investment Memorandum, followed by the financial ratio suite on the consolidated statements. No Addem facility covenants are executed yet — thresholds shown are policy and structuring references.</p></div>
+
+ <section><div class="shead"><h2>Credit-policy board</h2><span class="note">As of ${DATA.meta.as_of_date} · traffic-light status</span></div>
+ <div class="card">
+  <div class="covhead"><span>Test</span><span>Current</span><span>Reference</span><span>Basis</span><span>Status</span></div>
+  ${covRows.map(([n,s2,v,th,st,basis])=>`<div class="covrow"><div><div class="n">${n}</div><div class="s">${s2}</div></div>
+   <div class="val num">${v}</div><div class="num" style="color:var(--muted)">${th}</div><div class="s">${basis}</div>
+   <div><span class="chip ${st}">${st==='ok'?'Compliant':st==='warn'?'Watch':'Breach'}</span></div></div>`).join('')}
+ </div>
+ <p class="footnote">The provision grid (Manual §6.2): 0% through 60 DPD · 0.5% at 61–90 · 10% at 91–120 · 25% at 121–150 · 65% at 151–180 · 100% past 180 — rates derive from Loads’ historical loss behavior and are reviewed annually. The collection-rate reading is mechanically depressed while orders remain inside their 30–45 day cycle; cohort-level rates on the Portfolio page show seasoned months near or at full collection. Facility covenants (advance rate, borrowing base, concentration limits, interest reserve) will replace the reference tests once the Addem credit agreement is executed.</p></section>
+
+ <section><div class="shead"><h2>Financial &amp; portfolio ratios</h2><span class="note">Consolidated annual closes FY${PREVF.period}–FY${LATEST.period}; sparklines show the two-year path</span></div>
+ <div class="grid g4">${ratioDefs.map(([n,v,k,hist])=>{
+   const tone=(n.includes('Equity')||n.includes('margin')||n.startsWith('RO'))&&v!=null&&v<0?'neg':'';
+   return `<div class="card stat"><div class="lab">${n}</div><div class="v num ${tone}">${fmt(v,k)}</div>${hist&&hist.filter(x=>x!=null).length>1?spark(hist):'<div class="d">point-in-time</div>'}</div>`;}).join('')}
+ </div>
+ <p class="footnote">Interest coverage is not meaningful on the FY2025 close (operating loss against ${fK(23043.9)} of net financial costs). Margins and returns are computed on the annual result; the FY2025 statements are the pre-audit consolidated close of Loads USA, Inc. Portfolio ratios are cash-realized figures from the tape, not accrual yields.</p></section>
+
+ <section><div class="grid g2">
+  <div class="card"><div class="pad"><h3>Receivable, provision and financed base</h3><div class="sub">Expected-loss grid applied to the open receivable</div></div>
+   <div class="chartbox"><canvas id="chCov"></canvas></div></div>
+  <div class="card"><div class="pad"><h3>Leverage &amp; equity</h3><div class="sub">Consolidated balance-sheet evolution</div></div>
+   <div class="chartbox"><canvas id="chLev"></canvas></div></div>
+ </div></section>`;
+ mkChart('chCov',{type:'bar',data:{labels:['Open receivable','Expected-loss provision','Net receivable','Financed to date'],datasets:[{label:'USD',data:[LT.total_active.outstanding.active_ob/1e3,POL.expected_loss/1e3,POL.net_receivable/1e3,financedTot/1e3],backgroundColor:[css('--chart-a'),css('--neg'),css('--chart-b'),css('--chart-c')],borderRadius:8,barPercentage:.55}]},
+  options:{...axis(v=>'$'+(+v).toFixed(0)+'k',{legend:false}),indexAxis:'y'}});
+ mkChart('chLev',{type:'bar',data:{labels:PERIODS.map(monLab),datasets:[
+  {label:'Total assets',data:S.assets.map(v=>v&&v/1e6),backgroundColor:css('--chart-b'),borderRadius:5},
+  {label:'Total liabilities',data:S.liabilities.map(v=>v&&v/1e6),backgroundColor:css('--chart-a'),borderRadius:5},
+  {label:'Equity',data:S.equity.map(v=>v&&v/1e6),backgroundColor:css('--chart-c'),borderRadius:5}]},
+  options:axis(v=>'$'+(+v).toFixed(1)+'M')});
+}
+</script>
+<script>
+/* ==================== FINANCIAL STATEMENTS ==================== */
+let fsMonth=PERIODS[PERIODS.length-1];
+const fsFor=p=>FIN.find(f=>f.period===p);
+const titleCase=s=>s.toLowerCase().replace(/(^|[\s(/&])([a-záéíóúñ])/g,(m,a,b)=>a+b.toUpperCase());
+function rFinancials(){
+ const f=fsFor(fsMonth),tot=f.is_monthly.totals;
+ $('#view').innerHTML=`
+ <div class="pagehead"><span class="eyebrow">Borrower financials · Loads USA, Inc. (consolidated)</span><h1>Financial Statements</h1>
+ <p>Interactive consolidated statements parsed from the statutory close — statement of financial position and income statement by function for the years ended 31 December 2025 and 2024, in US dollars. Sections expand into full line detail. The FY2025 figures are the pre-audit close (“PRE ESTADO”); the audited statements govern.</p></div>
+
+ <section class="card pad" style="display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end">
+  <div><span class="eyebrow" style="display:block;margin-bottom:7px">Period</span>
+   <select id="fsMonthSel" style="padding:9px 12px;border:1px solid var(--border2);border-radius:9px;background:var(--surface);color:var(--ink);font:inherit">
+   ${PERIODS.map(p=>`<option value="${p}" ${p===fsMonth?'selected':''}>${monLab(p)}</option>`).join('')}</select></div>
+  <div style="flex:1"><span class="eyebrow" style="display:block;margin-bottom:7px">Source</span><span class="pill">${f.source}</span></div>
+  <button class="btn ghost sm" id="fsExport">Export CSV</button>
+ </section>
+
+ <section><div class="grid g4">
+  ${statCard('Revenue · '+monLab(fsMonth),fM(tot.revenue),f.ratios.revenue_growth!=null?'+'+fP(f.ratios.revenue_growth,1)+' YoY':'',null,'')}
+  ${statCard('Gross profit',fM(tot.gross_profit),fP(f.ratios.gross_margin,1)+' margin',null,tot.gross_profit<0?'neg':'pos')}
+  ${statCard('Operating income',fM(tot.operating_income),fP(f.ratios.operating_margin,1)+' margin',null,tot.operating_income<0?'neg':'pos')}
+  ${statCard('Net result',fM(tot.net_income),'Full fiscal year',null,tot.net_income<0?'neg':'pos')}
+ </div></section>
+
+ <section><div class="grid g2">
+  <div class="card"><div class="pad"><h3>Income statement — fiscal year</h3><div class="sub">${monLab(fsMonth)} · by function · click a section to expand detail</div></div>
+   <div id="isBody">${incomeStatementHTML(f)}</div></div>
+  <div class="card"><div class="pad"><h3>Balance sheet</h3><div class="sub">Statement of financial position · 31 Dec ${fsMonth} · click to expand</div></div>
+   <div id="bsBody">${balanceSheetHTML(f)}</div></div>
+ </div></section>
+
+ <section><div class="grid g2">
+  <div class="card"><div class="pad"><h3>Revenue vs net result</h3><div class="sub">Annual closes available to the platform</div></div>
+   <div class="chartbox"><canvas id="chPL"></canvas></div></div>
+  <div class="card"><div class="pad"><h3>Balance sheet structure</h3><div class="sub">Assets, liabilities and equity by fiscal year</div></div>
+   <div class="chartbox"><canvas id="chBS"></canvas></div></div>
+ </div></section>
+ <p class="footnote">Both years are consolidated statutory closes of Loads USA, Inc. in USD; statement articulation is validated in the ETL (current assets tie, balance sheet balances, pre-tax + tax = net result, drift &lt; $1). FY2025 shows the growth investment: revenue +${fP(LATEST.ratios.revenue_growth,0)} with administrative expenses at ${fM(LATEST.is_monthly.totals.opex)}, a ${fM(LATEST.is_monthly.totals.net_income)} net loss, and paid-in capital reduced $200k to ${fM(LATEST.bs.paid_in_capital)}. SPV facility debt would sit at the ring-fenced vehicle, not on this consolidated balance sheet.</p>`;
+ $('#fsMonthSel').onchange=e=>{fsMonth=e.target.value;killCharts();rFinancials();};
+ $('#fsExport').onclick=()=>{const rows=[['Section','Account','Amount (month)']];
+  const secs=f.is_monthly.sections;
+  [['income','Revenue'],['cost','Cost of operations'],['opex','Administrative expenses'],['other','Financial result, indexation & tax']].forEach(([sec,name])=>
+   (secs[sec]||[]).forEach(l=>rows.push([name,titleCase(l.label),l.value==null?'':Math.round(l.value)])));
+  csvDownload(`loads_is_fy${fsMonth}.csv`,rows);};
+ $$('#isBody .fs-row, #bsBody .fs-row').forEach(r=>r.onclick=()=>{r.classList.toggle('open');r.nextElementSibling.classList.toggle('open');});
+ mkChart('chPL',{type:'bar',data:{labels:PERIODS.map(monLab),datasets:[
+  {label:'Revenue',data:S.revM.map(v=>v==null?null:v/1e6),backgroundColor:css('--chart-b'),borderRadius:4,order:2},
+  {label:'Net result',data:S.niM.map(v=>v==null?null:v/1e6),backgroundColor:css('--chart-a'),borderRadius:4,order:1}]},
+  options:axis(v=>'$'+(+v).toFixed(1)+'M')});
+ mkChart('chBS',{type:'bar',data:{labels:PERIODS.map(monLab),datasets:[
+  {label:'Total assets',data:S.assets.map(v=>v&&v/1e6),backgroundColor:css('--chart-b'),borderRadius:3},
+  {label:'Liabilities',data:S.liabilities.map(v=>v&&v/1e6),backgroundColor:css('--chart-a'),borderRadius:3},
+  {label:'Equity',data:S.equity.map(v=>v&&v/1e6),backgroundColor:css('--chart-c'),borderRadius:3}]},
+  options:axis(v=>'$'+(+v).toFixed(0)+'M')});
+}
+function incomeStatementHTML(f){
+ const secs=f.is_monthly.sections,tot=f.is_monthly.totals;
+ const sec=(key,title,total,sign)=>{
+  const items=secs[key]||[];
+  return `<div class="fs-row"><div class="l"><span class="car">▶</span>${title}</div><div class="amt num">${fM(total)}</div></div>
+  <div class="fs-detail">${items.map(l=>`<div class="fs-line"><span class="n">${titleCase(l.label)}</span><span class="num">${fM(l.value)}</span></div>`).join('')||'<div class="fs-line"><span class="n">No detail lines in source workbook</span><span></span></div>'}</div>`;};
+ return sec('income','Revenue',tot.revenue)
+  +sec('cost','Cost of operations',tot.cost)
+  +`<div class="fs-grand"><span>Operating profit (Utilidad en operaciones)</span><span class="num">${fM(tot.gross_profit)}</span></div>`
+  +sec('opex','Administrative expenses',tot.opex)
+  +`<div class="fs-grand"><span>Operating income</span><span class="num" style="color:${tot.operating_income<0?'var(--neg)':'var(--pos)'}">${fM(tot.operating_income)}</span></div>`
+  +sec('other','Financial result, indexation & tax',tot.other)
+  +`<div class="fs-grand"><span>Net result</span><span class="num" style="color:${tot.net_income<0?'var(--neg)':'var(--pos)'}">${fM(tot.net_income)}</span></div>`;}
+function balanceSheetHTML(f){
+ const b=f.bs,d=b.detail||{assets:[],liabilities:[],equity:[]};
+ const blk=(title,total,items)=>`<div class="fs-row"><div class="l"><span class="car">▶</span>${title}</div><div class="amt num">${fM(total)}</div></div>
+  <div class="fs-detail">${items.map(l=>`<div class="fs-line"><span class="n">${titleCase(l.label)}</span><span class="num">${fM(l.value)}</span></div>`).join('')}</div>`;
+ return blk('Total assets',b.total_assets,d.assets)
+  +blk('Total liabilities',b.total_liabilities,d.liabilities)
+  +blk('Stockholders’ equity',b.total_equity,d.equity)
+  +`<div class="fs-grand"><span>Liabilities + equity</span><span class="num">${fM((b.total_liabilities||0)+(b.total_equity||0))}</span></div>`;}
+
+/* ==================== CREDIT FACILITY ==================== */
+let facTab=store.get('lFacTab','FACILITY');
+const fact=(k,v)=>v?`<div class="f"><div class="k">${k}</div><div class="v">${v}</div></div>`:'';
+const dotlist=(items,tone)=>items.map(x=>`<div style="display:flex;gap:10px;padding:8px 0;border-bottom:1px dashed var(--border);font-size:13px"><span class="dot ${tone}" style="margin-top:6px;flex-shrink:0"></span><span>${x}</span></div>`).join('');
+function rFacility(){
+ const c=CT[facTab];
+ $('#view').innerHTML=`
+ <div class="pagehead"><span class="eyebrow">Legal · facility &amp; credit policy</span><h1>Credit Facility</h1>
+ <p>Fact sheets for the Loads relationship. The SPV structured facility reflects the profile in the 2Q2025 Investment Memorandum — indicative until an Addem credit agreement is executed. The Manual de Crédito, Recuperación y Cobranza 2026 is the borrower's operating credit policy: scoring, tier-based payment structures, collections cadence and expected-loss provisioning.</p></div>
+
+ <section style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+  <div class="segctl" id="facCtl"><button data-v="FACILITY" class="${facTab==='FACILITY'?'on':''}">SPV Structured Facility</button><button data-v="MANUAL" class="${facTab==='MANUAL'?'on':''}">Credit Manual 2026</button></div>
+  <span class="chip ${facTab==='FACILITY'?'warn':'ok'}">${c.status}</span>
+ </section>
+
+ ${facTab==='FACILITY'?facilityHTML(c):manualHTML(c)}`;
+ $('#facCtl').onclick=e=>{const b=e.target.closest('button');if(!b)return;facTab=b.dataset.v;store.set('lFacTab',facTab);rFacility();};
+}
+function facilityHTML(c){
+ return `
+ <section><div class="hero-strip">
+  <span class="eyebrow">${c.name}</span>
+  <h2>Short-duration, insured trade receivables at ${c.annualized_yield.replace('≈ ','~')}</h2>
+  <p>${c.structure}. ${c.equity_contribution}.</p>
+  <div class="hero-kpis">
+   <div class="k"><div class="lab">Discount per cycle</div><div class="v num"><em>~4%</em></div><div class="d">${c.annualized_yield} annualized</div></div>
+   <div class="k"><div class="lab">Minimum retention</div><div class="v num">20%</div><div class="d">advance ≤ 80% of invoice</div></div>
+   <div class="k"><div class="lab">WAL</div><div class="v num">30–45 d</div><div class="d">1–4 milestone payments</div></div>
+   <div class="k"><div class="lab">First-loss equity</div><div class="v num">10–30%</div><div class="d">per SPV structure</div></div>
+   <div class="k"><div class="lab">Credit insurance</div><div class="v num">≤ 90%</div><div class="d">per qualified operation</div></div>
+  </div></div></section>
+
+ <section><div class="shead"><h2>Key terms</h2></div><div class="fact">
+  ${fact('Lender',c.lender)}${fact('Borrower',c.borrower)}
+  ${fact('Obligor',c.obligor)}${fact('Structure',c.structure)}
+  ${fact('Coupon structure',c.coupon_structure)}${fact('Advance / retention',c.advance_rate)}
+  ${fact('Pricing',c.discount_rate+' · '+c.annualized_yield)}${fact('Typical ticket',c.typical_ticket)}
+  ${fact('Weighted average life',c.wal)}${fact('Collateral',c.collateral)}
+  ${fact('Insurance',c.insurance)}${fact('Assignment mechanism',c.assignment)}
+  ${fact('Funding process',c.funding_process)}${fact('First-loss equity',c.equity_contribution)}
+ </div></section>
+
+ <section><div class="grid g2">
+  <div class="card pad"><h3>Eligibility criteria</h3><div class="sub" style="margin-bottom:10px">Underwriting gates per the Credit Manual and memo</div>
+   ${dotlist(c.eligibility,'ok')}</div>
+  <div class="card pad"><h3>Concentration &amp; structural limits</h3><div class="sub" style="margin-bottom:10px">Structuring references — hard limits to be set in the credit agreement</div>
+   <table><tr><th style="text-align:left">Limit</th><th>Reference</th></tr>
+   ${c.concentration_limits.map(x=>`<tr><td style="text-align:left;color:var(--muted)">${x.limit}</td><td class="num" style="font-weight:600;color:var(--ink)">${x.threshold}</td></tr>`).join('')}</table></div>
+ </div></section>
+
+ <section><div class="grid g2">
+  <div class="card pad"><h3>Default &amp; recovery mechanics</h3><div class="sub" style="margin-bottom:10px">Per the Manual de Crédito collections framework</div>
+   ${dotlist(c.key_defaults,'bad')}</div>
+  <div class="card pad"><h3>Reporting &amp; monitoring</h3><div class="sub" style="margin-bottom:10px">Operating cadence available to the lender</div>
+   ${dotlist(c.reporting,'ok')}</div>
+ </div></section>
+
+ <section><div class="card pad"><h3>Legal timeline</h3><div class="sub" style="margin-bottom:14px">Financing documentation history</div>
+   <div class="timeline">
+    ${tl('2024','SPV model implemented','Loads Finance institutionalized: invoice assignment into a ring-fenced SPV; USD 2M+ originated.')}
+    ${tl('1Q 2025','Seed extension (USD 3.5M)','FEMSA joins the cap table; insurance programme migrated post-Coface with up to 90% coverage per operation.')}
+    ${tl('2Q 2025','Investment Memorandum','Structured-facility profile circulated: min 20% retention, ~4% discount per cycle, 30–45d WAL, milestone-linked payments.')}
+    ${tl('2026','Manual de Crédito 2026 in force','Unified credit, recovery and collections policy signed; provisioning grid and committee cadence formalized.')}
+    ${tl('H2 2026','Addem structuring','Term sheet in progress — borrowing base, concentration limits and reporting covenants to be executed in the credit agreement.')}
+   </div></div></section>`;
+}
+function manualHTML(c){
+ return `
+ <section><div class="hero-strip">
+  <span class="eyebrow">${c.name}</span>
+  <h2>One operating standard from origination to recovery</h2>
+  <p>${c.scope}. ${c.origination}.</p>
+  <div class="hero-kpis">
+   <div class="k"><div class="lab">Score range</div><div class="v num">0–1000</div><div class="d">7 tiers AAA → E</div></div>
+   <div class="k"><div class="lab">New client SLA</div><div class="v num">72 h</div><div class="d">new order 24 h</div></div>
+   <div class="k"><div class="lab">Collections buckets</div><div class="v num">4</div><div class="d">preventive → judicial</div></div>
+   <div class="k"><div class="lab">Write-off provision</div><div class="v num">100%</div><div class="d">past 180 DPD</div></div>
+  </div></div></section>
+
+ <section><div class="grid g2">
+  <div class="card pad"><h3>Credit Scoring — four weighted blocks</h3><div class="sub" style="margin-bottom:10px">§3.1 — sources behind the 0–1000 score</div>
+   ${c.scoring_blocks.map(b=>`<div style="padding:9px 0;border-bottom:1px dashed var(--border)"><div style="display:flex;justify-content:space-between;font-weight:600;color:var(--ink);font-size:13px"><span>Block ${b.block}</span><span class="num">${b.weight}</span></div><div style="font-size:12.5px;color:var(--muted)">${b.detail}</div></div>`).join('')}</div>
+  <div class="card pad"><h3>Risk mitigation &amp; documents</h3><div class="sub" style="margin-bottom:10px">§4 &amp; §6.1</div>
+   ${fact('Mitigation',c.mitigation)}${fact('Decision SLAs',c.sla)}${fact('Documentary set',c.documents)}</div>
+ </div></section>
+
+ <section><div class="card"><div class="pad"><h3>Score tiers &amp; recommended financing structure</h3><div class="sub">§3.2 — the tier drives the payment structure offered on every order</div></div>
+  <div class="scrolly"><table>
+  <thead><tr><th>Tier</th><th>Range</th><th style="text-align:left">Client profile</th><th style="text-align:left">Recommended structure</th></tr></thead><tbody>
+  ${c.tiers.map(x=>`<tr><td><span class="chip ${['AAA','AA','A'].includes(x.tier)?'ok':(['B','C'].includes(x.tier)?'warn':'bad')}">${x.tier}</span></td><td class="num">${x.range}</td><td style="text-align:left;color:var(--muted)">${x.profile}</td><td style="text-align:left;font-weight:600;color:var(--ink)">${x.structure}</td></tr>`).join('')}
+  </tbody></table></div></section>
+
+ <section><div class="grid g2">
+  <div class="card"><div class="pad"><h3>Collections cadence</h3><div class="sub">§5 — buckets by days past due with weekly committees</div></div>
+   <div class="pad" style="padding-top:0">${c.collections.map(x=>`<div style="padding:9px 0;border-bottom:1px dashed var(--border)"><div style="font-weight:600;color:var(--ink);font-size:13px">${x.bucket}</div><div style="font-size:12.5px;color:var(--muted)">${x.plan}</div></div>`).join('')}</div></div>
+  <div class="card"><div class="pad"><h3>Expected-loss provisioning grid</h3><div class="sub">§6.2 — applied by aging bucket; reviewed annually</div></div>
+   <table><tr><th style="text-align:left;padding-left:20px">Receivable aging</th><th>Provision rate</th></tr>
+   ${POL.provision_grid.map(x=>`<tr><td style="text-align:left;padding-left:20px;color:var(--muted)">${x.bucket}</td><td class="num" style="font-weight:600;color:${x.rate>=0.5?'var(--neg)':x.rate>0?'var(--warn)':'var(--ink)'}">${fP(x.rate,1)}</td></tr>`).join('')}</table></div>
+ </div></section>`;
+}
+
+/* ==================== PERFORMANCE ==================== */
+function rPerformance(){
+ const coll=LT.total.collections.monthly,orig=LT.total.origination_monthly;
+ const months=[...new Set([...coll,...orig].map(p=>p.month))].sort();
+ const cmap=Object.fromEntries(coll.map(p=>[p.month,p.value])),omap=Object.fromEntries(orig.map(p=>[p.month,p.value]));
+ let c1=0,c2=0;const cumColl=months.map(m=>(c1+=cmap[m]||0)/1e6),cumOrig=months.map(m=>(c2+=omap[m]||0)/1e6);
+ const os=DATA.outstanding_series;
+ $('#view').innerHTML=`
+ <div class="pagehead"><span class="eyebrow">Executive review</span><h1>Portfolio Performance</h1>
+ <p>The Loads trade-receivables book in four movements: how financed exposure deployed since the tape opens in September 2025, what the open receivable did underneath as milestone payments settled, where the book concentrates by destination market, and the credit picture that results under the Manual de Crédito aging.</p></div>
+
+ <section><div class="card"><div class="pad"><h3>1 · Deployment vs cash back</h3><div class="sub">Cumulative financed exposure against cumulative settled collections — the gap is capital at work in transit</div></div>
+  <div class="chartbox tall"><canvas id="chDeploy"></canvas></div></div></section>
+
+ <section><div class="grid g2">
+  <div class="card"><div class="pad"><h3>2 · Open receivable balance</h3><div class="sub">Reconstructed month-end receivable: financed exposure less settled payments and closing adjustments</div></div>
+   <div class="chartbox"><canvas id="chGrow"></canvas></div></div>
+  <div class="card"><div class="pad"><h3>3 · Destination markets</h3><div class="sub">Financed exposure by importer country — the demand side of the book</div></div>
+   <div class="chartbox"><canvas id="chStack"></canvas></div></div>
+ </div></section>
+
+ <section><div class="grid g2">
+  <div class="card"><div class="pad"><h3>4 · Credit quality</h3><div class="sub">DPD distribution of the open receivable — total book vs Loads Finance BU</div></div>
+   <div class="chartbox"><canvas id="chQual"></canvas></div></div>
+  <div class="card"><div class="pad"><h3>Borrower result &amp; equity</h3><div class="sub">Consolidated annual net result with the equity path underneath</div></div>
+   <div class="chartbox"><canvas id="chEq"></canvas></div></div>
+ </div>
+ <p class="footnote">PAR evolution over time requires historical tape snapshots; this dataset carries one tape (as of ${DATA.meta.as_of_date}), so credit quality is shown as the latest aged distribution. Feeding weekly Back Office cuts into the ETL unlocks the PAR time series automatically. Supply side of the book: ${CONC.supplier_countries_financed.slice(0,3).map(x=>x.name+' '+fP(x.pct,0)).join(' · ')} of financed exposure by supplier country.</p></section>`;
+ mkChart('chDeploy',{type:'line',data:{labels:months.map(monLab),datasets:[
+  {label:'Cumulative financed',data:cumOrig,borderColor:css('--chart-a'),backgroundColor:css('--chart-a')+'18',fill:true,pointRadius:0,borderWidth:2,tension:.25},
+  {label:'Cumulative collections',data:cumColl,borderColor:css('--chart-b'),backgroundColor:css('--chart-b')+'22',fill:true,pointRadius:0,borderWidth:2,tension:.25}]},
+  options:axis(v=>'$'+(+v).toFixed(1)+'M',{xTicks:12})});
+ mkChart('chGrow',{type:'line',data:{labels:os.map(p=>monLab(p.month)),datasets:[
+  {label:'Open receivable',data:os.map(p=>p.value/1e6),borderColor:css('--chart-a'),backgroundColor:css('--chart-a')+'15',fill:true,pointRadius:0,borderWidth:2,tension:.25}]},
+  options:axis(v=>'$'+(+v).toFixed(1)+'M',{legend:false,xTicks:12})});
+ const dc=CONC.importer_countries_financed;
+ mkChart('chStack',{type:'bar',data:{labels:dc.map(x=>x.name),datasets:[{label:'Financed',data:dc.map(x=>x.amount/1e3),backgroundColor:css('--chart-a'),borderRadius:6,barPercentage:.6}]},
+  options:{...axis(v=>'$'+(+v).toFixed(0)+'k',{legend:false}),indexAxis:'y'}});
+ const dT=LT.total_active.credit_quality.dpd_distribution,fseg=seg('fin','active')||LT.fin,dA=fseg.credit_quality.dpd_distribution;
+ mkChart('chQual',{type:'bar',data:{labels:dT.map(d=>d.bucket),datasets:[
+  {label:'Total open book',data:dT.map(d=>d.pct_opb*100),backgroundColor:css('--chart-c'),borderRadius:4},
+  {label:'Loads Finance BU',data:dA.map(d=>d.pct_opb*100),backgroundColor:css('--chart-a'),borderRadius:4}]},
+  options:axis(v=>(+v).toFixed(1)+'%')});
+ mkChart('chEq',{type:'bar',data:{labels:PERIODS.map(monLab),datasets:[
+  {label:'Annual net result',data:S.niM.map(v=>v==null?null:v/1e6),backgroundColor:S.niM.map(v=>v!=null&&v>=0?css('--pos'):css('--neg')),borderRadius:4,order:2},
+  {label:'Equity (EoY)',type:'line',data:S.equity.map(v=>v&&v/1e6),borderColor:css('--chart-a'),pointRadius:3,borderWidth:2,tension:.25,order:1}]},
+  options:axis(v=>'$'+(+v).toFixed(1)+'M')});
+}
+
+/* ==================== DOCUMENTS ==================== */
+let docQ='',docCat='All';
+function rDocuments(){
+ const cats=['All',...new Set(DATA.documents.map(d=>d.cat))];
+ const rows=DATA.documents.filter(d=>(docCat==='All'||d.cat===docCat)&&(d.name+d.note).toLowerCase().includes(docQ.toLowerCase()));
+ $('#view').innerHTML=`
+ <div class="pagehead"><span class="eyebrow">Data room</span><h1>Documentation</h1>
+ <p>Documents behind this reporting cycle. In the connected deployment this list mirrors the shared Google Drive folder; here it reflects the files processed by the ETL.</p></div>
+ <section class="docsearch">
+  <input id="docQ" placeholder="Search documents…" value="${docQ}">
+  <div class="segctl" id="docCatCtl">${cats.map(c=>`<button data-v="${c}" class="${c===docCat?'on':''}">${c}</button>`).join('')}</div>
+ </section>
+ <section class="card"><div class="scrolly"><table>
+  <thead><tr><th style="width:42%">Document</th><th>Category</th><th>Date</th><th>Format</th><th style="text-align:left">Notes</th></tr></thead><tbody>
+  ${rows.map(d=>`<tr><td style="font-weight:600;color:var(--ink)">${d.name}</td><td><span class="pill">${d.cat}</span></td><td class="num">${d.date}</td><td>${d.fmt}</td><td style="text-align:left;color:var(--muted)">${d.note}</td></tr>`).join('')||'<tr><td colspan="5" style="text-align:center;color:var(--faint);padding:26px">No documents match the current filter.</td></tr>'}
+ </tbody></table></div></section>`;
+ $('#docQ').oninput=e=>{docQ=e.target.value;rDocuments();const i=$('#docQ');i.focus();i.setSelectionRange(i.value.length,i.value.length);};
+ $('#docCatCtl').onclick=e=>{const b=e.target.closest('button');if(!b)return;docCat=b.dataset.v;rDocuments();};
+}
+
+/* ==================== WORKSPACE ==================== */
+const AREAS=['Investments','Legal','Capital Markets','Portfolio','Finance'];
+const STATUSES=['Not Started','In Progress','Waiting','Completed'];
+const PRIOS=['Low','Medium','High','Critical'];
+const seedTasks=()=>JSON.parse(JSON.stringify(DATA.workspace_seed));
+let tasks=store.get('loadsTasks',null)||seedTasks();
+let wsView=store.get('lWsView','kanban'),wsF={area:'All',prio:'All',status:'All',q:''};
+const saveTasks=()=>store.set('loadsTasks',tasks);
+const prog=t=>t.subtasks.length?Math.round(t.subtasks.filter(s=>s.done).length/t.subtasks.length*100):(t.status==='Completed'?100:0);
+const taskCard=t=>{const today=new Date().toISOString().slice(0,10);
+ return `<div class="task" data-open="${t.id}"><div class="tt">${t.title}</div>
+ <div class="meta"><span class="prio ${t.priority}"></span>${t.priority}<span class="pill">${t.area}</span>
+ ${t.assignee?`<span class="pill">${t.assignee.split(' ')[0]}</span>`:''}
+ ${t.due?`<span class="num" style="color:${t.due<today&&t.status!=='Completed'?'var(--neg)':'inherit'}">${t.due}</span>`:''}
+ ${(t.tags||[]).filter(x=>x!=='asana-import').map(x=>`<span class="pill">#${x}</span>`).join('')}</div>
+ ${t.subtasks.length?`<div class="prog"><i style="width:${prog(t)}%"></i></div>`:''}</div>`;};
+function rWorkspace(){
+ const today=new Date().toISOString().slice(0,10);
+ const act=tasks.filter(t=>!t.archived);
+ const vis=act.filter(t=>(wsF.area==='All'||t.area===wsF.area)&&(wsF.prio==='All'||t.priority===wsF.prio)&&(wsF.status==='All'||t.status===wsF.status)&&(t.title+t.desc+(t.tags||[]).join()+(t.assignee||'')).toLowerCase().includes(wsF.q.toLowerCase()));
+ const overdue=act.filter(t=>t.status!=='Completed'&&t.due&&t.due<today);
+ const week=act.filter(t=>t.status!=='Completed'&&t.due&&t.due>=today&&(new Date(t.due)-new Date(today))<7*864e5);
+ const done=act.filter(t=>t.status==='Completed').length;
+ $('#view').innerHTML=`
+ <div class="pagehead"><span class="eyebrow">Internal · task management</span><h1>Workspace</h1>
+ <p>Deal-team task tracking for the Loads relationship, seeded with the diligence and forward monitoring calendar of the SPV facility structuring. Tasks persist locally in this browser.</p></div>
+ <section><div class="grid g4">
+  ${statCard('Overdue',String(overdue.length),overdue[0]?('Next: '+overdue[0].title.slice(0,36)):'All clear',null,overdue.length?'neg':'pos')}
+  ${statCard('Due within 7 days',String(week.length),week[0]?week[0].title.slice(0,40):'Nothing imminent',null,week.length>3?'warn':'')}
+  ${statCard('Completion',act.length?Math.round(done/act.length*100)+'%':'—',done+' of '+act.length+' tasks complete',null,'')}
+  ${statCard('Critical open',String(act.filter(t=>t.priority==='Critical'&&t.status!=='Completed').length),'across '+new Set(act.filter(t=>t.status!=='Completed').map(t=>t.area)).size+' areas',null,'')}
+ </div></section>
+ <section class="ws-toolbar">
+  <div class="segctl" id="wsViewCtl"><button data-v="kanban" class="${wsView==='kanban'?'on':''}">Kanban</button><button data-v="list" class="${wsView==='list'?'on':''}">List</button></div>
+  <select id="wsArea"><option>All</option>${AREAS.map(a=>`<option ${wsF.area===a?'selected':''}>${a}</option>`).join('')}</select>
+  <select id="wsPrio"><option>All</option>${PRIOS.map(a=>`<option ${wsF.prio===a?'selected':''}>${a}</option>`).join('')}</select>
+  <select id="wsStatus"><option>All</option>${STATUSES.map(a=>`<option ${wsF.status===a?'selected':''}>${a}</option>`).join('')}</select>
+  <input type="text" id="wsQ" placeholder="Search tasks…" value="${wsF.q}">
+  <div style="flex:1"></div><button class="btn sm" id="newTask">+ New task</button>
+ </section>
+ ${wsView==='kanban'
+  ?`<section class="kanban">${STATUSES.map(st=>`<div class="kcol"><h4>${st}<span>${vis.filter(t=>t.status===st).length}</span></h4>
+     ${vis.filter(t=>t.status===st).map(taskCard).join('')||'<div style="font-size:12px;color:var(--faint);padding:6px">No tasks in this column.</div>'}</div>`).join('')}</section>`
+  :`<section class="card"><div class="scrolly"><table><thead><tr><th style="width:32%">Task</th><th>Area</th><th>Assignee</th><th>Priority</th><th>Status</th><th>Due</th><th>Progress</th></tr></thead><tbody>
+     ${vis.slice().sort((a,b)=>(a.due||'9999')<(b.due||'9999')?-1:1).map(t=>`<tr data-open="${t.id}" style="cursor:pointer">
+      <td style="font-weight:600;color:var(--ink)">${t.title}</td><td><span class="pill">${t.area}</span></td>
+      <td style="white-space:nowrap;color:var(--muted)">${t.assignee||'—'}</td>
+      <td style="white-space:nowrap"><span class="prio ${t.priority}" style="margin-right:6px"></span>${t.priority}</td>
+      <td><span class="chip ${t.status==='Completed'?'ok':t.status==='Waiting'?'warn':'mut'}">${t.status}</span></td>
+      <td class="num" style="color:${t.due&&t.due<today&&t.status!=='Completed'?'var(--neg)':'inherit'}">${t.due||'—'}</td>
+      <td class="num">${prog(t)}%</td></tr>`).join('')||'<tr><td colspan="7" style="text-align:center;color:var(--faint);padding:24px">No tasks match — create one to get started.</td></tr>'}</tbody></table></div></section>`}
+ <section><div class="grid g2">
+  <div class="card"><div class="pad"><h3>Open tasks by area</h3></div><div class="chartbox" style="height:200px"><canvas id="chWsArea"></canvas></div></div>
+  <div class="card"><div class="pad"><h3>Open tasks by priority</h3></div><div class="chartbox" style="height:200px"><canvas id="chWsPrio"></canvas></div></div>
+ </div></section>`;
+ $('#wsViewCtl').onclick=e=>{const b=e.target.closest('button');if(!b)return;wsView=b.dataset.v;store.set('lWsView',wsView);killCharts();rWorkspace();};
+ $('#wsArea').onchange=e=>{wsF.area=e.target.value;killCharts();rWorkspace();};
+ $('#wsPrio').onchange=e=>{wsF.prio=e.target.value;killCharts();rWorkspace();};
+ $('#wsStatus').onchange=e=>{wsF.status=e.target.value;killCharts();rWorkspace();};
+ $('#wsQ').oninput=e=>{wsF.q=e.target.value;killCharts();rWorkspace();const i=$('#wsQ');i.focus();i.setSelectionRange(i.value.length,i.value.length);};
+ $('#newTask').onclick=()=>openTask(null);
+ $$('[data-open]').forEach(el=>el.onclick=()=>openTask(+el.dataset.open));
+ const openT=act.filter(t=>t.status!=='Completed');
+ mkChart('chWsArea',{type:'bar',data:{labels:AREAS,datasets:[{data:AREAS.map(a=>openT.filter(t=>t.area===a).length),backgroundColor:css('--chart-a'),borderRadius:6,barPercentage:.5}]},
+  options:{...axis(v=>v,{legend:false}),indexAxis:'y'}});
+ mkChart('chWsPrio',{type:'bar',data:{labels:PRIOS,datasets:[{data:PRIOS.map(p=>openT.filter(t=>t.priority===p).length),backgroundColor:[css('--chart-c'),css('--chart-b'),css('--warn'),css('--neg')],borderRadius:6,barPercentage:.5}]},
+  options:{...axis(v=>v,{legend:false}),indexAxis:'y'}});
+}
+function openTask(id){
+ const isNew=id==null;
+ const t=isNew?{id:Date.now(),title:'',desc:'',status:'Not Started',priority:'Medium',area:'Portfolio',due:'',assignee:'',tags:[],created:new Date().toISOString().slice(0,10),subtasks:[],comments:[],archived:false}
+  :tasks.find(x=>x.id===id);
+ const M=$('#taskModal');
+ M.innerHTML=`<h3>${isNew?'New task':'Edit task'}</h3>
+  <div style="margin-bottom:12px"><label>Title</label><input id="tTitle" value="${(t.title||'').replace(/"/g,'&quot;')}" placeholder="Task title"></div>
+  <div style="margin-bottom:12px"><label>Description</label><textarea id="tDesc">${t.desc||''}</textarea></div>
+  <div class="mrow">
+   <div><label>Status</label><select id="tStatus">${STATUSES.map(s=>`<option ${t.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
+   <div><label>Priority</label><select id="tPrio">${PRIOS.map(s=>`<option ${t.priority===s?'selected':''}>${s}</option>`).join('')}</select></div>
+   <div><label>Area</label><select id="tArea">${AREAS.map(s=>`<option ${t.area===s?'selected':''}>${s}</option>`).join('')}</select></div>
+   <div><label>Due date</label><input id="tDue" type="date" value="${t.due||''}"></div>
+  </div>
+  <div class="mrow">
+   <div><label>Assignee (optional)</label><input id="tAssignee" value="${(t.assignee||'').replace(/"/g,'&quot;')}" placeholder="Unassigned"></div>
+   <div><label>Tags (comma separated)</label><input id="tTags" value="${(t.tags||[]).join(', ')}"></div>
+  </div>
+  <div style="margin-bottom:12px"><label>Subtasks · ${prog(t)}% complete</label>
+   <div id="tSubs">${t.subtasks.map((s,i)=>`<div class="subt"><input type="checkbox" data-i="${i}" ${s.done?'checked':''}><span class="st ${s.done?'done':''}">${s.t}</span></div>`).join('')}</div>
+   <div style="display:flex;gap:8px;margin-top:8px"><input id="tNewSub" placeholder="Add a subtask…" style="flex:1"><button class="btn ghost sm" id="tAddSub">Add</button></div></div>
+  <div style="margin-bottom:14px"><label>Comments</label>
+   <div id="tComments">${t.comments.map(c=>`<div class="comment"><span class="a">${c.a}</span><span class="t">${c.t}</span><div>${c.m}</div></div>`).join('')||'<div style="font-size:12px;color:var(--faint)">No comments yet.</div>'}</div>
+   <div style="display:flex;gap:8px;margin-top:8px"><input id="tNewCom" placeholder="Write a comment…" style="flex:1"><button class="btn ghost sm" id="tAddCom">Post</button></div></div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+   <button class="btn" id="tSave">${isNew?'Create task':'Save changes'}</button>
+   ${!isNew?'<button class="btn ghost" id="tDone">Mark completed</button><button class="btn ghost" id="tDup">Duplicate</button><button class="btn ghost" id="tArch">Archive</button><button class="btn ghost" id="tDel" style="color:var(--neg)">Delete</button>':''}
+   <div style="flex:1"></div><button class="btn ghost" id="tClose">Close</button>
+  </div>`;
+ $('#taskScrim').style.display='flex';
+ const pull=()=>{t.title=$('#tTitle').value.trim()||'Untitled task';t.desc=$('#tDesc').value;t.status=$('#tStatus').value;
+  t.priority=$('#tPrio').value;t.area=$('#tArea').value;t.due=$('#tDue').value;t.assignee=$('#tAssignee').value.trim();
+  t.tags=$('#tTags').value.split(',').map(x=>x.trim()).filter(Boolean);t.updated=new Date().toISOString().slice(0,10);};
+ const close=()=>{$('#taskScrim').style.display='none';killCharts();rWorkspace();};
+ $('#tClose').onclick=close;
+ $('#taskScrim').onclick=e=>{if(e.target.id==='taskScrim')close();};
+ $('#tSave').onclick=()=>{pull();if(isNew)tasks.push(t);saveTasks();close();};
+ $('#tAddSub').onclick=()=>{const v=$('#tNewSub').value.trim();if(!v)return;t.subtasks.push({t:v,done:false});if(isNew&&!tasks.includes(t))tasks.push(t);saveTasks();openTask(t.id);};
+ $('#tAddCom').onclick=()=>{const v=$('#tNewCom').value.trim();if(!v)return;
+  t.comments.push({a:'Addem',t:new Date().toISOString().slice(0,16).replace('T',' '),m:v});if(isNew&&!tasks.includes(t))tasks.push(t);saveTasks();openTask(t.id);};
+ $$('#tSubs input[type=checkbox]').forEach(cb=>cb.onchange=()=>{t.subtasks[+cb.dataset.i].done=cb.checked;saveTasks();});
+ if(!isNew){
+  $('#tDone').onclick=()=>{t.status='Completed';saveTasks();close();};
+  $('#tDup').onclick=()=>{pull();const c=JSON.parse(JSON.stringify(t));c.id=Date.now();c.title+=' (copy)';c.status='Not Started';tasks.push(c);saveTasks();close();};
+  $('#tArch').onclick=()=>{t.archived=true;saveTasks();close();};
+  $('#tDel').onclick=()=>{tasks=tasks.filter(x=>x.id!==t.id);saveTasks();close();};}
+}
+
+/* ==================== SETTINGS ==================== */
+function rSettings(){
+ const theme=document.documentElement.dataset.theme;
+ $('#view').innerHTML=`
+ <div class="pagehead"><span class="eyebrow">Application</span><h1>Settings</h1></div>
+ <section><div class="grid g2">
+  <div class="card pad"><h3>Appearance</h3><div class="sub" style="margin-bottom:12px">Theme applies across the platform and persists in this browser.</div>
+   <div class="segctl" id="setTheme"><button data-v="light" class="${theme==='light'?'on':''}">Light</button><button data-v="dark" class="${theme==='dark'?'on':''}">Dark</button></div></div>
+  <div class="card pad"><h3>Data status</h3><div class="sub" style="margin-bottom:12px">Sources currently loaded into the platform.</div>
+   <table style="font-size:12.5px">
+    <tr><td style="text-align:left">Loan tape</td><td class="num">as of ${DATA.meta.as_of_date} · ${LT.total.origination.count} orders · 6 business units</td></tr>
+    <tr><td style="text-align:left">Payment detail</td><td class="num">172 settled rows + 160 expected milestones · 2025–2026</td></tr>
+    <tr><td style="text-align:left">Financial statements</td><td class="num">${PERIODS.length} consolidated annual closes (FY2024 · FY2025 pre-audit)</td></tr>
+    <tr><td style="text-align:left">Credit policy</td><td class="num">Manual de Crédito 2026 (in force) · SPV facility (indicative)</td></tr>
+    <tr><td style="text-align:left">Google Drive sync</td><td><span class="chip mut">Offline build — ETL-fed</span></td></tr>
+   </table></div>
+  <div class="card pad"><h3>Workspace data</h3><div class="sub" style="margin-bottom:12px">Tasks are stored locally in this browser.</div>
+   <button class="btn ghost sm" id="resetTasks">Reset workspace to seed tasks</button></div>
+  <div class="card pad"><h3>About</h3>
+   <table style="font-size:12.5px">
+    <tr><td style="text-align:left">Application</td><td class="num">Loads Institutional Reporting · v1.0</td></tr>
+    <tr><td style="text-align:left">Owner</td><td class="num">Addem Capital</td></tr>
+    <tr><td style="text-align:left">Currency</td><td class="num">USD</td></tr>
+    <tr><td style="text-align:left">User</td><td class="num">Addem</td></tr>
+   </table></div>
+ </div></section>`;
+ $('#setTheme').onclick=e=>{const b=e.target.closest('button');if(!b)return;
+  document.documentElement.dataset.theme=b.dataset.v;store.set('theme',b.dataset.v);
+  $('#themeToggle').textContent=b.dataset.v==='light'?'Dark mode':'Light mode';rSettings();};
+ $('#resetTasks').onclick=()=>{tasks=seedTasks();saveTasks();rSettings();};
+}
+
+/* ==================== boot ==================== */
+const RENDER={overview:rOverview,portfolio:rPortfolio,metrics:rMetrics,financials:rFinancials,
+ facility:rFacility,performance:rPerformance,documents:rDocuments,workspace:rWorkspace,settings:rSettings};
+const savedTheme=store.get('theme','light');
+document.documentElement.dataset.theme=savedTheme;
+$('#themeToggle').textContent=savedTheme==='light'?'Dark mode':'Light mode';
+if(sess.get('auth')==='1')showApp();else showLogin();
+</script>
+</body>
+</html>

@@ -1,0 +1,1644 @@
+{
+ "as_of": "2026-06-21",
+ "segments": {
+  "total": {
+   "label": "Total Portfolio",
+   "parent": null,
+   "origination": {
+    "count": 120,
+    "amount": 4810722.0,
+    "first": "2025-09-17",
+    "last": "2026-04-29",
+    "avg_ticket": 40089.35,
+    "tenor_days": {
+     "min": -18,
+     "max": 76,
+     "wa": 38.0
+    }
+   },
+   "outstanding": {
+    "active_ob": 864453.97,
+    "active_count": 41,
+    "avg_balance": 21084.24
+   },
+   "weighted_averages": {
+    "gross_trade_margin": 0.0129,
+    "wa_tenor_days": 38.0,
+    "wa_credit_score": 569.0,
+    "net_adjustments": 296945.0
+   },
+   "credit_quality": {
+    "dpd_distribution": [
+     {
+      "bucket": "Current",
+      "outstanding": 131631.85,
+      "pct_opb": 0.152272,
+      "count": 4
+     },
+     {
+      "bucket": "1\u201330 DPD",
+      "outstanding": 462046.68,
+      "pct_opb": 0.534495,
+      "count": 18
+     },
+     {
+      "bucket": "31\u201360 DPD",
+      "outstanding": 205747.99,
+      "pct_opb": 0.238009,
+      "count": 14
+     },
+     {
+      "bucket": "61\u201390 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "91\u2013150 DPD",
+      "outstanding": 64429.23,
+      "pct_opb": 0.074532,
+      "count": 4
+     },
+     {
+      "bucket": "151\u2013180 DPD",
+      "outstanding": 598.22,
+      "pct_opb": 0.000692,
+      "count": 1
+     },
+     {
+      "bucket": "> 180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     }
+    ],
+    "current": {
+     "amount": 131631.85,
+     "pct": 0.152272
+    },
+    "par30": {
+     "amount": 270775.44,
+     "pct": 0.313233,
+     "count": 19
+    },
+    "par60": {
+     "amount": 65027.45,
+     "pct": 0.075224,
+     "count": 5
+    },
+    "par90": {
+     "amount": 65027.45,
+     "pct": 0.075224,
+     "count": 5
+    },
+    "npl": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    }
+   },
+   "provision": {
+    "expected_loss": 16496.15,
+    "net_receivable": 847957.82,
+    "coverage_pct": 0.019083
+   },
+   "collections": {
+    "total": 3865154.0,
+    "by_type": {
+     "advance": 161891.0,
+     "regular": 3703263.0
+    },
+    "monthly": [
+     {
+      "month": "2025-09",
+      "value": 31720.0
+     },
+     {
+      "month": "2025-10",
+      "value": 118621.0
+     },
+     {
+      "month": "2025-11",
+      "value": 323370.0
+     },
+     {
+      "month": "2025-12",
+      "value": 902875.0
+     },
+     {
+      "month": "2026-01",
+      "value": 655920.0
+     },
+     {
+      "month": "2026-02",
+      "value": 549918.0
+     },
+     {
+      "month": "2026-03",
+      "value": 734748.0
+     },
+     {
+      "month": "2026-04",
+      "value": 479650.0
+     },
+     {
+      "month": "2026-05",
+      "value": 68332.0
+     }
+    ],
+    "collection_rate": 0.803446
+   },
+   "origination_monthly": [
+    {
+     "month": "2025-09",
+     "value": 148806.0
+    },
+    {
+     "month": "2025-10",
+     "value": 445669.0
+    },
+    {
+     "month": "2025-11",
+     "value": 1055424.0
+    },
+    {
+     "month": "2025-12",
+     "value": 727847.0
+    },
+    {
+     "month": "2026-01",
+     "value": 503336.0
+    },
+    {
+     "month": "2026-02",
+     "value": 727780.0
+    },
+    {
+     "month": "2026-03",
+     "value": 880982.0
+    },
+    {
+     "month": "2026-04",
+     "value": 320878.0
+    }
+   ],
+   "cohorts": [
+    {
+     "cohort": "2025-09",
+     "disbursed": 148806.0,
+     "collected": 148805.0,
+     "count": 6,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2025-10",
+     "disbursed": 445669.0,
+     "collected": 445064.0,
+     "count": 12,
+     "collection_rate": 0.9986
+    },
+    {
+     "cohort": "2025-11",
+     "disbursed": 1055424.0,
+     "collected": 1051106.0,
+     "count": 22,
+     "collection_rate": 0.9959
+    },
+    {
+     "cohort": "2025-12",
+     "disbursed": 727847.0,
+     "collected": 667719.0,
+     "count": 14,
+     "collection_rate": 0.9174
+    },
+    {
+     "cohort": "2026-01",
+     "disbursed": 503336.0,
+     "collected": 503333.0,
+     "count": 12,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-02",
+     "disbursed": 727780.0,
+     "collected": 654319.0,
+     "count": 20,
+     "collection_rate": 0.8991
+    },
+    {
+     "cohort": "2026-03",
+     "disbursed": 880982.0,
+     "collected": 380068.0,
+     "count": 26,
+     "collection_rate": 0.4314
+    },
+    {
+     "cohort": "2026-04",
+     "disbursed": 320878.0,
+     "collected": 14740.0,
+     "count": 8,
+     "collection_rate": 0.0459
+    }
+   ],
+   "status_distribution": {
+    "Collected in full": 79,
+    "Open \u2014 1\u201330 DPD": 18,
+    "Open \u2014 31\u201390 DPD": 14,
+    "Open \u2014 91\u2013180 DPD": 5,
+    "Open \u2014 current": 4
+   },
+   "top5_ticket_share": 0.38471
+  },
+  "total_active": {
+   "label": "Total Portfolio \u2014 Active",
+   "parent": "total",
+   "origination": {
+    "count": 41,
+    "amount": 1413919.0,
+    "first": "2025-10-09",
+    "last": "2026-04-22",
+    "avg_ticket": 34485.83,
+    "tenor_days": {
+     "min": 6,
+     "max": 76,
+     "wa": 47.6
+    }
+   },
+   "outstanding": {
+    "active_ob": 864453.97,
+    "active_count": 41,
+    "avg_balance": 21084.24
+   },
+   "weighted_averages": {
+    "gross_trade_margin": -0.049,
+    "wa_tenor_days": 47.6,
+    "wa_credit_score": 578.0,
+    "net_adjustments": 34865.0
+   },
+   "credit_quality": {
+    "dpd_distribution": [
+     {
+      "bucket": "Current",
+      "outstanding": 131631.85,
+      "pct_opb": 0.152272,
+      "count": 4
+     },
+     {
+      "bucket": "1\u201330 DPD",
+      "outstanding": 462046.68,
+      "pct_opb": 0.534495,
+      "count": 18
+     },
+     {
+      "bucket": "31\u201360 DPD",
+      "outstanding": 205747.99,
+      "pct_opb": 0.238009,
+      "count": 14
+     },
+     {
+      "bucket": "61\u201390 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "91\u2013150 DPD",
+      "outstanding": 64429.23,
+      "pct_opb": 0.074532,
+      "count": 4
+     },
+     {
+      "bucket": "151\u2013180 DPD",
+      "outstanding": 598.22,
+      "pct_opb": 0.000692,
+      "count": 1
+     },
+     {
+      "bucket": "> 180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     }
+    ],
+    "current": {
+     "amount": 131631.85,
+     "pct": 0.152272
+    },
+    "par30": {
+     "amount": 270775.44,
+     "pct": 0.313233,
+     "count": 19
+    },
+    "par60": {
+     "amount": 65027.45,
+     "pct": 0.075224,
+     "count": 5
+    },
+    "par90": {
+     "amount": 65027.45,
+     "pct": 0.075224,
+     "count": 5
+    },
+    "npl": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    }
+   },
+   "provision": {
+    "expected_loss": 16496.15,
+    "net_receivable": 847957.82,
+    "coverage_pct": 0.019083
+   },
+   "collections": {
+    "total": 533037.0,
+    "by_type": {
+     "advance": 6351.0,
+     "regular": 526686.0
+    },
+    "monthly": [
+     {
+      "month": "2025-10",
+      "value": 2984.0
+     },
+     {
+      "month": "2025-11",
+      "value": 14735.0
+     },
+     {
+      "month": "2025-12",
+      "value": 13469.0
+     },
+     {
+      "month": "2026-01",
+      "value": 26000.0
+     },
+     {
+      "month": "2026-03",
+      "value": 181679.0
+     },
+     {
+      "month": "2026-04",
+      "value": 225838.0
+     },
+     {
+      "month": "2026-05",
+      "value": 68332.0
+     }
+    ],
+    "collection_rate": 0.376993
+   },
+   "origination_monthly": [
+    {
+     "month": "2025-10",
+     "value": 28420.0
+    },
+    {
+     "month": "2025-11",
+     "value": 33674.0
+    },
+    {
+     "month": "2025-12",
+     "value": 72581.0
+    },
+    {
+     "month": "2026-02",
+     "value": 252694.0
+    },
+    {
+     "month": "2026-03",
+     "value": 770328.0
+    },
+    {
+     "month": "2026-04",
+     "value": 256222.0
+    }
+   ],
+   "cohorts": [
+    {
+     "cohort": "2025-10",
+     "disbursed": 28420.0,
+     "collected": 27821.0,
+     "count": 1,
+     "collection_rate": 0.9789
+    },
+    {
+     "cohort": "2025-11",
+     "disbursed": 33674.0,
+     "collected": 29367.0,
+     "count": 1,
+     "collection_rate": 0.8721
+    },
+    {
+     "cohort": "2025-12",
+     "disbursed": 72581.0,
+     "collected": 12459.0,
+     "count": 3,
+     "collection_rate": 0.1717
+    },
+    {
+     "cohort": "2026-02",
+     "disbursed": 252694.0,
+     "collected": 179235.0,
+     "count": 7,
+     "collection_rate": 0.7093
+    },
+    {
+     "cohort": "2026-03",
+     "disbursed": 770328.0,
+     "collected": 269415.0,
+     "count": 22,
+     "collection_rate": 0.3497
+    },
+    {
+     "cohort": "2026-04",
+     "disbursed": 256222.0,
+     "collected": 14740.0,
+     "count": 7,
+     "collection_rate": 0.0575
+    }
+   ],
+   "status_distribution": {
+    "Open \u2014 1\u201330 DPD": 18,
+    "Open \u2014 31\u201390 DPD": 14,
+    "Open \u2014 91\u2013180 DPD": 5,
+    "Open \u2014 current": 4
+   },
+   "top5_ticket_share": 0.38471
+  },
+  "total_closed": {
+   "label": "Total Portfolio \u2014 Closed",
+   "parent": "total",
+   "origination": {
+    "count": 79,
+    "amount": 3396803.0,
+    "first": "2025-09-17",
+    "last": "2026-04-29",
+    "avg_ticket": 42997.51,
+    "tenor_days": {
+     "min": -18,
+     "max": 70,
+     "wa": 34.1
+    }
+   },
+   "outstanding": {
+    "active_ob": 0,
+    "active_count": 0,
+    "avg_balance": null
+   },
+   "weighted_averages": {
+    "gross_trade_margin": 0.0375,
+    "wa_tenor_days": 34.1,
+    "wa_credit_score": 565.0,
+    "net_adjustments": 262080.0
+   },
+   "credit_quality": {
+    "dpd_distribution": [
+     {
+      "bucket": "Current",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "1\u201330 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "31\u201360 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "61\u201390 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "91\u2013150 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "151\u2013180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "> 180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     }
+    ],
+    "current": {
+     "amount": 0,
+     "pct": 0.0
+    },
+    "par30": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    },
+    "par60": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    },
+    "par90": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    },
+    "npl": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    }
+   },
+   "provision": {
+    "expected_loss": 0,
+    "net_receivable": 0,
+    "coverage_pct": 0.0
+   },
+   "collections": {
+    "total": 3332117.0,
+    "by_type": {
+     "advance": 155540.0,
+     "regular": 3176577.0
+    },
+    "monthly": [
+     {
+      "month": "2025-09",
+      "value": 31720.0
+     },
+     {
+      "month": "2025-10",
+      "value": 115637.0
+     },
+     {
+      "month": "2025-11",
+      "value": 308635.0
+     },
+     {
+      "month": "2025-12",
+      "value": 889406.0
+     },
+     {
+      "month": "2026-01",
+      "value": 629920.0
+     },
+     {
+      "month": "2026-02",
+      "value": 549918.0
+     },
+     {
+      "month": "2026-03",
+      "value": 553069.0
+     },
+     {
+      "month": "2026-04",
+      "value": 253812.0
+     }
+    ],
+    "collection_rate": 0.980957
+   },
+   "origination_monthly": [
+    {
+     "month": "2025-09",
+     "value": 148806.0
+    },
+    {
+     "month": "2025-10",
+     "value": 417249.0
+    },
+    {
+     "month": "2025-11",
+     "value": 1021750.0
+    },
+    {
+     "month": "2025-12",
+     "value": 655266.0
+    },
+    {
+     "month": "2026-01",
+     "value": 503336.0
+    },
+    {
+     "month": "2026-02",
+     "value": 475086.0
+    },
+    {
+     "month": "2026-03",
+     "value": 110654.0
+    },
+    {
+     "month": "2026-04",
+     "value": 64656.0
+    }
+   ],
+   "cohorts": [
+    {
+     "cohort": "2025-09",
+     "disbursed": 148806.0,
+     "collected": 148805.0,
+     "count": 6,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2025-10",
+     "disbursed": 417249.0,
+     "collected": 417243.0,
+     "count": 11,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2025-11",
+     "disbursed": 1021750.0,
+     "collected": 1021739.0,
+     "count": 21,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2025-12",
+     "disbursed": 655266.0,
+     "collected": 655260.0,
+     "count": 11,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-01",
+     "disbursed": 503336.0,
+     "collected": 503333.0,
+     "count": 12,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-02",
+     "disbursed": 475086.0,
+     "collected": 475084.0,
+     "count": 13,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-03",
+     "disbursed": 110654.0,
+     "collected": 110653.0,
+     "count": 4,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-04",
+     "disbursed": 64656.0,
+     "collected": 0.0,
+     "count": 1,
+     "collection_rate": 0.0
+    }
+   ],
+   "status_distribution": {
+    "Collected in full": 79
+   },
+   "top5_ticket_share": null
+  },
+  "fin": {
+   "label": "Loads Finance BU",
+   "parent": null,
+   "origination": {
+    "count": 51,
+    "amount": 1927999.0,
+    "first": "2025-10-02",
+    "last": "2026-04-20",
+    "avg_ticket": 37803.9,
+    "tenor_days": {
+     "min": 7,
+     "max": 76,
+     "wa": 41.6
+    }
+   },
+   "outstanding": {
+    "active_ob": 156949.93,
+    "active_count": 12,
+    "avg_balance": 13079.16
+   },
+   "weighted_averages": {
+    "gross_trade_margin": 0.0382,
+    "wa_tenor_days": 41.6,
+    "wa_credit_score": 561.0,
+    "net_adjustments": 36961.0
+   },
+   "credit_quality": {
+    "dpd_distribution": [
+     {
+      "bucket": "Current",
+      "outstanding": 12606.77,
+      "pct_opb": 0.080324,
+      "count": 1
+     },
+     {
+      "bucket": "1\u201330 DPD",
+      "outstanding": 78803.25,
+      "pct_opb": 0.502092,
+      "count": 5
+     },
+     {
+      "bucket": "31\u201360 DPD",
+      "outstanding": 61233.13,
+      "pct_opb": 0.390144,
+      "count": 5
+     },
+     {
+      "bucket": "61\u201390 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "91\u2013150 DPD",
+      "outstanding": 4306.78,
+      "pct_opb": 0.02744,
+      "count": 1
+     },
+     {
+      "bucket": "151\u2013180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "> 180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     }
+    ],
+    "current": {
+     "amount": 12606.77,
+     "pct": 0.080324
+    },
+    "par30": {
+     "amount": 65539.91,
+     "pct": 0.417585,
+     "count": 6
+    },
+    "par60": {
+     "amount": 4306.78,
+     "pct": 0.02744,
+     "count": 1
+    },
+    "par90": {
+     "amount": 4306.78,
+     "pct": 0.02744,
+     "count": 1
+    },
+    "npl": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    }
+   },
+   "provision": {
+    "expected_loss": 1076.69,
+    "net_receivable": 155873.23,
+    "coverage_pct": 0.00686
+   },
+   "collections": {
+    "total": 1770999.0,
+    "by_type": {
+     "advance": 84271.0,
+     "regular": 1686728.0
+    },
+    "monthly": [
+     {
+      "month": "2025-10",
+      "value": 22723.0
+     },
+     {
+      "month": "2025-11",
+      "value": 150053.0
+     },
+     {
+      "month": "2025-12",
+      "value": 331984.0
+     },
+     {
+      "month": "2026-01",
+      "value": 355382.0
+     },
+     {
+      "month": "2026-02",
+      "value": 331259.0
+     },
+     {
+      "month": "2026-03",
+      "value": 410085.0
+     },
+     {
+      "month": "2026-04",
+      "value": 154773.0
+     },
+     {
+      "month": "2026-05",
+      "value": 14740.0
+     }
+    ],
+    "collection_rate": 0.918568
+   },
+   "origination_monthly": [
+    {
+     "month": "2025-10",
+     "value": 151886.0
+    },
+    {
+     "month": "2025-11",
+     "value": 380620.0
+    },
+    {
+     "month": "2025-12",
+     "value": 378141.0
+    },
+    {
+     "month": "2026-01",
+     "value": 269305.0
+    },
+    {
+     "month": "2026-02",
+     "value": 499725.0
+    },
+    {
+     "month": "2026-03",
+     "value": 218802.0
+    },
+    {
+     "month": "2026-04",
+     "value": 29520.0
+    }
+   ],
+   "cohorts": [
+    {
+     "cohort": "2025-10",
+     "disbursed": 151886.0,
+     "collected": 151882.0,
+     "count": 5,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2025-11",
+     "disbursed": 380620.0,
+     "collected": 376308.0,
+     "count": 11,
+     "collection_rate": 0.9887
+    },
+    {
+     "cohort": "2025-12",
+     "disbursed": 378141.0,
+     "collected": 378137.0,
+     "count": 7,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-01",
+     "disbursed": 269305.0,
+     "collected": 269303.0,
+     "count": 7,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-02",
+     "disbursed": 499725.0,
+     "collected": 427867.0,
+     "count": 14,
+     "collection_rate": 0.8562
+    },
+    {
+     "cohort": "2026-03",
+     "disbursed": 218802.0,
+     "collected": 152762.0,
+     "count": 6,
+     "collection_rate": 0.6982
+    },
+    {
+     "cohort": "2026-04",
+     "disbursed": 29520.0,
+     "collected": 14740.0,
+     "count": 1,
+     "collection_rate": 0.4993
+    }
+   ],
+   "status_distribution": {
+    "Collected in full": 39,
+    "Open \u2014 31\u201390 DPD": 5,
+    "Open \u2014 1\u201330 DPD": 5,
+    "Open \u2014 current": 1,
+    "Open \u2014 91\u2013180 DPD": 1
+   },
+   "top5_ticket_share": 1.37986
+  },
+  "fin_active": {
+   "label": "Loads Finance BU \u2014 Active",
+   "parent": "fin",
+   "origination": {
+    "count": 12,
+    "amount": 431144.0,
+    "first": "2025-11-18",
+    "last": "2026-04-20",
+    "avg_ticket": 35928.67,
+    "tenor_days": {
+     "min": 42,
+     "max": 76,
+     "wa": 60.9
+    }
+   },
+   "outstanding": {
+    "active_ob": 156949.93,
+    "active_count": 12,
+    "avg_balance": 13079.16
+   },
+   "weighted_averages": {
+    "gross_trade_margin": 0.0047,
+    "wa_tenor_days": 60.9,
+    "wa_credit_score": 523.0,
+    "net_adjustments": -34.0
+   },
+   "credit_quality": {
+    "dpd_distribution": [
+     {
+      "bucket": "Current",
+      "outstanding": 12606.77,
+      "pct_opb": 0.080324,
+      "count": 1
+     },
+     {
+      "bucket": "1\u201330 DPD",
+      "outstanding": 78803.25,
+      "pct_opb": 0.502092,
+      "count": 5
+     },
+     {
+      "bucket": "31\u201360 DPD",
+      "outstanding": 61233.13,
+      "pct_opb": 0.390144,
+      "count": 5
+     },
+     {
+      "bucket": "61\u201390 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "91\u2013150 DPD",
+      "outstanding": 4306.78,
+      "pct_opb": 0.02744,
+      "count": 1
+     },
+     {
+      "bucket": "151\u2013180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "> 180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     }
+    ],
+    "current": {
+     "amount": 12606.77,
+     "pct": 0.080324
+    },
+    "par30": {
+     "amount": 65539.91,
+     "pct": 0.417585,
+     "count": 6
+    },
+    "par60": {
+     "amount": 4306.78,
+     "pct": 0.02744,
+     "count": 1
+    },
+    "par90": {
+     "amount": 4306.78,
+     "pct": 0.02744,
+     "count": 1
+    },
+    "npl": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    }
+   },
+   "provision": {
+    "expected_loss": 1076.69,
+    "net_receivable": 155873.23,
+    "coverage_pct": 0.00686
+   },
+   "collections": {
+    "total": 274159.0,
+    "by_type": {
+     "advance": 3367.0,
+     "regular": 270792.0
+    },
+    "monthly": [
+     {
+      "month": "2025-11",
+      "value": 3367.0
+     },
+     {
+      "month": "2026-01",
+      "value": 26000.0
+     },
+     {
+      "month": "2026-03",
+      "value": 122810.0
+     },
+     {
+      "month": "2026-04",
+      "value": 107242.0
+     },
+     {
+      "month": "2026-05",
+      "value": 14740.0
+     }
+    ],
+    "collection_rate": 0.635887
+   },
+   "origination_monthly": [
+    {
+     "month": "2025-11",
+     "value": 33674.0
+    },
+    {
+     "month": "2026-02",
+     "value": 176784.0
+    },
+    {
+     "month": "2026-03",
+     "value": 191166.0
+    },
+    {
+     "month": "2026-04",
+     "value": 29520.0
+    }
+   ],
+   "cohorts": [
+    {
+     "cohort": "2025-11",
+     "disbursed": 33674.0,
+     "collected": 29367.0,
+     "count": 1,
+     "collection_rate": 0.8721
+    },
+    {
+     "cohort": "2026-02",
+     "disbursed": 176784.0,
+     "collected": 104926.0,
+     "count": 5,
+     "collection_rate": 0.5935
+    },
+    {
+     "cohort": "2026-03",
+     "disbursed": 191166.0,
+     "collected": 125126.0,
+     "count": 5,
+     "collection_rate": 0.6545
+    },
+    {
+     "cohort": "2026-04",
+     "disbursed": 29520.0,
+     "collected": 14740.0,
+     "count": 1,
+     "collection_rate": 0.4993
+    }
+   ],
+   "status_distribution": {
+    "Open \u2014 31\u201390 DPD": 5,
+    "Open \u2014 1\u201330 DPD": 5,
+    "Open \u2014 current": 1,
+    "Open \u2014 91\u2013180 DPD": 1
+   },
+   "top5_ticket_share": 1.37986
+  },
+  "fin_closed": {
+   "label": "Loads Finance BU \u2014 Closed",
+   "parent": "fin",
+   "origination": {
+    "count": 39,
+    "amount": 1496855.0,
+    "first": "2025-10-02",
+    "last": "2026-03-04",
+    "avg_ticket": 38380.9,
+    "tenor_days": {
+     "min": 7,
+     "max": 70,
+     "wa": 36.1
+    }
+   },
+   "outstanding": {
+    "active_ob": 0,
+    "active_count": 0,
+    "avg_balance": null
+   },
+   "weighted_averages": {
+    "gross_trade_margin": 0.0476,
+    "wa_tenor_days": 36.1,
+    "wa_credit_score": 572.0,
+    "net_adjustments": 36995.0
+   },
+   "credit_quality": {
+    "dpd_distribution": [
+     {
+      "bucket": "Current",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "1\u201330 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "31\u201360 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "61\u201390 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "91\u2013150 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "151\u2013180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     },
+     {
+      "bucket": "> 180 DPD",
+      "outstanding": 0,
+      "pct_opb": 0.0,
+      "count": 0
+     }
+    ],
+    "current": {
+     "amount": 0,
+     "pct": 0.0
+    },
+    "par30": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    },
+    "par60": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    },
+    "par90": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    },
+    "npl": {
+     "amount": 0,
+     "pct": 0.0,
+     "count": 0
+    }
+   },
+   "provision": {
+    "expected_loss": 0,
+    "net_receivable": 0,
+    "coverage_pct": 0.0
+   },
+   "collections": {
+    "total": 1496840.0,
+    "by_type": {
+     "advance": 80904.0,
+     "regular": 1415936.0
+    },
+    "monthly": [
+     {
+      "month": "2025-10",
+      "value": 22723.0
+     },
+     {
+      "month": "2025-11",
+      "value": 146686.0
+     },
+     {
+      "month": "2025-12",
+      "value": 331984.0
+     },
+     {
+      "month": "2026-01",
+      "value": 329382.0
+     },
+     {
+      "month": "2026-02",
+      "value": 331259.0
+     },
+     {
+      "month": "2026-03",
+      "value": 287275.0
+     },
+     {
+      "month": "2026-04",
+      "value": 47531.0
+     }
+    ],
+    "collection_rate": 0.99999
+   },
+   "origination_monthly": [
+    {
+     "month": "2025-10",
+     "value": 151886.0
+    },
+    {
+     "month": "2025-11",
+     "value": 346946.0
+    },
+    {
+     "month": "2025-12",
+     "value": 378141.0
+    },
+    {
+     "month": "2026-01",
+     "value": 269305.0
+    },
+    {
+     "month": "2026-02",
+     "value": 322941.0
+    },
+    {
+     "month": "2026-03",
+     "value": 27636.0
+    }
+   ],
+   "cohorts": [
+    {
+     "cohort": "2025-10",
+     "disbursed": 151886.0,
+     "collected": 151882.0,
+     "count": 5,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2025-11",
+     "disbursed": 346946.0,
+     "collected": 346941.0,
+     "count": 10,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2025-12",
+     "disbursed": 378141.0,
+     "collected": 378137.0,
+     "count": 7,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-01",
+     "disbursed": 269305.0,
+     "collected": 269303.0,
+     "count": 7,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-02",
+     "disbursed": 322941.0,
+     "collected": 322941.0,
+     "count": 9,
+     "collection_rate": 1.0
+    },
+    {
+     "cohort": "2026-03",
+     "disbursed": 27636.0,
+     "collected": 27636.0,
+     "count": 1,
+     "collection_rate": 1.0
+    }
+   ],
+   "status_distribution": {
+    "Collected in full": 39
+   },
+   "top5_ticket_share": null
+  }
+ },
+ "concentration": {
+  "importers_active_ob": [
+   {
+    "name": "ALIMENTARI ORTOFRUTTICOLI ABC SPA",
+    "amount": 157757.25,
+    "pct": 0.182494,
+    "count": 6
+   },
+   {
+    "name": "LA CALERA COLOMBIA S.A.",
+    "amount": 102002.5,
+    "pct": 0.117996,
+    "count": 3
+   },
+   {
+    "name": "OPERADORA FUTURAMA S.A. DE C.V.",
+    "amount": 89208.04,
+    "pct": 0.103196,
+    "count": 2
+   },
+   {
+    "name": "PRODUCTOS TITO S.A. DE C.V.",
+    "amount": 80410.58,
+    "pct": 0.093019,
+    "count": 3
+   },
+   {
+    "name": "ALEJANDRO OSUNA",
+    "amount": 69816.85,
+    "pct": 0.080764,
+    "count": 3
+   },
+   {
+    "name": "HERMENEGILDO MATIAS LUCIANO",
+    "amount": 47120.66,
+    "pct": 0.054509,
+    "count": 1
+   },
+   {
+    "name": "COMPAGNIE FRUITI\u221a\u00e0RE ESPA\u221a\u00ebA CORP. SAU",
+    "amount": 44114.0,
+    "pct": 0.051031,
+    "count": 1
+   },
+   {
+    "name": "VIGOMEZ S.A.S.",
+    "amount": 43964.76,
+    "pct": 0.050858,
+    "count": 2
+   }
+  ],
+  "importer_countries_financed": [
+   {
+    "name": "MX",
+    "amount": 2013686.0,
+    "pct": 0.418583,
+    "count": 43
+   },
+   {
+    "name": "CO",
+    "amount": 1360221.0,
+    "pct": 0.282748,
+    "count": 40
+   },
+   {
+    "name": "OU",
+    "amount": 275573.0,
+    "pct": 0.057283,
+    "count": 6
+   },
+   {
+    "name": "US",
+    "amount": 236077.0,
+    "pct": 0.049073,
+    "count": 5
+   },
+   {
+    "name": "IT",
+    "amount": 219753.0,
+    "pct": 0.04568,
+    "count": 6
+   },
+   {
+    "name": "ES",
+    "amount": 215689.0,
+    "pct": 0.044835,
+    "count": 4
+   },
+   {
+    "name": "NL",
+    "amount": 123456.0,
+    "pct": 0.025663,
+    "count": 4
+   },
+   {
+    "name": "CN",
+    "amount": 82596.0,
+    "pct": 0.017169,
+    "count": 2
+   },
+   {
+    "name": "VE",
+    "amount": 82329.0,
+    "pct": 0.017114,
+    "count": 3
+   },
+   {
+    "name": "FR",
+    "amount": 77956.0,
+    "pct": 0.016205,
+    "count": 2
+   }
+  ],
+  "supplier_countries_financed": [
+   {
+    "name": "PE",
+    "amount": 2522517.0,
+    "pct": 0.524353,
+    "count": 45
+   },
+   {
+    "name": "CL",
+    "amount": 1366864.0,
+    "pct": 0.284129,
+    "count": 40
+   },
+   {
+    "name": "US",
+    "amount": 392566.0,
+    "pct": 0.081602,
+    "count": 14
+   },
+   {
+    "name": "PL",
+    "amount": 258550.0,
+    "pct": 0.053745,
+    "count": 10
+   },
+   {
+    "name": "MX",
+    "amount": 135085.0,
+    "pct": 0.02808,
+    "count": 5
+   },
+   {
+    "name": "IT",
+    "amount": 101142.0,
+    "pct": 0.021024,
+    "count": 2
+   },
+   {
+    "name": "KL",
+    "amount": 15677.0,
+    "pct": 0.003259,
+    "count": 1
+   },
+   {
+    "name": "MC",
+    "amount": 12500.0,
+    "pct": 0.002598,
+    "count": 1
+   },
+   {
+    "name": "31",
+    "amount": 4773.0,
+    "pct": 0.000992,
+    "count": 1
+   },
+   {
+    "name": "4",
+    "amount": 1048.0,
+    "pct": 0.000218,
+    "count": 1
+   }
+  ],
+  "business_units_financed": [
+   {
+    "name": "loads_mexico",
+    "amount": 2058537.0,
+    "pct": 0.427906,
+    "count": 43
+   },
+   {
+    "name": "loads_finance",
+    "amount": 1927999.0,
+    "pct": 0.400771,
+    "count": 51
+   },
+   {
+    "name": "loads_fynsa",
+    "amount": 419602.0,
+    "pct": 0.087222,
+    "count": 11
+   },
+   {
+    "name": "loads_chile",
+    "amount": 268898.0,
+    "pct": 0.055896,
+    "count": 9
+   },
+   {
+    "name": "loads_usa",
+    "amount": 130913.0,
+    "pct": 0.027213,
+    "count": 5
+   },
+   {
+    "name": "loads_logistics_chile",
+    "amount": 4773.0,
+    "pct": 0.000992,
+    "count": 1
+   }
+  ],
+  "score_tiers": [
+   {
+    "tier": "AAA",
+    "amount": 882981.0,
+    "pct": 0.183544,
+    "count": 27
+   },
+   {
+    "tier": "AA",
+    "amount": 1142487.0,
+    "pct": 0.237488,
+    "count": 28
+   },
+   {
+    "tier": "A",
+    "amount": 1070983.0,
+    "pct": 0.222624,
+    "count": 26
+   },
+   {
+    "tier": "B",
+    "amount": 599116.0,
+    "pct": 0.124538,
+    "count": 11
+   },
+   {
+    "tier": "C",
+    "amount": 676448.0,
+    "pct": 0.140613,
+    "count": 16
+   },
+   {
+    "tier": "D",
+    "amount": 254688.0,
+    "pct": 0.052942,
+    "count": 6
+   },
+   {
+    "tier": "E",
+    "amount": 184019.0,
+    "pct": 0.038252,
+    "count": 6
+   }
+  ]
+ },
+ "outstanding_series": [
+  {
+   "month": "2025-09",
+   "value": 117086.0
+  },
+  {
+   "month": "2025-10",
+   "value": 444134.0
+  },
+  {
+   "month": "2025-11",
+   "value": 1176185.0
+  },
+  {
+   "month": "2025-12",
+   "value": 1001147.0
+  },
+  {
+   "month": "2026-01",
+   "value": 848555.0
+  },
+  {
+   "month": "2026-02",
+   "value": 1026414.0
+  },
+  {
+   "month": "2026-03",
+   "value": 1172645.0
+  },
+  {
+   "month": "2026-04",
+   "value": 1013870.0
+  },
+  {
+   "month": "2026-05",
+   "value": 880882.0
+  },
+  {
+   "month": "2026-06",
+   "value": 864453.97
+  }
+ ]
+}

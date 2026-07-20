@@ -1,0 +1,19 @@
+LOADS PLATFORM — MONTHLY UPDATE
+================================
+1. Replace sources/loan_tape.xlsx with the latest export (same 3 sheets:
+   "Loan Tape", "expected_payments", "actual_payments"; same column names).
+2. If new financial statements arrive, replace
+   sources/financials_consolidated_2025.txt (same Chilean labeled-line format)
+   and, if a new fiscal year is added, extend the PERIODS list at the top of
+   etl/financials_etl.py.
+3. Run:  python3 etl/build_app.py
+   - The ETL validates payment reconciliation and balance-sheet articulation
+     and will print warnings for orders that do not reconcile.
+4. Open index.html locally, log in (Addem / Addem12345), spot-check:
+   - As-of pill date, hero KPIs, DPD table totals vs the tape
+   - Financial statements tab vs the source txt
+5. Commit + push to GitHub; Vercel redeploys automatically.
+
+Workspace tasks are seeded from etl/build_dashboard_data.py (workspace_seed)
+but live in the analyst's browser localStorage after first load; reseeding
+requires clearing site data or using the reset action in Settings.

@@ -1,0 +1,314 @@
+[
+ {
+  "period": "2024",
+  "source": "Consolidated statutory close \u2014 LOADS USA, INC. (FY2024)",
+  "preliminary": false,
+  "is_monthly": {
+   "sections": {
+    "income": [
+     {
+      "label": "Revenue from ordinary activities",
+      "value": 3865953.0
+     }
+    ],
+    "cost": [
+     {
+      "label": "Cost of operations (Costo de explotaci\u00f3n)",
+      "value": 2873936.0
+     }
+    ],
+    "opex": [
+     {
+      "label": "Administrative expenses",
+      "value": 960577.0
+     }
+    ],
+    "other": [
+     {
+      "label": "Other income (expenses)",
+      "value": 16611.0
+     },
+     {
+      "label": "Financial income (costs)",
+      "value": -61744.0
+     },
+     {
+      "label": "Indexation units (Unidades de reajuste)",
+      "value": -15687.9
+     },
+     {
+      "label": "Income tax (expense) / benefit",
+      "value": 30608.0
+     }
+    ]
+   },
+   "totals": {
+    "revenue": 3865953.0,
+    "cost": 2873936.0,
+    "gross_profit": 992017.0,
+    "opex": 960577.0,
+    "operating_income": 31440.0,
+    "other": -30212.9,
+    "net_income": 1227.1
+   }
+  },
+  "ytd_net_income": 1227.1,
+  "financial_debt": 494805.5,
+  "bs": {
+   "cash": 4543092.6,
+   "total_assets": 7982934.9,
+   "total_liabilities": 2587158.7,
+   "total_equity": 5395776.2,
+   "current_assets": 7742141.8,
+   "current_liabilities": 2587158.7,
+   "trade_receivables": 1151715.3,
+   "paid_in_capital": 6010000.0,
+   "detail": {
+    "assets": [
+     {
+      "label": "Cash and cash equivalents",
+      "value": 4543092.6
+     },
+     {
+      "label": "Trade and other receivables",
+      "value": 1151715.3
+     },
+     {
+      "label": "Other financial assets",
+      "value": 57052.6
+     },
+     {
+      "label": "Current tax assets",
+      "value": 0.0
+     },
+     {
+      "label": "Receivables from related parties",
+      "value": 115564.1
+     },
+     {
+      "label": "Other non-financial assets (current)",
+      "value": 1874717.2
+     },
+     {
+      "label": "Intangible assets (ex-goodwill)",
+      "value": 193189.7
+     },
+     {
+      "label": "Deferred tax assets",
+      "value": 30173.4
+     },
+     {
+      "label": "Property, plant and equipment",
+      "value": 17430.0
+     }
+    ],
+    "liabilities": [
+     {
+      "label": "Other financial liabilities",
+      "value": 494805.5
+     },
+     {
+      "label": "Trade and other payables",
+      "value": 1128409.9
+     },
+     {
+      "label": "Payables to related parties",
+      "value": 52744.9
+     },
+     {
+      "label": "Other non-financial liabilities",
+      "value": 888890.2
+     },
+     {
+      "label": "Employee benefit provisions",
+      "value": 22308.2
+     }
+    ],
+    "equity": [
+     {
+      "label": "Paid-in capital",
+      "value": 6010000.0
+     },
+     {
+      "label": "Other reserves",
+      "value": -87265.4
+     },
+     {
+      "label": "Accumulated results",
+      "value": -526958.4
+     }
+    ]
+   }
+  },
+  "ratios": {
+   "gross_margin": 0.256603,
+   "operating_margin": 0.008133,
+   "net_margin": 0.000317,
+   "current_ratio": 2.992527,
+   "quick_ratio": 2.223235,
+   "debt_to_equity": 0.479479,
+   "debt_to_assets": 0.324086,
+   "equity_ratio": 0.675914,
+   "interest_coverage": 0.509199,
+   "roa_annualized": 0.000154,
+   "roe_annualized": 0.000227,
+   "revenue_growth": null
+  }
+ },
+ {
+  "period": "2025",
+  "source": "Consolidated statutory close \u2014 LOADS USA, INC. (FY2025)",
+  "preliminary": true,
+  "is_monthly": {
+   "sections": {
+    "income": [
+     {
+      "label": "Revenue from ordinary activities",
+      "value": 6523394.4
+     }
+    ],
+    "cost": [
+     {
+      "label": "Cost of operations (Costo de explotaci\u00f3n)",
+      "value": 5992276.3
+     }
+    ],
+    "opex": [
+     {
+      "label": "Administrative expenses",
+      "value": 1894730.5
+     }
+    ],
+    "other": [
+     {
+      "label": "Other income (expenses)",
+      "value": 15880.6
+     },
+     {
+      "label": "Financial income (costs)",
+      "value": -23043.9
+     },
+     {
+      "label": "Indexation units (Unidades de reajuste)",
+      "value": -125869.6
+     },
+     {
+      "label": "Income tax (expense) / benefit",
+      "value": 371512.6
+     }
+    ]
+   },
+   "totals": {
+    "revenue": 6523394.4,
+    "cost": 5992276.3,
+    "gross_profit": 531118.1,
+    "opex": 1894730.5,
+    "operating_income": -1363612.4,
+    "other": 238479.69999999998,
+    "net_income": -1125132.7
+   }
+  },
+  "ytd_net_income": -1125132.7,
+  "financial_debt": 401804.1,
+  "bs": {
+   "cash": 854745.4,
+   "total_assets": 10479117.1,
+   "total_liabilities": 6469309.7,
+   "total_equity": 4009807.4,
+   "current_assets": 9737299.4,
+   "current_liabilities": 6469309.7,
+   "trade_receivables": 3507454.7,
+   "paid_in_capital": 5810000.0,
+   "detail": {
+    "assets": [
+     {
+      "label": "Cash and cash equivalents",
+      "value": 854745.4
+     },
+     {
+      "label": "Trade and other receivables",
+      "value": 3507454.7
+     },
+     {
+      "label": "Other financial assets",
+      "value": 80446.9
+     },
+     {
+      "label": "Current tax assets",
+      "value": 33335.2
+     },
+     {
+      "label": "Receivables from related parties",
+      "value": 62819.2
+     },
+     {
+      "label": "Other non-financial assets (current)",
+      "value": 5198497.9
+     },
+     {
+      "label": "Intangible assets (ex-goodwill)",
+      "value": 300087.0
+     },
+     {
+      "label": "Deferred tax assets",
+      "value": 408577.3
+     },
+     {
+      "label": "Property, plant and equipment",
+      "value": 33153.4
+     }
+    ],
+    "liabilities": [
+     {
+      "label": "Other financial liabilities",
+      "value": 401804.1
+     },
+     {
+      "label": "Trade and other payables",
+      "value": 3179047.3
+     },
+     {
+      "label": "Payables to related parties",
+      "value": 0.0
+     },
+     {
+      "label": "Other non-financial liabilities",
+      "value": 2851284.8
+     },
+     {
+      "label": "Employee benefit provisions",
+      "value": 37173.5
+     }
+    ],
+    "equity": [
+     {
+      "label": "Paid-in capital",
+      "value": 5810000.0
+     },
+     {
+      "label": "Other reserves",
+      "value": -148102.4
+     },
+     {
+      "label": "Accumulated results",
+      "value": -1652090.2
+     }
+    ]
+   }
+  },
+  "ratios": {
+   "gross_margin": 0.081417,
+   "operating_margin": -0.209034,
+   "net_margin": -0.172477,
+   "current_ratio": 1.505153,
+   "quick_ratio": 0.686727,
+   "debt_to_equity": 1.613372,
+   "debt_to_assets": 0.617353,
+   "equity_ratio": 0.382647,
+   "interest_coverage": -59.174549,
+   "roa_annualized": -0.107369,
+   "roe_annualized": -0.280595,
+   "revenue_growth": 0.687396
+  }
+ }
+]

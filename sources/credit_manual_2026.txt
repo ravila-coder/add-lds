@@ -1,0 +1,376 @@
+Manual de Crédito, Recuperación y
+Cobranza 2026
+
+1. Introducción
+
+  Este manual integra en un solo lugar las prácticas de Loads para originar, ejecutar y cobrar cada operación.
+  El equipo Comercial, el Back Office, Finanzas y Riesgo y Cobranza trabajan sobre esta misma línea.
+
+
+  El manual cubre cuatro temas:
+
+
+     ●​   El timeline de una operación, desde que llega el cliente hasta que se cierra la orden, con los
+          documentos que se van liberando en cada paso.
+     ●​   El modelo de Credit Scoring que usa Finanzas para evaluar al cliente.
+     ●​   La descripción de los documentos estándar de cada orden.
+     ●​   La estrategia de cobranza y la política de provisión de incobrables.
+
+
+
+
+                                                                                                             1
+2. Timeline de la operación
+
+  FASE 1 – Originación
+
+
+  El proceso de originación se ejecuta en cuatro etapas dentro del CRM (HubSpot).
+
+
+  1.1 Ingreso de un Nuevo Cliente: El Business Manager ingresa la información del nuevo cliente en HubSpot,
+  que puede incluir:
+
+
+      ●​   Nombre legal completo
+      ●​   Número de identificación tributaria
+      ●​   Datos de contacto (nombre, teléfono, email)
+      ●​   Información sobre visita a la oficina del cliente (incluyendo fotos cuando aplique)*
+      ●​   Referencias por escrito de terceros (proveedores, bancos)*
+      ●​   Estados financieros o tributarios del cliente (últimos 3 años cuando estén disponibles). En caso de
+           que el cliente no disponga de esta información o no pueda compartirla, Loads debe complementar
+           la evaluación crediticia mediante una línea de crédito aprobada por AVLA.
+
+
+  Nota: La información marcada con * es opcional y podrá ser solicitada por Loads según la disponibilidad
+  de información y las características específicas del cliente y/o de la operación.
+
+
+  1.2 Ingreso de una Nueva Orden: Toda nueva orden ingresada al CRM debe incluir:
+
+
+      ●​   Cotización de compra (Purchase Order)
+      ●​   Cotización de venta (Proforma)
+      ●​   Incoterms
+      ●​   Costos de agenciamiento y transporte (cuando aplique)
+      ●​   Margen del negocio
+      ●​   Condiciones de pago tanto para la compra como para la venta
+
+
+  1.3 Aprobación de Finanzas: Finanzas corre el Credit Scoring con la información disponible.
+
+
+  1.4 Decisión y comunicación: Se informa por HubSpot si el negocio está aprobado o si requiere alguna
+  mejora para ser viable. Se ingresan comentarios sobre el resultado y, en caso de no aprobación inicial, las
+  modificaciones requeridas para hacer el negocio viable.
+
+
+  Plazos máximos de respuesta
+
+
+      ●​   Cliente nuevo: 72 horas
+      ●​   Negocio nuevo (cliente existente): 24 horas
+
+
+  FASE 2 – Facturación
+
+
+      ●​   Se gestiona la carga de la fruta e inspección en planta.
+      ●​   Se emite packing list definitivo.
+      ●​   Se emite Commercial Invoice con condiciones de pago.
+
+
+
+
+                                                                                                                 2
+FASE 3 – Ejecución de la Orden
+
+
+    ●​   Se carga y embarca la fruta.
+    ●​   La nave zarpa.
+    ●​   Se realiza el pago del adelanto (si corresponde).
+
+
+FASE 4 – Documentación contra Pago (Día 5–8 post zarpe)
+
+
+    ●​   Se prepara y carga set documental (BL, Certificado Fitosanitario, Certificado de Origen).
+    ●​   Cliente hace pago contra documentos (si corresponde)
+
+
+FASE 5 – Liquidación y Cierre
+
+
+    ●​   Se hacen pagos al arribo (o + x días) dependiendo del cliente.
+    ●​   Con pago total, se cierra la orden y se libera la cesión.
+
+
+Notas de crédito y débito. Dependiendo del comportamiento real de la orden (ajustes de volumen, calidad,
+mermas, diferencias cambiarias, ajustes de costos logísticos) puede ser necesario emitir notas de crédito o
+de débito al cierre.
+
+
+Estructura de pagos típica. El flujo de cobro al cliente final está atado a hitos operativos verificables, por
+ejemplo: ~20% como anticipo gatillado en la emisión de la factura, ~30% como pago intermedio gatillado
+por la entrega de documentos, y ~50% como pago final gatillado por la entrega en destino. La estructura
+específica de cada orden se define en función del tramo de scoring del cliente (ver sección 3), o de las
+necesidades específicas de cada operación.
+
+
+
+
+                                                                                                             3
+3. Credit Scoring
+
+   El Credit Scoring es la herramienta de Finanzas para evaluar la capacidad de pago de un cliente. Asigna un
+   puntaje de 0 a 1000. El tramo determina la estructura de financiamiento que ofrecemos al cliente.
+
+
+3.1 De dónde sale la información
+
+
+   El score se construye con cuatro bloques ponderados:
+
+
+   Bloque A — Inteligencia de mercado (40%) Sale de fuentes externas: Datamyne para volumen y tendencia
+   de exportaciones con evolución histórica. Esta medición se va a ir complementando próximamente con
+   registros públicos para señales adversas, midiendo los top 3 proveedores del cliente, posicionamiento de
+   mercado, salud financiera pública, reputación en industria, riesgo país y FX, señales de prensa o litigios.
+
+
+   Bloque B — Aseguradora de crédito (30%) Sale de la aseguradora de crédito contratada por Loads. Mide:
+   línea aprobada, calificación de riesgo, histórico de siniestros, cambios recientes en cobertura y tiempo de
+   respuesta a consultas.
+
+
+   Bloque C - Data histórica de Loads (10%) Sale del CRM (HubSpot) y de la planilla de control de órdenes del
+   Back Office. Mide: comportamiento de pago, volumen transaccional de los últimos 24 meses, tendencia de
+   importaciones, antigüedad como cliente, diversificación de productos y recurrencia de órdenes. Este Bloque
+   va a ir aumentando de importancia en el Credit Scoring a medida que Loads tenga mayor información
+   interna histórica sobre sus cartera de clientes.
+
+
+   Bloque D — Estructura del negocio (20%) Características del negocio en términos de anticipo y plazo de
+   crédito para pago hasta 30 días después del arribo.
+
+
+
+
+                                                                                                                 4
+3.2 Tramos y financiamiento recomendado
+
+
+ Tramo    Rango     Perfil del cliente                                   Financiamiento recomendado
+
+
+                    Seguro de crédito completo, mora cero,
+ AAA      723+                                                           100% entre 45 y 75 días post-arribo
+                    importador top-tier, diversificado
+
+
+                    Con seguro, mora <30 días, historial bueno, info
+ AA       606–722                                                        100% hasta 45 días post-arribo
+                    financiera entregada
+
+
+                    Mora <60 días pero paga, info fiscal y financiera,   20% contra documentos / 80%
+ A        546–605
+                    importador conocido                                  post-arribo (30 días)
+
+
+                    Mora <60 días, solo constancia fiscal, importador    50% contra documentos / 50%
+ B        475–545
+                    aceptable                                            post-arribo (30 días)
+
+
+                    Mora 60–90 días, solo email corporativo,
+ C        252–474                                                        50% contra documentos / 50% al arribo
+                    importador aceptable
+
+
+                    Mora 60–90 días, importador nuevo o con
+ D        152–251                                                        70% contra documentos / 30% al arribo
+                    importaciones decrecientes
+
+
+ E        0–151     Sin información o señales adversas                   Fully Prepaid (100% anticipado)
+
+
+
+
+                                                                                                                 5
+4. Documentos de cada orden
+
+  Cada orden genera el siguiente set documental:
+
+
+  Bill of Lading. Documento legal que emite el transportista al recibir la mercancía para embarque. Funciona
+  como contrato de transporte y como título representativo de la mercancía: el tenedor del BL puede
+  reclamar la entrega en destino. Acredita que la mercancía existe y está en tránsito.
+
+
+  Packing List. Detalla cómo se empacó la carga: cantidades, peso, volumen y contenidos. Se usa para
+  coordinación logística, despacho aduanal e inspección. Permite verificar que el volumen y contenido reales
+  coinciden con lo declarado en la factura.
+
+
+  Commercial Invoice. Factura comercial emitida por Loads. Especifica los bienes vendidos, su valor y los
+  términos de la transacción, incluyendo las payment conditions. Es el documento que gatilla el desembolso
+  desde Loads y es el único documento necesario para que el desembolso se ejecute. Sustenta el monto,
+  plazo y condiciones del Derecho de Cobro.
+
+
+  Certificate of Origin. Certifica el país de producción de los bienes. Se usa para fines aduanales y para
+  acreditar elegibilidad a beneficios arancelarios o acuerdos comerciales.
+
+
+  Phytosanitary Certificate. Lo emite la autoridad competente y confirma que el producto cumple con los
+  requerimientos sanitarios del país importador. Mitiga el riesgo de rechazo de la mercancía en destino.
+
+
+  Notas de crédito y débito. Cuando el comportamiento real de la orden requiere ajustes (volumen, calidad,
+  mermas, diferencias cambiarias, costos logísticos), se emiten notas de crédito o de débito al cierre.
+
+
+
+
+                                                                                                           6
+5. Cobranza
+
+   La cobranza se organiza por días de mora. Cada bucket tiene un plan de gestión específico y un comité
+   asociado.
+
+
+   La plataforma de finance envía la cobranza preventiva (cuentas por cobrar próximas a vencer) y cobranza
+   morosa (cuentas por cobrar vencidas), ambas en forma automática por mail a los clientes.
+
+
+5.1 Buckets de mora y plan de gestión
+
+
+   Cobranza preventiva — clientes con compromisos de pago futuros Enviar por correo el Aviso Recordatorio
+   de Próximo Vencimiento en forma semanal, mínimo 5 a 7 días antes del vencimiento. Identificar las cuentas
+   a partir de las fechas estimativas de despacho y arribo según las condiciones de pago acordadas.
+
+
+   Cobranza administrativa — 1 a 30 días de mora Monitorear semanalmente. Enviar por correo el Estado de
+   Pagos en forma semanal, en conjunto con el equipo Comercial. En el Comité Comercial de Cobranza, Riesgo
+   y Cobranza decide si la cuenta pasa a la siguiente etapa.
+
+
+   Cobranza extrajudicial — 31 a 90 días de mora Las cuentas las administra el área de Riesgo y Cobranza,
+   con apoyo del área Comercial cuando sea necesario. Comité Extrajudicial-Judicial semanal. Envío de
+   Estados de Pago semanales por correo. Llamados de cobranza semanales. Se evalúa caso a caso la
+   publicación por impago en el Bureau de Créditos. Se evalúa el apoyo de empresas externas especializadas
+   en cobranza.
+
+
+   Cobranza judicial — sobre 90 días de mora Se evalúa iniciar el proceso legal con abogados externos.
+   Seguimiento semanal de los procesos. Revisión de hitos legales alcanzados en cada caso.
+
+
+5.2 Proceso semanal
+
+
+      1.​   Origen de la información: planilla de control de órdenes del Back Office.
+      2.​ Segmentación de clientes por días de mora: Preventiva (−7 a 0 días), Administrativa (1 a 30 días),
+            Extrajudicial (31 a 90 días), Judicial (sobre 90 días).
+      3.​ Comité de Cobranza Comercial revisa los listados Preventiva y Administrativa, define el plan de
+            acción por cuenta y los avances con el equipo Comercial.
+      4.​ Comité de Cobranza Judicial revisa los listados Extrajudicial y Judicial, define el plan de acción y el
+            inicio de procesos judiciales por cuenta.
+
+
+5.3 Comité Comercial — qué se ejecuta cada semana
+
+
+      ●​    Seguimiento de las cuentas en buckets Preventiva y Administrativa.
+      ●​    Definición del plan de acción de cobranza por cliente, según lo acordado en el Comité.
+      ●​    Envío de Estados de Pago, Avisos de Cobranza y llamados de cobranza para los clientes priorizados.
+      ●​    Mantención de registros actualizados de contactos, correos y llamados realizados.
+
+
+
+
+                                                                                                                    7
+5.4 Comité Judicial — qué se ejecuta cada semana
+
+
+      ●​   Seguimiento de las cuentas en buckets Extrajudicial y Judicial.
+      ●​   Definición del plan de acción por cliente, según lo acordado en el Comité.
+      ●​   Para cuentas en bucket Extrajudicial: envío de Estados de Pago, Avisos de Cobranza, llamados de
+           cobranza y publicación de la deuda en Boletines Comerciales.
+      ●​   Para cuentas en bucket Judicial: seguimiento del avance de los procesos judiciales, con reporte en
+           el Comité.
+
+
+
+
+                                                                                                                8
+6. Provisión por incobrables
+
+6.1 Mecanismos de mitigación
+
+
+  Para mitigar el riesgo de crédito por las facilidades de pago, Loads estructura cada orden con anticipos,
+  garantías o cartas de crédito.
+
+
+  Adicionalmente, Loads ejecuta la gestión de cobranza descrita en la sección 5, con un control sobre los
+  envíos al exterior: el no-pago de un cliente ocasiona la suspensión inmediata de nuevos envíos.
+
+
+  Como medida adicional, Loads tiene contratados seguros de crédito que operan ante la morosidad de los
+  clientes y mitigan la probabilidad de pérdidas por incobrabilidad.
+
+
+6.2 Modelo de pérdida esperada
+
+
+  La provisión se constituye con un enfoque simplificado por antigüedad de las cuentas por cobrar. Las
+  cuentas se agrupan según días vencidos y a cada agrupación se le aplica una tasa de pérdida esperada,
+  derivada del comportamiento histórico (loan tape) de Loads.
+
+
+        Antigüedad de la cuenta por cobrar                  % Provisión
+
+
+        1 a 30 días                                         0%
+
+
+        31 a 60 días                                        0%
+
+
+        61 a 90 días                                        0.5%
+
+
+        91 a 120 días                                       10%
+
+
+        121 a 150 días                                      25%
+
+
+        150 a 180 días                                      65%
+
+
+        Sobre 180 días                                      100%
+
+
+
+  Las cuentas se castigan cuando no existen expectativas razonables de recuperación o cuando se han
+  agotado las gestiones prejudiciales o judiciales. Los castigos se aplican contra las estimaciones de
+  incobrables constituidas con las tasas anteriores.
+
+
+  Las tasas se revisan anualmente o cuando cambie materialmente la mezcla de cartera.
+
+
+
+
+  Larry Andrés Gil Bertucci1
+  Representante Legal
+
+
+
+                                                                                                         9
+
